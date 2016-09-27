@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Bootstrap AutoComplete Demo</title>
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link href="//netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+	</head>
+	<body>
+		<div class="container">
+			<h1 class="page-header">Bootstrap Autocomplete</h1>
+			<p>
+				Demo
+			</p>
+			<form class="form-horizontal">
+				<div class="form-group">
+					<label class="col-lg-3 control-label">
+						Basic
+					</label>
+					<div class="col-lg-9">
+						<input class="form-control baseAutoComplete" type="text">
+					</div>
+				</div>
+			</form>
+		</div>
+
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+		<script src="//netdna.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+		<script src="bootstrap-autocomplete.js"></script>
+		<script>
+			// Setup
+			$(function () {
+				console.log('x');
+				$('.baseAutoComplete').autoComplete();
+			});
+		</script>
+	</body>
+</html>
