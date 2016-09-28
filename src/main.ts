@@ -64,7 +64,7 @@ module AutoCompleteNS {
         this.resolver = new AjaxResolver(this._settings.resolverSettings);
       }
       // Dropdown
-      this._dd = new Dropdown(this._$el);
+      this._dd = new Dropdown(this._$el, this._settings.formatResult);
     }
     
     private bindDefaultEventListeners():void {
@@ -89,6 +89,12 @@ module AutoCompleteNS {
       this._$el.on('autocomplete.search.do', (evt:JQueryEventObject, newValue:string, callback:Function) => {
         this.defaultEventDoSearch(newValue, callback);
       })
+      
+      // search.post. event launched after the search returns with data, before drawing
+      // receives `results`
+      this._$el.on('autocomplete.search.post', (evt:JQueryEventObject, results:any) => {
+        this.defaultEventPostSearch(results);
+      })
     }
 
     private defaultEventTyped(newValue:string):void {
@@ -101,7 +107,10 @@ module AutoCompleteNS {
 
     private defaultEventPreSearch(newValue:string):void {
       // do nothing, start search
-      this._$el.trigger('autocomplete.search.do', [newValue, this.defaultEventPostSearchCallback]);
+      this._$el.trigger('autocomplete.search.do', [newValue, (results:any) => {
+        // to prevent `this` problems
+        this.defaultEventPostSearchCallback(results);
+      }]);
     }
 
     private defaultEventDoSearch(newValue:string, callback:Function):void {
@@ -114,17 +123,19 @@ module AutoCompleteNS {
     }
 
     private defaultEventPostSearchCallback(results:any):void {
-      this._$el.trigger('autocomplete.search.post', results);
+      console.log('callback called', results);
+      this._$el.trigger('autocomplete.search.post', [results]);
     }
 
     private defaultEventPostSearch(results:any):void {
-      this._$el.trigger('autocomplete.show.start', results);
+      this.defaultEventStartShow(results);
     }
 
     private defaultEventStartShow(results:any):void {
+      console.log("defaultEventStartShow", results);
       // for every result, draw it
-      // Initialize dropdown component
-      console.log(results);
+      this._dd.updateItems(results);
+      this._dd.show();
     }
 
     private defaultFormatResult(item:any):{} {

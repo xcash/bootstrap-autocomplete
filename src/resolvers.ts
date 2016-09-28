@@ -61,7 +61,7 @@ export class AjaxResolver extends BaseResolver {
 		);
 
 		this.jqXHR.done((result) => {
-			console.log(result);
+			cbk(result);
 		});
 		
 		this.jqXHR.fail((err) => {
