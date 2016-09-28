@@ -29,7 +29,7 @@ export class AjaxResolver extends BaseResolver {
 	constructor(options:any) {
 		super(options);
 
-		console.log('resolver settings', this._settings);
+		// console.log('resolver settings', this._settings);
 	}
 
 	protected getDefaults():{} {

@@ -28,6 +28,7 @@ module AutoCompleteNS {
     private _el:Element;
     private _$el:JQuery;
     private _dd:Dropdown;
+    private _searchText:string;
 
     private _defaults:any = {
       resolver:<string> 'ajax',
@@ -50,7 +51,7 @@ module AutoCompleteNS {
       this._$el = $(this._el);
       this._settings = $.extend(true, {}, this._defaults, options);
       
-      console.log('initializing', this._$el);
+      // console.log('initializing', this._$el);
       
       this.init();
     }
@@ -101,6 +102,7 @@ module AutoCompleteNS {
       // field value changed
       // if value >= minLength, start autocomplete
       if (newValue.length >= this._settings.minLength) {
+        this._searchText = newValue;
         this._$el.trigger('autocomplete.search.pre', newValue);
       }
     }
@@ -123,7 +125,7 @@ module AutoCompleteNS {
     }
 
     private defaultEventPostSearchCallback(results:any):void {
-      console.log('callback called', results);
+      // console.log('callback called', results);
       this._$el.trigger('autocomplete.search.post', [results]);
     }
 
@@ -132,9 +134,9 @@ module AutoCompleteNS {
     }
 
     private defaultEventStartShow(results:any):void {
-      console.log("defaultEventStartShow", results);
+      // console.log("defaultEventStartShow", results);
       // for every result, draw it
-      this._dd.updateItems(results);
+      this._dd.updateItems(results, this._searchText);
       this._dd.show();
     }
 

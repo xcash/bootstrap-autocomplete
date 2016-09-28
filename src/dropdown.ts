@@ -8,6 +8,7 @@ export class Dropdown {
 	protected shown:boolean = false;
 	protected items:any[] = [];
 	protected formatItem:Function;
+	protected searchText:string;
 
 	constructor(e:JQuery, formatItemCbk:Function) {
 		this._$el = e;
@@ -62,19 +63,36 @@ export class Dropdown {
 		}
 	}
 
-	public updateItems(items:any[]) {
-		console.log('updateItems', items);
+	public updateItems(items:any[], searchText:string) {
+		// console.log('updateItems', items);
 		this.items = items;
+		this.searchText = searchText;
 		this.refreshItemList();
+	}
+
+	private showMatchedText(text:string, qry:string):string {
+		let startIndex:number = text.toLowerCase().indexOf(qry.toLowerCase());
+		if (startIndex > -1) {
+			let endIndex:number = startIndex + qry.length;
+
+			return text.slice(0, startIndex) + '<b>' 
+				+ text.slice(startIndex, endIndex) + '</b>'
+				+ text.slice(endIndex);
+		}
+		return text;
 	}
 
 	protected refreshItemList() {
 		this._dd.empty();
 		this.items.forEach(item => {
 			let itemFormatted:{ id?:number, text:string } = this.formatItem(item);
+			let itemText = itemFormatted.text;
+
+			itemText = this.showMatchedText(itemText, this.searchText);
+
 			let li = $('<li >');
 			li.append(
-				$('<a>').attr('href', '#').text(itemFormatted.text)
+				$('<a>').attr('href', '#').html(itemText)
 			)
 			.data('item', item);
 			
@@ -90,7 +108,7 @@ export class Dropdown {
 	}
 
 	protected itemSelectedDefaultHandler(item:any):void {
-		console.log('itemSelectedDefaultHandler', item);
+		// console.log('itemSelectedDefaultHandler', item);
 		// default behaviour is set elment's .val()
 		let itemFormatted:{ id?:number, text:string } = this.formatItem(item);
 		this._$el.val(itemFormatted.text);
