@@ -71,6 +71,7 @@ export class Dropdown {
 	}
 
 	public focusItem(index:number) {
+		// Focus an item in the list
 		if (this.shown && (this.items.length > index))
 			this._dd.find('li').eq(index).find('a').focus();
 	}
