@@ -52,6 +52,9 @@ gulp.task('build-js', function () {
 	// copy index.html
 	gulp.src('src/index.html')
 		.pipe(gulp.dest('dist/latest/'));
+	// copy testdata
+	gulp.src('src/testdata/*')
+		.pipe(gulp.dest('dist/latest/testdata/'));
 	return gulp.src('src/main.ts')
 		.pipe(plumber({
 			errorHandler: function (error) {

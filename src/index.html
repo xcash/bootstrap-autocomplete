@@ -13,14 +13,17 @@
 				Demo
 			</p>
 			<form class="form-horizontal">
-				<div class="form-group">
-					<label class="col-lg-3 control-label">
-						Basic
-					</label>
-					<div class="col-lg-9">
-						<input class="form-control baseAutoComplete" type="text">
+				<fieldset>
+					<legend>AJAX</legend>
+					<div class="form-group">
+						<label class="col-lg-3 control-label">
+							Basic
+						</label>
+						<div class="col-lg-9">
+							<input class="form-control baseAutoComplete" type="text">
+						</div>
 					</div>
-				</div>
+				</fieldset>
 			</form>
 		</div>
 
@@ -30,8 +33,11 @@
 		<script>
 			// Setup
 			$(function () {
-				console.log('x');
-				$('.baseAutoComplete').autoComplete();
+				$('.baseAutoComplete').autoComplete({
+					resolverSettings: {
+						url: 'testdata/test-list.json'
+					}
+				});
 			});
 		</script>
 	</body>

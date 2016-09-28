@@ -1,0 +1,7 @@
+{
+	"results": [
+		{ "id": 1, "text": "Google Cloud Platform"	},
+		{ "id": 2, "text": "Amazon AWS"	},
+		{ "id": 3, "text": "Docker"	}
+	]
+}

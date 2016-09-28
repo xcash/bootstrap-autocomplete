@@ -19,6 +19,7 @@
  * limitations under the License.
  * ============================================================ */
 import { AjaxResolver } from './resolvers';
+import { Dropdown } from './dropdown';
 
 module AutoCompleteNS {
   export class AutoComplete {
@@ -26,6 +27,7 @@ module AutoCompleteNS {
 
     private _el:Element;
     private _$el:JQuery;
+    private _dd:Dropdown;
 
     private _defaults:any = {
       resolver:<string> 'ajax',
@@ -61,6 +63,8 @@ module AutoCompleteNS {
         // configure default resolver
         this.resolver = new AjaxResolver(this._settings.resolverSettings);
       }
+      // Dropdown
+      this._dd = new Dropdown(this._$el);
     }
     
     private bindDefaultEventListeners():void {
@@ -119,6 +123,7 @@ module AutoCompleteNS {
 
     private defaultEventStartShow(results:any):void {
       // for every result, draw it
+      // Initialize dropdown component
       console.log(results);
     }
 
