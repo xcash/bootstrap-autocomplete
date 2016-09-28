@@ -88,7 +88,7 @@ gulp.task('dev-server', function() {
 	  host: '0.0.0.0',
       livereload: {
 		enable: true,
-	  	clientConsole: true
+	  	clientConsole: false
 	  }
     }));
 });

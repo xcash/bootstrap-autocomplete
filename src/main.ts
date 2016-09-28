@@ -145,7 +145,7 @@ module AutoCompleteNS {
         return item;
       } else {
         // return a toString of the item as last resort
-        console.error('No default formatter for item', item);
+        // console.error('No default formatter for item', item);
         return { text: item.toString() }
       }
     }

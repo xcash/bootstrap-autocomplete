@@ -30,6 +30,18 @@ export class Dropdown {
 		this._dd.insertAfter(this._$el);
 		this._dd.css({ left: pos.left, width: this._$el.outerWidth() });
 		
+		// selected event
+		this._$el.on('autocomplete.select', (evt:JQueryEventObject, item:any) => {
+			this.itemSelectedDefaultHandler(item);
+		});
+		// click event on items
+		this._dd.on('click', 'li', (evt:JQueryEventObject) => {
+			// console.log('clicked', evt.currentTarget);
+			console.log($(evt.currentTarget));
+			let item:any = $(evt.currentTarget).data('item');
+			this.itemSelectedLaunchEvent(item);
+		});
+
 		this.initialized = true;
 		
 		// DEBUG - TODO remove
@@ -63,13 +75,27 @@ export class Dropdown {
 			let li = $('<li >');
 			li.append(
 				$('<a>').attr('href', '#').text(itemFormatted.text)
-			);
-			li.on('click', () => {
-				console.log('clicked');
-			});
+			)
+			.data('item', item);
+			
 			// TODO optimize 
 			this._dd.append(li);
 		});
+	}
+
+	protected itemSelectedLaunchEvent(item:any):void {
+		// launch selected event
+		// console.log('itemSelectedLaunchEvent', item);
+		this._$el.trigger('autocomplete.select', item)
+	}
+
+	protected itemSelectedDefaultHandler(item:any):void {
+		console.log('itemSelectedDefaultHandler', item);
+		// default behaviour is set elment's .val()
+		let itemFormatted:{ id?:number, text:string } = this.formatItem(item);
+		this._$el.val(itemFormatted.text);
+		// and hide
+		this.hide();
 	}
 
 }
