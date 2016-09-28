@@ -9,10 +9,12 @@ export class Dropdown {
 	protected items:any[] = [];
 	protected formatItem:Function;
 	protected searchText:string;
+	protected autoSelect:boolean;
 
-	constructor(e:JQuery, formatItemCbk:Function) {
+	constructor(e:JQuery, formatItemCbk:Function, autoSelect:boolean) {
 		this._$el = e;
 		this.formatItem = formatItemCbk;
+		this.autoSelect = autoSelect;
 		
 		this.init();
 	}
@@ -31,37 +33,12 @@ export class Dropdown {
 		this._dd.insertAfter(this._$el);
 		this._dd.css({ left: pos.left, width: this._$el.outerWidth() });
 		
-		// selected event
-		this._$el.on('autocomplete.select', (evt:JQueryEventObject, item:any) => {
-			this.itemSelectedDefaultHandler(item);
-		});
-
 		// click event on items
 		this._dd.on('click', 'li', (evt:JQueryEventObject) => {
 			// console.log('clicked', evt.currentTarget);
 			//console.log($(evt.currentTarget));
 			let item:any = $(evt.currentTarget).data('item');
 			this.itemSelectedLaunchEvent(item);
-		});
-
-		this._$el.on('keyup', (evt:JQueryEventObject) => {
-			if (this.shown) {
-				switch (evt.which) {
-					case 38:
-						// arrow UP
-						break;
-					case 40:
-						// arrow DOWN
-						console.log(this._dd.find('li a').get(0));
-						this._dd.find('li a').get(0).focus()
-						break;
-					case 27:
-						// ESC
-						this.hide();
-						break;
-				}
-				return false;
-			}
 		});
 		
 		this._dd.on('keyup', (evt:JQueryEventObject) => {
@@ -80,6 +57,9 @@ export class Dropdown {
 		this._dd.on('focus', 'li a', (evt:JQueryEventObject) => {
 			$(evt.currentTarget).closest('ul').find('li.active').removeClass('active');
 			$(evt.currentTarget).closest('li').addClass('active');
+			if (this.autoSelect) {
+
+			}
 		});
 
 		this._dd.on('mouseenter', 'li', (evt:JQueryEventObject) => {
@@ -90,11 +70,20 @@ export class Dropdown {
 		
 	}
 
+	public focusItem(index:number) {
+		if (this.shown && (this.items.length > index))
+			this._dd.find('li').eq(index).find('a').focus();
+	}
+
 	public show():void {
 		if (!this.shown) {
 			this._dd.dropdown().show();
 			this.shown = true;
 		}
+	}
+
+	public isShown():boolean {
+		return this.shown;
 	}
 
 	public hide():void {
@@ -146,15 +135,6 @@ export class Dropdown {
 		// launch selected event
 		// console.log('itemSelectedLaunchEvent', item);
 		this._$el.trigger('autocomplete.select', item)
-	}
-
-	protected itemSelectedDefaultHandler(item:any):void {
-		// console.log('itemSelectedDefaultHandler', item);
-		// default behaviour is set elment's .val()
-		let itemFormatted:{ id?:number, text:string } = this.formatItem(item);
-		this._$el.val(itemFormatted.text);
-		// and hide
-		this.hide();
 	}
 
 }

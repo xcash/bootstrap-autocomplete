@@ -30,30 +30,28 @@ module AutoCompleteNS {
     private _dd:Dropdown;
     private _searchText:string;
 
-    private _defaults:any = {
+    private _settings = {
       resolver:<string> 'ajax',
       resolverSettings:<any> {},
       minLength:<number> 3,
-      formatResult:<Function> this.defaultFormatResult
+      formatResult:<Function> this.defaultFormatResult,
+      autoSelect:<boolean> true
     }
     
-    private _settings:{
-      resolver:string,
-      resolverSettings:{},
-      minLength:number,
-      formatResult:Function
-    };
-
     private resolver;
 
     constructor(element:Element, options:any) {
       this._el = element;
       this._$el = $(this._el);
-      this._settings = $.extend(true, {}, this._defaults, options);
+      this._settings = $.extend(true, {}, this._settings, options);
       
       // console.log('initializing', this._$el);
       
       this.init();
+    }
+
+    private getSettings():{} {
+      return this._settings;
     }
 
     public init():void {
@@ -65,7 +63,7 @@ module AutoCompleteNS {
         this.resolver = new AjaxResolver(this._settings.resolverSettings);
       }
       // Dropdown
-      this._dd = new Dropdown(this._$el, this._settings.formatResult);
+      this._dd = new Dropdown(this._$el, this._settings.formatResult, this._settings.autSelect);
     }
     
     private bindDefaultEventListeners():void {
@@ -77,9 +75,11 @@ module AutoCompleteNS {
 						break;
 					case 40:
 						// arrow DOWN
+            this._dd.focusItem(0);
 						break;
 					case 27:
 						// ESC
+            this._dd.hide();
 						break;
           default:
             let newValue = this._$el.val();
@@ -108,6 +108,12 @@ module AutoCompleteNS {
       this._$el.on('autocomplete.search.post', (evt:JQueryEventObject, results:any) => {
         this.defaultEventPostSearch(results);
       })
+
+      // selected event
+      this._$el.on('autocomplete.select', (evt:JQueryEventObject, item:any) => {
+        this.itemSelectedDefaultHandler(item);
+      });
+
     }
 
     private defaultEventTyped(newValue:string):void {
@@ -152,6 +158,15 @@ module AutoCompleteNS {
       // for every result, draw it
       this._dd.updateItems(results, this._searchText);
       this._dd.show();
+    }
+
+    protected itemSelectedDefaultHandler(item:any):void {
+      // console.log('itemSelectedDefaultHandler', item);
+      // default behaviour is set elment's .val()
+      let itemFormatted:{ id?:number, text:string } = this._settings.formatResult(item);
+      this._$el.val(itemFormatted.text);
+      // and hide
+      this._dd.hide();
     }
 
     private defaultFormatResult(item:any):{} {
