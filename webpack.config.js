@@ -7,7 +7,8 @@ var config = {
     },
     devtool: 'inline-source-map',
 	externals: {
-		'jquery': 'jQuery'
+		'jquery': 'jQuery',
+        'bootstrap': 'Bootstrap'
 	},
     resolve: {
         // Add `.ts` and `.tsx` as a resolvable extension. 
