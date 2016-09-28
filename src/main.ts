@@ -71,9 +71,21 @@ module AutoCompleteNS {
     private bindDefaultEventListeners():void {
       this._$el.on('keyup', (evt:JQueryEventObject) => {
         // check key
+				switch (evt.which) {
+					case 38:
+						// arrow UP
+						break;
+					case 40:
+						// arrow DOWN
+						break;
+					case 27:
+						// ESC
+						break;
+          default:
+            let newValue = this._$el.val();
+            this._$el.trigger('autocomplete.search.typed', newValue);
+				}
 
-        let newValue = this._$el.val();
-        this._$el.trigger('autocomplete.search.typed', newValue);
       });
 
       // typed. event launched when field's value changes
@@ -104,6 +116,8 @@ module AutoCompleteNS {
       if (newValue.length >= this._settings.minLength) {
         this._searchText = newValue;
         this._$el.trigger('autocomplete.search.pre', newValue);
+      } else {
+        this._dd.hide();
       }
     }
 

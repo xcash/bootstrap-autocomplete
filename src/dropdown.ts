@@ -35,18 +35,59 @@ export class Dropdown {
 		this._$el.on('autocomplete.select', (evt:JQueryEventObject, item:any) => {
 			this.itemSelectedDefaultHandler(item);
 		});
+
 		// click event on items
 		this._dd.on('click', 'li', (evt:JQueryEventObject) => {
 			// console.log('clicked', evt.currentTarget);
-			console.log($(evt.currentTarget));
+			//console.log($(evt.currentTarget));
 			let item:any = $(evt.currentTarget).data('item');
 			this.itemSelectedLaunchEvent(item);
 		});
 
+		this._$el.on('keyup', (evt:JQueryEventObject) => {
+			if (this.shown) {
+				switch (evt.which) {
+					case 38:
+						// arrow UP
+						break;
+					case 40:
+						// arrow DOWN
+						console.log(this._dd.find('li a').get(0));
+						this._dd.find('li a').get(0).focus()
+						break;
+					case 27:
+						// ESC
+						this.hide();
+						break;
+				}
+				return false;
+			}
+		});
+		
+		this._dd.on('keyup', (evt:JQueryEventObject) => {
+			if (this.shown) {
+				switch (evt.which) {
+					case 27:
+						// ESC
+						this.hide();
+						this._$el.focus();
+						break;
+				}
+				return false;
+			}
+		});
+
+		this._dd.on('focus', 'li a', (evt:JQueryEventObject) => {
+			$(evt.currentTarget).closest('ul').find('li.active').removeClass('active');
+			$(evt.currentTarget).closest('li').addClass('active');
+		});
+
+		this._dd.on('mouseenter', 'li', (evt:JQueryEventObject) => {
+			$(evt.currentTarget).find('a').focus();
+		});
+
 		this.initialized = true;
 		
-		// DEBUG - TODO remove
-		// this.show();
 	}
 
 	public show():void {
