@@ -73,5 +73,4 @@ export class AjaxResolver extends BaseResolver {
 		});
 	}
 
-
 }

@@ -57,9 +57,6 @@ export class Dropdown {
 		this._dd.on('focus', 'li a', (evt:JQueryEventObject) => {
 			$(evt.currentTarget).closest('ul').find('li.active').removeClass('active');
 			$(evt.currentTarget).closest('li').addClass('active');
-			if (this.autoSelect) {
-
-			}
 		});
 
 		this._dd.on('mouseenter', 'li', (evt:JQueryEventObject) => {
@@ -116,9 +113,12 @@ export class Dropdown {
 	protected refreshItemList() {
 		this._dd.empty();
 		this.items.forEach(item => {
-			let itemFormatted:{ id?:number, text:string } = this.formatItem(item);
+			let itemFormatted:any = this.formatItem(item);
+			if (typeof itemFormatted === 'string') {
+				itemFormatted = { text: itemFormatted }
+			}
 			let itemText = itemFormatted.text;
-
+			
 			itemText = this.showMatchedText(itemText, this.searchText);
 
 			let li = $('<li >');

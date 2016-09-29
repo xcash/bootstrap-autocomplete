@@ -17,10 +17,26 @@
 					<legend>AJAX</legend>
 					<div class="form-group">
 						<label class="col-lg-3 control-label">
-							Basic
+							Basic (<a href="testdata/test-list.json">list of strings</a>)
 						</label>
 						<div class="col-lg-9">
-							<input class="form-control baseAutoComplete" type="text">
+							<input class="form-control basicAutoComplete" type="text">
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-lg-3 control-label">
+							Advanced (<a href="testdata/test-dict.json">complex object</a>)
+						</label>
+						<div class="col-lg-9">
+							<input class="form-control advancedAutoComplete" type="text">
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-lg-3 control-label">
+							Advanced (<a href="testdata/test-dict.json">complex object</a> - custom formatting)
+						</label>
+						<div class="col-lg-9">
+							<input class="form-control advanced2AutoComplete" type="text">
 						</div>
 					</div>
 				</fieldset>
@@ -31,12 +47,48 @@
 		<script src="//netdna.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 		<script src="bootstrap-autocomplete.js"></script>
 		<script>
-			// Setup
 			$(function () {
-				$('.baseAutoComplete').autoComplete({
+				// Basic
+				$('.basicAutoComplete').autoComplete({
+					resolver: 'ajax',
 					resolverSettings: {
 						url: 'testdata/test-list.json'
 					}
+				});
+
+				// Advanced 1
+				$('.advancedAutoComplete').autoComplete({
+					resolver: 'custom'
+				});
+				$('.advancedAutoComplete').on('autocomplete.search.do', function (evt, qry, callback) {
+					// let's do a custom ajax call
+					$.ajax(
+						'testdata/test-dict.json',
+						{
+							data: { 'qry': qry}
+						}
+					).done(function (res) {
+						callback(res.results)
+					});
+				});
+
+				// Advanced 2
+				$('.advanced2AutoComplete').autoComplete({
+					resolver: 'custom',
+					formatResult: function (item) {
+						return "[" + item.id + "] " + item.text;
+					}
+				});
+				$('.advanced2AutoComplete').on('autocomplete.search.do', function (evt, qry, callback) {
+					// let's do a custom ajax call
+					$.ajax(
+						'testdata/test-dict.json',
+						{
+							data: { 'qry': qry}
+						}
+					).done(function (res) {
+						callback(res.results)
+					});
 				});
 			});
 		</script>

@@ -63,7 +63,7 @@ module AutoCompleteNS {
         this.resolver = new AjaxResolver(this._settings.resolverSettings);
       }
       // Dropdown
-      this._dd = new Dropdown(this._$el, this._settings.formatResult, this._settings.autSelect);
+      this._dd = new Dropdown(this._$el, this._settings.formatResult, this._settings.autoSelect);
     }
     
     private bindDefaultEventListeners():void {
@@ -139,9 +139,8 @@ module AutoCompleteNS {
       // search using current resolver
       if (this.resolver) {
         this.resolver.search(newValue, callback);
-      } else {
-        console.error('NO SEARCH RESOLVER DEFINES');
       }
+      // if no resoler, user overrides the search event
     }
 
     private defaultEventPostSearchCallback(results:any):void {
