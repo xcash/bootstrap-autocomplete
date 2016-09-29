@@ -35,7 +35,15 @@ module AutoCompleteNS {
       resolverSettings:<any> {},
       minLength:<number> 3,
       formatResult:<Function> this.defaultFormatResult,
-      autoSelect:<boolean> true
+      autoSelect:<boolean> true,
+      events: {
+        typed:<Function> null,
+        searchPre:<Function> null,
+        search:<Function> null,
+        searchPost:<Function> null,
+        select:<Function> null,
+        focus:<Function> null,
+      }
     }
     
     private resolver;
@@ -45,7 +53,7 @@ module AutoCompleteNS {
       this._$el = $(this._el);
       this._settings = $.extend(true, {}, this._settings, options);
       
-      // console.log('initializing', this._$el);
+      //console.log('initializing', this._settings);
       
       this.init();
     }
@@ -58,7 +66,7 @@ module AutoCompleteNS {
       // bind default events
       this.bindDefaultEventListeners();
       // RESOLVER
-      if (this._settings.resolver == 'ajax') {
+      if (this._settings.resolver === 'ajax') {
         // configure default resolver
         this.resolver = new AjaxResolver(this._settings.resolverSettings);
       }
@@ -83,31 +91,10 @@ module AutoCompleteNS {
 						break;
           default:
             let newValue = this._$el.val();
-            this._$el.trigger('autocomplete.search.typed', newValue);
+            this.handlerTyped(newValue);
 				}
 
       });
-
-      // typed. event launched when field's value changes
-      this._$el.on('autocomplete.search.typed', (evt:JQueryEventObject, newValue:string) => {
-        this.defaultEventTyped(newValue);
-      })
-      
-      // search.pre. event launched before actual search
-      this._$el.on('autocomplete.search.pre', (evt:JQueryEventObject, newValue:string) => {
-        this.defaultEventPreSearch(newValue);
-      })
-      
-      // search.do. event launched to perform a search, it calls the callback upon search results
-      this._$el.on('autocomplete.search.do', (evt:JQueryEventObject, newValue:string, callback:Function) => {
-        this.defaultEventDoSearch(newValue, callback);
-      })
-      
-      // search.post. event launched after the search returns with data, before drawing
-      // receives `results`
-      this._$el.on('autocomplete.search.post', (evt:JQueryEventObject, results:any) => {
-        this.defaultEventPostSearch(results);
-      })
 
       // selected event
       this._$el.on('autocomplete.select', (evt:JQueryEventObject, item:any) => {
@@ -115,44 +102,71 @@ module AutoCompleteNS {
       });
 
     }
-
-    private defaultEventTyped(newValue:string):void {
+    
+    private handlerTyped(newValue:string):void {
       // field value changed
+
+      // custom handler may change newValue
+      if (this._settings.events.typed !== null) {
+        newValue = this._settings.events.typed(newValue);
+        if (!newValue)
+          return;
+      }
+
       // if value >= minLength, start autocomplete
       if (newValue.length >= this._settings.minLength) {
         this._searchText = newValue;
-        this._$el.trigger('autocomplete.search.pre', newValue);
+        this.handlerPreSearch();
       } else {
         this._dd.hide();
       }
     }
 
-    private defaultEventPreSearch(newValue:string):void {
+    private handlerPreSearch():void {
       // do nothing, start search
-      this._$el.trigger('autocomplete.search.do', [newValue, (results:any) => {
-        // to prevent `this` problems
-        this.defaultEventPostSearchCallback(results);
-      }]);
-    }
-
-    private defaultEventDoSearch(newValue:string, callback:Function):void {
-      // search using current resolver
-      if (this.resolver) {
-        this.resolver.search(newValue, callback);
+      
+      // custom handler may change newValue
+      if (this._settings.events.searchPre !== null) {
+        let newValue:string = this._settings.events.searchPre(this._searchText);
+        if (!newValue)
+          return;
+        this._searchText = newValue;
       }
-      // if no resoler, user overrides the search event
+
+      this.handlerDoSearch();
     }
 
-    private defaultEventPostSearchCallback(results:any):void {
+    private handlerDoSearch():void {
+      // custom handler may change newValue
+      if (this._settings.events.search !== null) {
+        this._settings.events.search(this._searchText, (results:any) => {
+          this.postSearchCallback(results);
+        });
+      } else {
+        // Default behaviour
+        // search using current resolver
+        if (this.resolver) {
+          this.resolver.search(this._searchText, (results:any) => {
+            this.postSearchCallback(results);
+          });
+        }
+      }
+    }
+
+    private postSearchCallback(results:any):void {
       // console.log('callback called', results);
-      this._$el.trigger('autocomplete.search.post', [results]);
+      
+      // custom handler may change newValue
+      if (this._settings.events.searchPost) {
+        results = this._settings.events.searchPost(results);
+        if ( (typeof results === 'boolean') && !results)
+          return;
+      }
+
+      this.handlerStartShow(results);
     }
 
-    private defaultEventPostSearch(results:any):void {
-      this.defaultEventStartShow(results);
-    }
-
-    private defaultEventStartShow(results:any):void {
+    private handlerStartShow(results:any):void {
       // console.log("defaultEventStartShow", results);
       // for every result, draw it
       this._dd.updateItems(results, this._searchText);
@@ -162,7 +176,10 @@ module AutoCompleteNS {
     protected itemSelectedDefaultHandler(item:any):void {
       // console.log('itemSelectedDefaultHandler', item);
       // default behaviour is set elment's .val()
-      let itemFormatted:{ id?:number, text:string } = this._settings.formatResult(item);
+      let itemFormatted:any = this._settings.formatResult(item);
+			if (typeof itemFormatted === 'string') {
+				itemFormatted = { text: itemFormatted }
+			}
       this._$el.val(itemFormatted.text);
       // and hide
       this._dd.hide();

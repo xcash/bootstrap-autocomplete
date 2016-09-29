@@ -20,7 +20,7 @@
 							Basic (<a href="testdata/test-list.json">list of strings</a>)
 						</label>
 						<div class="col-lg-9">
-							<input class="form-control basicAutoComplete" type="text">
+							<input class="form-control basicAutoComplete" type="text" autocomplete="off">
 						</div>
 					</div>
 					<div class="form-group">
@@ -28,7 +28,7 @@
 							Advanced (<a href="testdata/test-dict.json">complex object</a>)
 						</label>
 						<div class="col-lg-9">
-							<input class="form-control advancedAutoComplete" type="text">
+							<input class="form-control advancedAutoComplete" type="text" autocomplete="off">
 						</div>
 					</div>
 					<div class="form-group">
@@ -36,7 +36,7 @@
 							Advanced (<a href="testdata/test-dict.json">complex object</a> - custom formatting)
 						</label>
 						<div class="col-lg-9">
-							<input class="form-control advanced2AutoComplete" type="text">
+							<input class="form-control advanced2AutoComplete" type="text" autocomplete="off">
 						</div>
 					</div>
 				</fieldset>
@@ -58,18 +58,21 @@
 
 				// Advanced 1
 				$('.advancedAutoComplete').autoComplete({
-					resolver: 'custom'
-				});
-				$('.advancedAutoComplete').on('autocomplete.search.do', function (evt, qry, callback) {
-					// let's do a custom ajax call
-					$.ajax(
-						'testdata/test-dict.json',
-						{
-							data: { 'qry': qry}
+					resolver: 'custom',
+					events: {
+						search: function (qry, callback) {
+							console.log('search');
+							// let's do a custom ajax call
+							$.ajax(
+								'testdata/test-dict.json',
+								{
+									data: { 'qry': qry}
+								}
+							).done(function (res) {
+								callback(res.results)
+							});
 						}
-					).done(function (res) {
-						callback(res.results)
-					});
+					}
 				});
 
 				// Advanced 2
@@ -77,18 +80,20 @@
 					resolver: 'custom',
 					formatResult: function (item) {
 						return "[" + item.id + "] " + item.text;
-					}
-				});
-				$('.advanced2AutoComplete').on('autocomplete.search.do', function (evt, qry, callback) {
-					// let's do a custom ajax call
-					$.ajax(
-						'testdata/test-dict.json',
-						{
-							data: { 'qry': qry}
+					},
+					events: {
+						search: function (qry, callback) {
+							// let's do a custom ajax call
+							$.ajax(
+								'testdata/test-dict.json',
+								{
+									data: { 'qry': qry}
+								}
+							).done(function (res) {
+								callback(res.results)
+							});
 						}
-					).done(function (res) {
-						callback(res.results)
-					});
+					}
 				});
 			});
 		</script>
