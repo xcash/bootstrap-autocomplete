@@ -79,7 +79,14 @@
 				$('.advanced2AutoComplete').autoComplete({
 					resolver: 'custom',
 					formatResult: function (item) {
-						return "[" + item.id + "] " + item.text;
+						return {
+							value: item.id,
+							text: "[" + item.id + "] " + item.text,
+							html: [ 
+									$('<img>').attr('src', item.icon).css("height", 18), ' ',
+									item.text 
+								] 
+						};
 					},
 					events: {
 						search: function (qry, callback) {

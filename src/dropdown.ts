@@ -112,24 +112,32 @@ export class Dropdown {
 
 	protected refreshItemList() {
 		this._dd.empty();
+		let liList:JQuery[] = [];
 		this.items.forEach(item => {
 			let itemFormatted:any = this.formatItem(item);
 			if (typeof itemFormatted === 'string') {
 				itemFormatted = { text: itemFormatted }
 			}
-			let itemText = itemFormatted.text;
-			
-			itemText = this.showMatchedText(itemText, this.searchText);
+			let itemText:string;
+			let itemHtml:any;
 
+			itemText = this.showMatchedText(itemFormatted.text, this.searchText);
+			if ( itemFormatted.html !== undefined ) {
+				itemHtml = itemFormatted.html;
+			} else {
+				itemHtml = itemText;
+			}
+			
 			let li = $('<li >');
 			li.append(
-				$('<a>').attr('href', '#').html(itemText)
+				$('<a>').attr('href', '#').html(itemHtml)
 			)
 			.data('item', item);
 			
-			// TODO optimize 
-			this._dd.append(li);
+			liList.push(li);
 		});
+		 
+		this._dd.append(liList);
 	}
 
 	protected itemSelectedLaunchEvent(item:any):void {

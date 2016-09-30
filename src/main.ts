@@ -34,6 +34,7 @@ module AutoCompleteNS {
       resolver:<string> 'ajax',
       resolverSettings:<any> {},
       minLength:<number> 3,
+      valueKey:<string> 'value',
       formatResult:<Function> this.defaultFormatResult,
       autoSelect:<boolean> true,
       events: {
