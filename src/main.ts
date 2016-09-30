@@ -76,15 +76,41 @@ module AutoCompleteNS {
     }
     
     private bindDefaultEventListeners():void {
-      this._$el.on('keyup', (evt:JQueryEventObject) => {
+      this._$el.on('keydown', (evt:JQueryEventObject) => {
+				switch (evt.which) {
+					case 40:
+						// arrow DOWN
+            evt.stopPropagation();
+            evt.preventDefault();
+						break;
+					case 38: // up arrow
+            evt.stopPropagation();
+            evt.preventDefault();
+						break;
+					case 9: // TAB
+            this._dd.selectFocusItem();
+						break;
+        }
+      });
+      
+      this._$el.on('focus keyup', (evt:JQueryEventObject) => {
         // check key
 				switch (evt.which) {
-					case 38:
-						// arrow UP
+          case 16: // shift
+          case 17: // ctrl
+          case 18: // alt
+          case 39: // right
+          case 37: // left 
 						break;
 					case 40:
 						// arrow DOWN
-            this._dd.focusItem(0);
+            this._dd.focusNextItem();
+						break;
+					case 38: // up arrow
+            this._dd.focusPreviousItem();
+						break;
+					case 13: // ENTER
+            this._dd.selectFocusItem();
 						break;
 					case 27:
 						// ESC
@@ -94,7 +120,13 @@ module AutoCompleteNS {
             let newValue = this._$el.val();
             this.handlerTyped(newValue);
 				}
+        
+      });
 
+      this._$el.on('blur', (evt:JQueryEventObject) => {
+        // console.log(evt);
+        if (!this._dd.isMouseOver) 
+          this._dd.hide();
       });
 
       // selected event

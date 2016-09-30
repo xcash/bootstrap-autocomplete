@@ -10,6 +10,7 @@ export class Dropdown {
 	protected formatItem:Function;
 	protected searchText:string;
 	protected autoSelect:boolean;
+	protected mouseover:boolean;
 
 	constructor(e:JQuery, formatItemCbk:Function, autoSelect:boolean) {
 		this._$el = e;
@@ -54,23 +55,50 @@ export class Dropdown {
 			}
 		});
 
-		this._dd.on('focus', 'li a', (evt:JQueryEventObject) => {
+		this._dd.on('mouseenter', 'li', (evt:JQueryEventObject) => {
 			$(evt.currentTarget).closest('ul').find('li.active').removeClass('active');
-			$(evt.currentTarget).closest('li').addClass('active');
+			$(evt.currentTarget).addClass('active');
+			this.mouseover = true;
 		});
 
-		this._dd.on('mouseenter', 'li', (evt:JQueryEventObject) => {
-			$(evt.currentTarget).find('a').focus();
+		this._dd.on('mouseleave', 'li', (evt:JQueryEventObject) => {
+			this.mouseover = false;
 		});
 
 		this.initialized = true;
 		
 	}
 
+	get isMouseOver():boolean {
+		return this.mouseover;
+	}
+
+	public focusNextItem(reversed?:boolean) {
+		// get selected
+		let currElem:JQuery = this._dd.find('li.active');
+		let nextElem:JQuery = reversed ? currElem.prev() : currElem.next();
+
+		if (nextElem.length == 0) {
+			// first 
+			nextElem = reversed ? this._dd.find('li').last() : this._dd.find('li').first();
+		}
+		
+		currElem.removeClass('active');
+		nextElem.addClass('active');
+	}
+
+	public focusPreviousItem() {
+		this.focusNextItem(true);
+	}
+
 	public focusItem(index:number) {
 		// Focus an item in the list
 		if (this.shown && (this.items.length > index))
 			this._dd.find('li').eq(index).find('a').focus();
+	}
+
+	public selectFocusItem() {
+		this._dd.find('li.active').trigger('click');
 	}
 
 	public show():void {
