@@ -96,9 +96,16 @@ export class Dropdown {
 		if (this.shown && (this.items.length > index))
 			this._dd.find('li').eq(index).find('a').focus();
 	}
-
+	
 	public selectFocusItem() {
 		this._dd.find('li.active').trigger('click');
+	}
+
+	get isItemFocused():boolean {
+		if (this._dd.find('li.active').length > 0) {
+			return true;
+		}
+		return false;
 	}
 
 	public show():void {

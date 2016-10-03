@@ -29,6 +29,7 @@ module AutoCompleteNS {
     private _$el:JQuery;
     private _dd:Dropdown;
     private _searchText:string;
+    private _selectedItem:any = null;
     private _isSelectElement:boolean = false;
     private _selectHiddenField:JQuery;
 
@@ -175,12 +176,30 @@ module AutoCompleteNS {
 
       this._$el.on('blur', (evt:JQueryEventObject) => {
         // console.log(evt);
-        if (!this._dd.isMouseOver) 
+        if (!this._dd.isMouseOver) {
+
+          if (this._isSelectElement) {
+            // if it's a select element you must
+            if (this._dd.isItemFocused) {
+              this._dd.selectFocusItem();
+            } else if ( (this._selectedItem !== null) && (this._$el.val() !== '') ) {
+              // reselect it
+              this._$el.trigger('autocomplete.select', this._selectedItem);
+            } else {
+              // empty the values
+              this._$el.val('');
+              this._selectHiddenField.val('');
+              this._selectedItem = null;
+            }
+          }
+
           this._dd.hide();
+        }
       });
 
       // selected event
       this._$el.on('autocomplete.select', (evt:JQueryEventObject, item:any) => {
+        this._selectedItem = item;
         this.itemSelectedDefaultHandler(item);
       });
 
@@ -268,6 +287,8 @@ module AutoCompleteNS {
       if (this._isSelectElement) {
         this._selectHiddenField.val(itemFormatted.value);
       }
+      // save selected item
+      this._selectedItem = item;
       // and hide
       this._dd.hide();
     }
