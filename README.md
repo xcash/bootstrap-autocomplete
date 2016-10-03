@@ -3,6 +3,7 @@ Bootstrap Autocomplete
 
 Autocomplete plugin for Bootstrap 3.x and 4.
 
+[Demo latest version](https://gitcdn.link/repo/xcash/bootstrap-autocomplete/master/dist/latest/index.html)
 
 Download
 --------
@@ -40,4 +41,4 @@ Issues
 
 Legacy
 ------
-I started this project forking from https://github.com/bassjobsen/Bootstrap-3-Typeahead
+I started this project forking from [Bootstrap-3-Typeahead](https://github.com/bassjobsen/Bootstrap-3-Typeahead)
