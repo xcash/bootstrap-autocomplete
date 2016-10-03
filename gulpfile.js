@@ -6,7 +6,6 @@ var gulp  = require('gulp'),
 	uglify = require('gulp-uglify'),
 	plumber = require('gulp-plumber'),
 	sequence = require('gulp-sequence'),
-	eslint = require('gulp-eslint'),
 	size = require('gulp-size'),
 	rename = require('gulp-rename'),
 	webpack = require('gulp-webpack'),
@@ -64,15 +63,11 @@ gulp.task('build-js', function () {
 		}))
 		.pipe(webpack( require('./webpack.config.js') ))
 		.pipe(rename('bootstrap-autocomplete.js'))
-		// .pipe(concat('formtools.js'))
-		// .pipe(eslint())
-		// .pipe(eslint.format())
-		// .pipe(eslint.failAfterError())
 		.pipe(gulp.dest('dist/latest/'));
 });
 
 gulp.task('dist-min', function () {
-	return gulp.src('dist/latest/*.js')
+	return gulp.src('dist/latest/bootstrap-autocomplete.js')
 		.pipe(rename({
 			extname: '.min.js'
 		}))

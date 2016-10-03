@@ -40,6 +40,30 @@
 						</div>
 					</div>
 				</fieldset>
+				<fieldset>
+					<legend><code>&lt;select&gt;</code> as Autocomplete</legend>
+					<div class="row">
+						<div class="col-lg-9 col-lg-offset-3">
+							<p>
+								Selects are a subtype of autocomplete where the selectedvalue is restricted to
+								server-provided results. User <b>must</b> select one of those.
+							</p>
+							<p>
+								Bootstrap-Autocomplete provides a smarter select rendered as a standard
+								autocomplete <b>text</b> field. It substitutes the field with an 
+								<code>&lt;input type="text"&gt;</code and creates a <i>shadow</i> hidden field with
+								the selected value (and the original name).
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-lg-3 control-label">
+							Simple (<a href="testdata/test-select-simple.json">list of { value, strings }</a>)
+						</label>
+						<div class="col-lg-9">
+							<select class="form-control basicAutoSelect" name="simple_select" data-url="testdata/test-select-simple.json" autocomplete="off"></select>
+						</div>
+					</div>
+				</fieldset>
 			</form>
 		</div>
 
@@ -101,6 +125,9 @@
 						}
 					}
 				});
+
+				// Basic Select
+				$('.basicAutoSelect').autoComplete();
 			});
 		</script>
 	</body>

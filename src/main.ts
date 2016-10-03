@@ -29,6 +29,8 @@ module AutoCompleteNS {
     private _$el:JQuery;
     private _dd:Dropdown;
     private _searchText:string;
+    private _isSelectElement:boolean = false;
+    private _selectHiddenField:JQuery;
 
     private _settings = {
       resolver:<string> 'ajax',
@@ -49,18 +51,63 @@ module AutoCompleteNS {
     
     private resolver;
 
-    constructor(element:Element, options:any) {
+    constructor(element:Element, options?:{}) {
       this._el = element;
       this._$el = $(this._el);
-      this._settings = $.extend(true, {}, this._settings, options);
+      // element type
+      if (this._$el.is('select')) {
+        this._isSelectElement = true;
+      }
+      // inline data attributes
+      this.manageInlineDataAttributes();
+      // constructor options
+      if (typeof options === 'object') {
+        this._settings = $.extend(true, {}, this.getSettings(), options);
+      }
+      if (this._isSelectElement) {
+        this.convertSelectToText();
+      } 
       
-      //console.log('initializing', this._settings);
+      console.log('initializing', this._settings);
       
       this.init();
     }
 
+    private manageInlineDataAttributes() {
+      // updates settings with data-* attributes
+      let s = this.getSettings();
+      if (this._$el.data('url')) {
+        s['resolverSettings'].url = this._$el.data('url');
+      }
+    }
+
     private getSettings():{} {
       return this._settings;
+    }
+
+    private convertSelectToText() {
+      // create hidden field
+
+      let hidField:JQuery = $('<input>');
+      hidField.attr('type', 'hidden');
+      hidField.attr('name', this._$el.attr('name'));
+      this._selectHiddenField = hidField;
+      
+      hidField.insertAfter(this._$el);
+
+      // create search input element
+      let searchField:JQuery = $('<input>');
+      searchField.attr('type', 'text');
+      searchField.attr('name', this._$el.attr('name') + '_text');
+      searchField.addClass(this._$el.attr('class'));
+      
+      // attach class
+      searchField.data(AutoCompleteNS.AutoComplete.NAME, this);
+
+      // replace original with searchField
+      this._$el.replaceWith(searchField);
+      this._$el = searchField;
+      this._el = searchField.get(0);
     }
 
     public init():void {
@@ -88,7 +135,10 @@ module AutoCompleteNS {
             evt.preventDefault();
 						break;
 					case 9: // TAB
-            this._dd.selectFocusItem();
+            if (this._settings.autoSelect) {
+              // if autoSelect enabled selects on blur the currently selected item
+              this._dd.selectFocusItem();
+            }
 						break;
         }
       });
@@ -214,6 +264,10 @@ module AutoCompleteNS {
 				itemFormatted = { text: itemFormatted }
 			}
       this._$el.val(itemFormatted.text);
+      // if the element is a select
+      if (this._isSelectElement) {
+        this._selectHiddenField.val(itemFormatted.value);
+      }
       // and hide
       this._dd.hide();
     }
