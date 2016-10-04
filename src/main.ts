@@ -113,6 +113,7 @@ module AutoCompleteNS {
       searchField.attr('type', 'text');
       searchField.attr('name', this._$el.attr('name') + '_text');
       searchField.attr('id', this._$el.attr('id'));
+      searchField.attr('disabled', this._$el.attr('disabled'));
       searchField.addClass(this._$el.attr('class'));
       if (this._defaultText) {
         searchField.val(this._defaultText);
