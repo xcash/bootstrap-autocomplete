@@ -71,7 +71,7 @@
 							Default Selected (<a href="testdata/test-select-simple.json">list of { value, strings }</a>)
 						</label>
 						<div class="col-lg-9">
-							<select class="form-control defaultAutoSelect" name="default_select" 
+							<select class="form-control defaultAutoSelect" id="dAS" name="default_select" 
 								data-url="testdata/test-select-simple.json"
 								data-default-value="3" data-default-text="Docker" 
 								autocomplete="off"></select>
@@ -150,6 +150,9 @@
 				
 				// Default Select
 				$('.defaultAutoSelect').autoComplete();
+				$('#dAS').on('autocomplete.select', function (e, i) {
+					console.log('called');
+				});
 			});
 		</script>
 	</body>

@@ -109,8 +109,10 @@ module AutoCompleteNS {
 
       // create search input element
       let searchField:JQuery = $('<input>');
+      // copy all attributes
       searchField.attr('type', 'text');
       searchField.attr('name', this._$el.attr('name') + '_text');
+      searchField.attr('id', this._$el.attr('id'));
       searchField.addClass(this._$el.attr('class'));
       if (this._defaultText) {
         searchField.val(this._defaultText);
