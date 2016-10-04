@@ -30,6 +30,8 @@ module AutoCompleteNS {
     private _dd:Dropdown;
     private _searchText:string;
     private _selectedItem:any = null;
+    private _defaultValue:any = null;
+    private _defaultText:string = null;
     private _isSelectElement:boolean = false;
     private _selectHiddenField:JQuery;
 
@@ -69,7 +71,7 @@ module AutoCompleteNS {
         this.convertSelectToText();
       } 
       
-      console.log('initializing', this._settings);
+      // console.log('initializing', this._settings);
       
       this.init();
     }
@@ -79,6 +81,12 @@ module AutoCompleteNS {
       let s = this.getSettings();
       if (this._$el.data('url')) {
         s['resolverSettings'].url = this._$el.data('url');
+      }
+      if (this._$el.data('default-value')) {
+        this._defaultValue = this._$el.data('default-value');
+      }
+      if (this._$el.data('default-text')) {
+        this._defaultText = this._$el.data('default-text');
       }
     }
 
@@ -92,6 +100,9 @@ module AutoCompleteNS {
       let hidField:JQuery = $('<input>');
       hidField.attr('type', 'hidden');
       hidField.attr('name', this._$el.attr('name'));
+      if (this._defaultValue) {
+        hidField.val(this._defaultValue);
+      }
       this._selectHiddenField = hidField;
       
       hidField.insertAfter(this._$el);
@@ -101,6 +112,9 @@ module AutoCompleteNS {
       searchField.attr('type', 'text');
       searchField.attr('name', this._$el.attr('name') + '_text');
       searchField.addClass(this._$el.attr('class'));
+      if (this._defaultText) {
+        searchField.val(this._defaultText);
+      }
       
       // attach class
       searchField.data(AutoCompleteNS.AutoComplete.NAME, this);
@@ -185,6 +199,11 @@ module AutoCompleteNS {
             } else if ( (this._selectedItem !== null) && (this._$el.val() !== '') ) {
               // reselect it
               this._$el.trigger('autocomplete.select', this._selectedItem);
+            } else if ( (this._$el.val() !== '') && (this._defaultValue !== null) ) {
+              // select Default
+              this._$el.val(this._defaultText);
+              this._selectHiddenField.val(this._defaultValue);
+              this._selectedItem = null;
             } else {
               // empty the values
               this._$el.val('');

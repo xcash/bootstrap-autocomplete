@@ -60,7 +60,19 @@
 							Simple (<a href="testdata/test-select-simple.json">list of { value, strings }</a>)
 						</label>
 						<div class="col-lg-9">
-							<select class="form-control basicAutoSelect" name="simple_select" data-url="testdata/test-select-simple.json" autocomplete="off"></select>
+							<select class="form-control basicAutoSelect" name="simple_select" 
+								data-url="testdata/test-select-simple.json" autocomplete="off"></select>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-lg-3 control-label">
+							Default Selected (<a href="testdata/test-select-simple.json">list of { value, strings }</a>)
+						</label>
+						<div class="col-lg-9">
+							<select class="form-control defaultAutoSelect" name="default_select" 
+								data-url="testdata/test-select-simple.json"
+								data-default-value="3" data-default-text="Docker" 
+								autocomplete="off"></select>
 						</div>
 					</div>
 				</fieldset>
@@ -128,6 +140,9 @@
 
 				// Basic Select
 				$('.basicAutoSelect').autoComplete();
+				
+				// Default Select
+				$('.defaultAutoSelect').autoComplete();
 			});
 		</script>
 	</body>
