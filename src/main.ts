@@ -114,6 +114,7 @@ module AutoCompleteNS {
       searchField.attr('name', this._$el.attr('name') + '_text');
       searchField.attr('id', this._$el.attr('id'));
       searchField.attr('disabled', this._$el.attr('disabled'));
+      searchField.attr('placeholder', this._$el.attr('placeholder'));
       searchField.addClass(this._$el.attr('class'));
       if (this._defaultText) {
         searchField.val(this._defaultText);
@@ -179,6 +180,8 @@ module AutoCompleteNS {
 						break;
 					case 13: // ENTER
             this._dd.selectFocusItem();
+            evt.stopPropagation();
+            evt.preventDefault();
 						break;
 					case 27:
 						// ESC
