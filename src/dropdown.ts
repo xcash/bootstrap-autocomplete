@@ -11,11 +11,13 @@ export class Dropdown {
 	protected searchText:string;
 	protected autoSelect:boolean;
 	protected mouseover:boolean;
+	protected noResultsText:string;
 
-	constructor(e:JQuery, formatItemCbk:Function, autoSelect:boolean) {
+	constructor(e:JQuery, formatItemCbk:Function, autoSelect:boolean, noResultsText:string) {
 		this._$el = e;
 		this.formatItem = formatItemCbk;
 		this.autoSelect = autoSelect;
+		this.noResultsText = noResultsText;
 		
 		this.init();
 	}
@@ -56,9 +58,11 @@ export class Dropdown {
 		});
 
 		this._dd.on('mouseenter', 'li', (evt:JQueryEventObject) => {
-			$(evt.currentTarget).closest('ul').find('li.active').removeClass('active');
-			$(evt.currentTarget).addClass('active');
-			this.mouseover = true;
+			if (this.haveResults) {
+				$(evt.currentTarget).closest('ul').find('li.active').removeClass('active');
+				$(evt.currentTarget).addClass('active');
+				this.mouseover = true;
+			}
 		});
 
 		this._dd.on('mouseleave', 'li', (evt:JQueryEventObject) => {
@@ -73,30 +77,30 @@ export class Dropdown {
 		return this.mouseover;
 	}
 
-	public focusNextItem(reversed?:boolean) {
-		// get selected
-		let currElem:JQuery = this._dd.find('li.active');
-		let nextElem:JQuery = reversed ? currElem.prev() : currElem.next();
+	get haveResults():boolean {
+		return (this.items.length > 0);
+	}
 
-		if (nextElem.length == 0) {
-			// first 
-			nextElem = reversed ? this._dd.find('li').last() : this._dd.find('li').first();
+	public focusNextItem(reversed?:boolean) {
+		if (this.haveResults) {
+			// get selected
+			let currElem:JQuery = this._dd.find('li.active');
+			let nextElem:JQuery = reversed ? currElem.prev() : currElem.next();
+
+			if (nextElem.length == 0) {
+				// first 
+				nextElem = reversed ? this._dd.find('li').last() : this._dd.find('li').first();
+			}
+			
+			currElem.removeClass('active');
+			nextElem.addClass('active');
 		}
-		
-		currElem.removeClass('active');
-		nextElem.addClass('active');
 	}
 
 	public focusPreviousItem() {
 		this.focusNextItem(true);
 	}
 
-	public focusItem(index:number) {
-		// Focus an item in the list
-		if (this.shown && (this.items.length > index))
-			this._dd.find('li').eq(index).find('a').focus();
-	}
-	
 	public selectFocusItem() {
 		this._dd.find('li.active').trigger('click');
 	}
@@ -148,29 +152,41 @@ export class Dropdown {
 	protected refreshItemList() {
 		this._dd.empty();
 		let liList:JQuery[] = [];
-		this.items.forEach(item => {
-			let itemFormatted:any = this.formatItem(item);
-			if (typeof itemFormatted === 'string') {
-				itemFormatted = { text: itemFormatted }
-			}
-			let itemText:string;
-			let itemHtml:any;
+		if (this.items.length > 0) {
+			this.items.forEach(item => {
+				let itemFormatted:any = this.formatItem(item);
+				if (typeof itemFormatted === 'string') {
+					itemFormatted = { text: itemFormatted }
+				}
+				let itemText:string;
+				let itemHtml:any;
 
-			itemText = this.showMatchedText(itemFormatted.text, this.searchText);
-			if ( itemFormatted.html !== undefined ) {
-				itemHtml = itemFormatted.html;
-			} else {
-				itemHtml = itemText;
-			}
-			
+				itemText = this.showMatchedText(itemFormatted.text, this.searchText);
+				if ( itemFormatted.html !== undefined ) {
+					itemHtml = itemFormatted.html;
+				} else {
+					itemHtml = itemText;
+				}
+				
+				let li = $('<li >');
+				li.append(
+					$('<a>').attr('href', '#').html(itemHtml)
+				)
+				.data('item', item);
+				
+				liList.push(li);
+			});
+		} else {
+			// No results
 			let li = $('<li >');
 			li.append(
-				$('<a>').attr('href', '#').html(itemHtml)
+				$('<a>').attr('href', '#').html(this.noResultsText)
 			)
-			.data('item', item);
-			
+			.addClass('disabled');
+
 			liList.push(li);
-		});
+		}
+
 		 
 		this._dd.append(liList);
 	}

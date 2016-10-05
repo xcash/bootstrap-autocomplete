@@ -42,6 +42,7 @@ module AutoCompleteNS {
       valueKey:<string> 'value',
       formatResult:<Function> this.defaultFormatResult,
       autoSelect:<boolean> true,
+      noResultsText:<string> 'No results',
       events: {
         typed:<Function> null,
         searchPre:<Function> null,
@@ -87,6 +88,9 @@ module AutoCompleteNS {
       }
       if (this._$el.data('default-text')) {
         this._defaultText = this._$el.data('default-text');
+      }
+      if (this._$el.data('noresults-text')) {
+        s['noResultsText'] = this._$el.data('noresults-text');
       }
     }
 
@@ -139,7 +143,9 @@ module AutoCompleteNS {
         this.resolver = new AjaxResolver(this._settings.resolverSettings);
       }
       // Dropdown
-      this._dd = new Dropdown(this._$el, this._settings.formatResult, this._settings.autoSelect);
+      this._dd = new Dropdown(this._$el, this._settings.formatResult, 
+                              this._settings.autoSelect, this._settings.noResultsText
+                              );
     }
     
     private bindDefaultEventListeners():void {

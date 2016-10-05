@@ -78,6 +78,17 @@
 								autocomplete="off"></select>
 						</div>
 					</div>
+					<div class="form-group">
+						<label class="col-lg-3 control-label">
+							No results (<a href="testdata/test-empty.json">empty list</a>)
+						</label>
+						<div class="col-lg-9">
+							<select class="form-control emptyAutoSelect" name="empty_select" 
+								data-url="testdata/test-empty.json"
+								data-noresults-text="Nothing to see here."
+								autocomplete="off"></select>
+						</div>
+					</div>
 				</fieldset>
 			</form>
 		</div>
@@ -159,6 +170,9 @@
 				$('#dAS').on('autocomplete.select', function (e, i) {
 					console.log('selected');
 				});
+
+				// Empty Select
+				$('.emptyAutoSelect').autoComplete();
 			});
 		</script>
 	</body>
