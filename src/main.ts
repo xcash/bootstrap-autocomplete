@@ -115,6 +115,7 @@ module AutoCompleteNS {
       searchField.attr('id', this._$el.attr('id'));
       searchField.attr('disabled', this._$el.attr('disabled'));
       searchField.attr('placeholder', this._$el.attr('placeholder'));
+      searchField.attr('autocomplete', 'off');
       searchField.addClass(this._$el.attr('class'));
       if (this._defaultText) {
         searchField.val(this._defaultText);

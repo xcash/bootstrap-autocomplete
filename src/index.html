@@ -150,13 +150,14 @@
 				// Basic Select
 				$('.basicAutoSelect').autoComplete();
 				$('.basicAutoSelect').on('autocomplete.select', function (evt, item) {
+					console.log('select');
 					$('.basicAutoSelectSelected').html(JSON.stringify(item));
 				});
 				
 				// Default Select
 				$('.defaultAutoSelect').autoComplete();
 				$('#dAS').on('autocomplete.select', function (e, i) {
-					console.log('called');
+					console.log('selected');
 				});
 			});
 		</script>
