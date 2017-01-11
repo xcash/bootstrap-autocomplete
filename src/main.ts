@@ -58,6 +58,7 @@ module AutoCompleteNS {
     constructor(element:Element, options?:{}) {
       this._el = element;
       this._$el = $(this._el);
+
       // element type
       if (this._$el.is('select')) {
         this._isSelectElement = true;
@@ -134,7 +135,7 @@ module AutoCompleteNS {
       this._el = searchField.get(0);
     }
 
-    public init():void {
+    private init():void {
       // bind default events
       this.bindDefaultEventListeners();
       // RESOLVER
@@ -326,7 +327,7 @@ module AutoCompleteNS {
     }
 
     private defaultFormatResult(item:any):{} {
-      if (typeof item === 'string' ) {
+      if (typeof item === 'string') {
         return { text: item };
       } else if ( item.text ) {
         return item;
@@ -337,22 +338,29 @@ module AutoCompleteNS {
       }
     }
 
+    public manageAPI(APICmd:any, params:any) {
+      // manages public API
+      if (APICmd === 'set') {
+        this.itemSelectedDefaultHandler(params);
+      }
+    }
+
   }
 }
 
 (function($: JQueryStatic, window: any, document: any) {
-  $.fn[AutoCompleteNS.AutoComplete.NAME] = function(options: any) {
+  $.fn[AutoCompleteNS.AutoComplete.NAME] = function(optionsOrAPI: any, optionalParams: any) {
     return this.each(function() {
       let pluginClass:AutoCompleteNS.AutoComplete;
 
       pluginClass = $(this).data(AutoCompleteNS.AutoComplete.NAME);
 
       if (!pluginClass) {
-        pluginClass = new AutoCompleteNS.AutoComplete(this, options); 
+        pluginClass = new AutoCompleteNS.AutoComplete(this, optionsOrAPI); 
         $(this).data(AutoCompleteNS.AutoComplete.NAME, pluginClass);
       }
 
-
+      pluginClass.manageAPI(optionsOrAPI, optionalParams);
     });
   };
 })(jQuery, window, document);

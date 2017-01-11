@@ -101,6 +101,30 @@
 						</div>
 					</div>
 				</fieldset>
+				<fieldset>
+					<legend>Javascript API</legend>
+					<div class="form-group">
+						<label class="col-lg-3 control-label">
+							Change selected value programmatically
+						</label>
+						<div class="col-lg-9">
+							<select class="form-control changeAutoSelect" name="change_select" 
+								data-url="testdata/test-select-simple.json"
+								data-noresults-text="Nothing to see here."
+								data-default-value="x123" data-default-text="Puppolo"
+								autocomplete="off"></select>
+							<br>
+							<button type="button" class="btn btn-default btnChangeAutoSelect" autocomplete="off"
+								data-value="1" data-text="Selected Value 1">
+								Set a different selected value
+							</button>
+							<button type="button" class="btn btn-default btnChangeAutoSelect" autocomplete="off"
+								data-value="2" data-text="Selected Value 2">
+								Set a different selected value 2
+							</button>
+						</div>
+					</div>
+				</fieldset>
 			</form>
 		</div>
 		
@@ -205,10 +229,21 @@
 				// Empty Select
 				$('.emptyAutoSelect').autoComplete();
 				
+				// Modal
 				$('.basicModalAutoSelect').autoComplete();
 				$('.basicModalAutoSelect').on('autocomplete.select', function (evt, item) {
 					console.log('select');
 					$('.basicModalAutoSelectSelected').html(JSON.stringify(item));
+				});
+
+				// Change default value programmatically.
+				// Let's simulate a real world example.
+				// Some point in time we initialize the autocomplete with a default value (defined by markup)
+				$('.changeAutoSelect').autoComplete();
+				// user then clicks on some button and we need to change that default value
+				$('.btnChangeAutoSelect').on('click', function () {
+					var e = $(this);
+					$('.changeAutoSelect').autoComplete('set', { value: e.data('value'), text: e.data('text')});
 				});
 			});
 		</script>
