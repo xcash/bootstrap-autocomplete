@@ -10,7 +10,7 @@
 		<div class="container">
 			<h1 class="page-header">Bootstrap Autocomplete</h1>
 			<p>
-				Demo
+				This page acts like a Demo page and a Testing page.
 			</p>
 			<form class="form-horizontal">
 				<fieldset>
@@ -90,8 +90,39 @@
 						</div>
 					</div>
 				</fieldset>
+				<fieldset>
+					<legend>In Bootstrap modal</legend>
+					<div class="row">
+						<div class="col-lg-9 col-lg-offset-3">
+							<button type="button" class="btn btn-primary" autocomplete="off"
+								data-toggle="modal" data-target="#testModal">
+								Open Test Modal
+							</button>
+						</div>
+					</div>
+				</fieldset>
 			</form>
 		</div>
+		
+		<div class="modal fade" id="testModal" tabindex="-1" role="dialog">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title">Modal title</h4>
+			</div>
+			<div class="modal-body">
+				<select class="form-control basicModalAutoSelect" name="simple_select" 
+					placeholder="type to search..." 
+					data-url="testdata/test-select-simple.json" autocomplete="off"></select>
+				<code class="basicModalAutoSelectSelected"></code>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			</div>
+			</div><!-- /.modal-content -->
+		</div><!-- /.modal-dialog -->
+		</div><!-- /.modal -->
 
 		<script src="//ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 		<script src="//netdna.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -173,6 +204,12 @@
 
 				// Empty Select
 				$('.emptyAutoSelect').autoComplete();
+				
+				$('.basicModalAutoSelect').autoComplete();
+				$('.basicModalAutoSelect').on('autocomplete.select', function (evt, item) {
+					console.log('select');
+					$('.basicModalAutoSelectSelected').html(JSON.stringify(item));
+				});
 			});
 		</script>
 	</body>

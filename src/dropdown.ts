@@ -19,7 +19,8 @@ export class Dropdown {
 		this.autoSelect = autoSelect;
 		this.noResultsText = noResultsText;
 		
-		this.init();
+		// initialize it in lazy mode to deal with glitches like modals
+		// this.init();
 	}
 	
 	protected init():void {
@@ -71,6 +72,14 @@ export class Dropdown {
 
 		this.initialized = true;
 		
+	}
+
+	private checkInitialized():void {
+		// Lazy init
+		if (!this.initialized) {
+			// if not already initialized
+			this.init();
+		}
 	}
 
 	get isMouseOver():boolean {
@@ -150,6 +159,7 @@ export class Dropdown {
 	}
 
 	protected refreshItemList() {
+		this.checkInitialized();
 		this._dd.empty();
 		let liList:JQuery[] = [];
 		if (this.items.length > 0) {
