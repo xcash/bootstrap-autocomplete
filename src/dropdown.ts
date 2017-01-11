@@ -34,7 +34,7 @@ export class Dropdown {
 		this._dd.addClass('bootstrap-autocomplete dropdown-menu');
 
 		this._dd.insertAfter(this._$el);
-		this._dd.css({ left: pos.left, width: this._$el.outerWidth() });
+		this._dd.css({ top: pos.top + this._$el.outerHeight(), left: pos.left, width: this._$el.outerWidth() });
 		
 		// click event on items
 		this._dd.on('click', 'li', (evt:JQueryEventObject) => {
