@@ -1,5 +1,5 @@
 /* =============================================================
- * bootstrap-autocomplete.js v0.0.1
+ * bootstrap-autocomplete.js v1.0.0-rc1
  * https://github.com/xcash/bootstrap-autocomplete
  * =============================================================
  * Forked from bootstrap3-typeahead.js v3.1.0
