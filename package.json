@@ -1,14 +1,14 @@
 {
   "name": "bootstrap-autocomplete",
-  "version": "0.0.1",
-  "description": "Bootstrap 3/4 autocomplete.",
+  "version": "1.0.0",
+  "description": "Bootstrap autocomplete for Bootstrap 3 and 4.",
   "main": "gulpfile.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/xcash/Bootstrap-3-Typeahead.git"
+    "url": "git+https://github.com/xcash/bootstrap-autocomplete.git"
   },
   "keywords": [
     "bootstrap",
@@ -20,9 +20,9 @@
   "author": "Paolo Casciello <paolo.casciello@scalebox.it>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/xcash/Bootstrap-3-Typeahead/issues"
+    "url": "https://github.com/xcash/bootstrap-autocomplete/issues"
   },
-  "homepage": "https://github.com/xcash/Bootstrap-3-Typeahead#readme",
+  "homepage": "https://github.com/xcash/bootstrap-autocomplete#readme",
   "dependencies": {
   },
   "devDependencies": {
@@ -37,11 +37,11 @@
     "gulp-uglify": "~2",
     "gulp-util": "~3",
     "gulp-webpack": "^1.5.0",
-    "source-map-loader": "^0.1.6",
-    "ts-loader": "^1.3.3",
-    "typescript": "^2.1.4",
-    "typings": "^2.1.0",
-    "webpack": "^1.14.0"
+    "source-map-loader": "^0.2.1",
+    "ts-loader": "^2.0.3",
+    "typescript": "^2.3.2",
+    "typings": "^2.1.1",
+    "webpack": "^2.4.1"
   }
 
 }
