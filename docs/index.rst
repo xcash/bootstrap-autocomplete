@@ -8,9 +8,6 @@ Boostrap Autocomplete Documentation
 
 Version: |release|
 
-.. contents::
-
-
 Features
 --------
 
