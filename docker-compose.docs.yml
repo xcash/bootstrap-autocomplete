@@ -1,14 +1,5 @@
 version: '2'
 services:
-  tools:
-    build: .
-    ports:
-     - 9000:8000
-     - 35729:35729
-    volumes:
-     - ./src:/workspace/src
-     - ./dist:/workspace/dist
-     - ./docs:/workspace/docs
   docs:
     build:
       context: .
@@ -18,3 +9,4 @@ services:
     volumes:
      - ./docs:/workspace/docs
      - ./src:/workspace/src
+

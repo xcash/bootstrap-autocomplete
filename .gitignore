@@ -2,6 +2,7 @@
 _gh_pages
 _site
 .ruby-version
+docs/_build
 
 # Numerous always-ignore extensions
 *.diff
