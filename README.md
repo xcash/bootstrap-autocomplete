@@ -5,6 +5,13 @@ Bootstrap Autocomplete
 
 Autocomplete plugin for Bootstrap 3.x and 4.
 
-[Demo latest version](https://gitcdn.link/repo/xcash/bootstrap-autocomplete/master/dist/latest/index.html)
+It enhances form `input` and `select` field to provide autocomplete/typeahead capabilities.
+
+[Documentation](http://bootstrap-autocomplete.rtfd.io/)
 
 Latest version: 1.0.0
+
+Try the DEMO!
+=============
+
+[Demo latest version](https://gitcdn.link/repo/xcash/bootstrap-autocomplete/master/dist/latest/index.html)
