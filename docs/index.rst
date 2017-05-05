@@ -162,7 +162,7 @@ Activating Autocomplete
 
     Enhance the form fields identified by the selector
 
-    :param object options: Configuration options of type ConfigOptions.
+    :param options: Configuration options of type ConfigOptions.
 
 
 Configuration options
@@ -175,9 +175,21 @@ Configuration options
         :param object item: The item selected or rendered in the dropdown.
         :returns: An object ``{ id: myItemId, text: myfancyText, html?: myfancierHtml }``.
 
+.. attribute:: .minLength
+
+    Default: ``3``. Minimum character length to start lookup.
+
+.. attribute:: .autoSelect
+
+    Default: ``true``. Automatically selects selected item on `blur event` (i.e. using TAB to switch to next field).
+
 .. attribute:: .resolver
 
-    Resolver type. ``custom`` to implement your resolver using *events*. (default `ajax`)
+    Default: ``ajax``. Resolver type. ``custom`` to implement your resolver using *events*.
+
+.. attribute:: .noResultsText
+
+    Default: ``No results``. Text to show when no results found.
 
 .. attribute:: .resolverSettings
 
@@ -211,7 +223,33 @@ Configuration options
 
             :param resultsFromServer: Result received from server. Using the default resolver this is an object.
             :returns: List of items.
+    
+    `Following events are available to fine tune every lookup aspect. Rarely used in common scenarios`
 
+    .. attribute:: .typed
+
+        .. function:: func(newValue)
+
+            Field value changed. Use this function to change the searched value (like prefixing it with some string, 
+            filter some characters, ...). Or to stop lookup for certain values.
+
+            :param string newValue: New value.
+            :returns: (Un)modified value or ``false`` to stop the execution.
+    
+
+    .. attribute:: .searchPre
+
+        .. function:: func(newValue)
+
+            Before starting the search. Like in the ``typed`` event, this function can change the search value. The difference is
+            this event is called `after` minLength checks.
+
+            :param string newValue: New value.
+            :returns: (Un)modified value or ``false`` to stop the execution.
+
+    As a reference the lookup workflow calls events in the following order::
+    
+        typed -> searchPre -> search -> searchPost
 
 Advanced usage
 --------------
@@ -229,7 +267,7 @@ Customize results using default AJAX resolver
 *********************************************
 
 Using the ``searchPost`` event you can manipulate the result set making it compatible with autocomplete default.
-This is useful to bypass the full-search-workflow customization.
+This is useful to bypass the customization of the entire search AJAX call.
 
 .. code-block:: javascript
 
@@ -262,6 +300,10 @@ To customize "no results" message use the following markup.
         data-noresults-text="Nothing to see here."
         autocomplete="off"></select>
 
+Issues, Support and New Features requests
+=========================================
+
+Feel free to post a new issue `here <https://github.com/xcash/bootstrap-autocomplete/issues>`_
 
 Development Environment
 =======================
