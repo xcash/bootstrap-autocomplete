@@ -3,6 +3,8 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
+.. default-domain:: js
+
 Boostrap Autocomplete Documentation
 ===================================
 
@@ -150,27 +152,69 @@ And custom.
 
 ``autocomplete.select`` - (evt, item) The element ``item`` is the item selected by the user and currently selected in the field.
 
+Reference
+---------
 
-Advanced usage
---------------
+Activating Autocomplete
+***********************
 
-Custom configuration
-********************
-
-There are a number of configuration options to deal with common use cases.
-
-.. function:: $(...).autoComplete({parameters})
+.. function:: $(...).autoComplete([options])
 
     Enhance the form fields identified by the selector
 
-    :param function formatResult: (item) called for each ``item`` to provide formatting for the dropdown list and in the field.
-                                    It must return an object ``{ id: myitemid, text: myfancytext, html?: myfancyhtmltext }`` 
-    :param str resolver: Resolver type. ``custom`` to implement your resolver using *events*
-    :param resolverSettings: Object to specify parameters for the default resolver.
-    :param resolverSettings.url: Url used by default resolver to lookup query
-    :param events: Object to configure event callbacks to customize the lookup
-    :param function events.search: (qry, callback) called to perform a lookup. Then calls ``callback(results)`` with results list
+    :param object options: Configuration options of type ConfigOptions.
 
+
+Configuration options
+*********************
+
+.. attribute:: .formatResult
+
+    .. function:: callback(item)
+
+        :param object item: The item selected or rendered in the dropdown.
+        :returns: An object ``{ id: myItemId, text: myfancyText, html?: myfancierHtml }``.
+
+.. attribute:: .resolver
+
+    Resolver type. ``custom`` to implement your resolver using *events*. (default `ajax`)
+
+.. attribute:: .resolverSettings
+
+    Object to specify parameters used by default resolver.
+
+    .. attribute:: .url
+
+        Url used by default resolver to perform lookup query.
+
+.. attribute:: .events
+
+    Object to specify custom event callbacks.
+
+    .. attribute:: .search
+
+        .. function:: func(qry, callback)
+
+            Function called to perform a lookup.
+
+            :param string qry: Query string.
+            :param callback: Callback function to process results.
+                                Called passing the **list** of results ``callback(results)``.
+
+    .. attribute:: .searchPost
+
+        .. function:: func(resultsFromServer)
+
+            Function called to manipulate server response.
+            Bootstrap Autocomplete needs a list of items. Use this function to convert any server response in
+            a list of items without reimplementing the default AJAX server lookup.
+
+            :param resultsFromServer: Result received from server. Using the default resolver this is an object.
+            :returns: List of items.
+
+
+Advanced usage
+--------------
 
 Set custom value
 ****************
@@ -180,6 +224,23 @@ To set an initial or change the value of the field.
 .. code-block:: javascript
 
     $('.myAutoSelect').autoComplete('set', { value: myValue, text: myText });
+
+Customize results using default AJAX resolver
+*********************************************
+
+Using the ``searchPost`` event you can manipulate the result set making it compatible with autocomplete default.
+This is useful to bypass the full-search-workflow customization.
+
+.. code-block:: javascript
+
+    $('.myAutoSelect').autoComplete({
+        events: {
+            searchPost: function (resultFromServer) {
+                return resultFromServer.results;
+            }
+        }
+    });
+
 
 
 Demo and Examples
@@ -207,23 +268,15 @@ Development Environment
 
 To setup an environment to develop Bootstrap-Autocomplete you need only Docker and Docker Compose.
 
-The source is in the TypeScript language in the `src` directory.
+The source is in the TypeScript language in the ``src`` directory while the documentation is
+generated using Sphinx and resided in the ``docs`` directory.
 
 To start the environment::
 
     $ docker-compose up
 
+Two servers starts up:
 
-.. .. toctree::
-..   :maxdepth: 2
-   
-..   intro
-
-
-
-.. Indices and tables
-.. ==================
-
-.. * :ref:`genindex`
-.. * :ref:`search`
+* `Demo page <http://localhost:9000>`_
+* `Documentation <http://localhost:9999>`_
 
