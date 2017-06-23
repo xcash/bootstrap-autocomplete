@@ -9,7 +9,7 @@ It enhances form `input` and `select` field to provide autocomplete/typeahead ca
 
 [Documentation](http://bootstrap-autocomplete.rtfd.io/)
 
-Latest version: 1.0.0
+Latest version: 1.1.0 (2017/06/23)
 
 Try the DEMO!
 =============

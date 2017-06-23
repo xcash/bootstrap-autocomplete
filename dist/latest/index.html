@@ -21,7 +21,8 @@
 						</label>
 						<div class="col-lg-9">
 							<input class="form-control basicAutoComplete" type="text" autocomplete="off">
-							<code class="basicAutoCompleteSelected"></code>
+							Selected item: <code class="basicAutoCompleteSelected"></code><br>
+							Custom value: <code class="basicAutoCompleteCustom"></code>
 						</div>
 					</div>
 					<div class="form-group">
@@ -163,8 +164,15 @@
 				$('.basicAutoComplete').on('change', function (e) {
 					console.log('change');
 				});
+
 				$('.basicAutoComplete').on('autocomplete.select', function (evt, item) {
 					$('.basicAutoCompleteSelected').html(JSON.stringify(item));
+					$('.basicAutoCompleteCustom').html('');
+				});
+
+				$('.basicAutoComplete').on('autocomplete.freevalue', function (evt, value) {
+					$('.basicAutoCompleteCustom').html(JSON.stringify(value));
+					$('.basicAutoCompleteSelected').html('');
 				});
 
 				// Advanced 1

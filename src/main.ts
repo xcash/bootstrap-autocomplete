@@ -224,6 +224,12 @@ module AutoCompleteNS {
               this._selectHiddenField.val('');
               this._selectedItem = null;
             }
+          } else {
+            // It's a text element, we accept custom value.
+            // Developers may subscribe to `autocomplete.freevalue` to get notified of this
+            if ( (this._selectedItem === null) && (this._$el.val() !== '') ) {
+              this._$el.trigger('autocomplete.freevalue', this._$el.val());
+            }
           }
 
           this._dd.hide();
