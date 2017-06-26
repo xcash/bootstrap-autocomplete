@@ -152,7 +152,7 @@ And custom.
 
 ``autocomplete.select`` - (evt, item) The element ``item`` is the item selected by the user and currently selected in the field.
 
-``autocomplete.freevalue`` - (evt, value) The textarea contains `value`.
+``autocomplete.freevalue`` - (evt, value) The text field contains `value` as the custom value (i.e. not selected from the choices dropdown).
 
 Reference
 ---------
