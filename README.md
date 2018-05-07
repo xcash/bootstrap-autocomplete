@@ -14,4 +14,4 @@ Latest version: 1.1.0 (2017/06/23)
 Try the DEMO!
 =============
 
-[Demo latest version](https://gitcdn.link/repo/xcash/bootstrap-autocomplete/master/dist/latest/index.html)
+[Demo latest version](https://rawgit.com/xcash/bootstrap-autocomplete/master/dist/latest/index.html)
