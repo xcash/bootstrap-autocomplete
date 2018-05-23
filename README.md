@@ -16,4 +16,6 @@ Version 2.0.0 supports Boostrap v4.x and old v3.x out of the box.
 Try the DEMO!
 =============
 
-[Demo latest version](https://rawgit.com/xcash/bootstrap-autocomplete/master/dist/latest/index.html)
+[Bootstrap 4 latest version](https://rawgit.com/xcash/bootstrap-autocomplete/master/dist/latest/index4.html)
+
+[Bootstrap 3 latest version](https://rawgit.com/xcash/bootstrap-autocomplete/master/dist/latest/index.html)
