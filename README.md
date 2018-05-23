@@ -9,7 +9,9 @@ It enhances form `input` and `select` field to provide autocomplete/typeahead ca
 
 [Documentation](http://bootstrap-autocomplete.rtfd.io/)
 
-Latest version: 1.1.0 (2017/06/23)
+Latest version: 2.0.0 (2018/05/23)
+
+Version 2.0.0 supports Boostrap v4.x and old v3.x out of the box.
 
 Try the DEMO!
 =============

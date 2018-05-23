@@ -17,7 +17,7 @@ Features
 * **Easy.** No complex configuration. HTML attributes supported.
 * **Modals supported.** No problems in modals.
 * **Customizable.** You can customize every single step in the suggesting workflow.
-* **Batteries included.** It works out of the box.
+* **Batteries included.** It works out of the box for Bootstrap v3 and v4.
 * **i18n.** Use ``data-*`` attributes to specify the strings to use in case of errors/noresults.
 * **Styles.** No custom styles. Uses standard Bootstrap's dropdown.
 
