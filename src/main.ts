@@ -1,5 +1,5 @@
 /* =============================================================
- * bootstrap-autocomplete.js v1.0.0-rc1
+ * bootstrap-autocomplete.js v2.0.0
  * https://github.com/xcash/bootstrap-autocomplete
  * =============================================================
  * Forked from bootstrap3-typeahead.js v3.1.0
@@ -7,7 +7,7 @@
  * =============================================================
  * Original written by @mdo and @fat
  * =============================================================
- * Copyright 2016 Paolo Casciello @xcash666 and contributors
+ * Copyright 2018 Paolo Casciello @xcash666 and contributors
  *
  * Licensed under the MIT License (the 'License');
  * you may not use this file except in compliance with the License.
