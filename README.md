@@ -3,7 +3,7 @@ Bootstrap Autocomplete
 
 ![docs](https://readthedocs.org/projects/bootstrap-autocomplete/badge/?version=latest "Latest Docs")
 
-Autocomplete plugin for Bootstrap 3.x and 4.
+Autocomplete plugin for Bootstrap 4 and 3.x.
 
 It enhances form `input` and `select` field to provide autocomplete/typeahead capabilities.
 
