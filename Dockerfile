@@ -1,4 +1,4 @@
-FROM monostream/nodejs-gulp-bower
+FROM avatarla/node-gulp-bower2
 MAINTAINER Paolo Casciello <paolo.casciello@scalebox.it>
 
 # copy required files
@@ -12,7 +12,7 @@ COPY ./typings /workspace/
 ENV NODE_ENV development
 
 # install dependecies
-RUN npm update
+RUN npm update --dev
 
 # install typings
 # RUN node_modules/.bin/typings install --global --save dt~jquery

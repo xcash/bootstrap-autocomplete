@@ -19,7 +19,7 @@
  * limitations under the License.
  * ============================================================ */
 import { AjaxResolver } from './resolvers';
-import { Dropdown } from './dropdown';
+import { Dropdown, DropdownV4 } from './dropdown';
 
 module AutoCompleteNS {
   export class AutoComplete {
@@ -27,7 +27,7 @@ module AutoCompleteNS {
 
     private _el:Element;
     private _$el:JQuery;
-    private _dd:Dropdown;
+    private _dd:Dropdown|DropdownV4;
     private _searchText:string;
     private _selectedItem:any = null;
     private _defaultValue:any = null;
@@ -99,6 +99,13 @@ module AutoCompleteNS {
       return this._settings;
     }
 
+    private getBootstrapVersion():Array<number> {
+      let version_string = $.fn.button.Constructor.VERSION;
+      let version_array = version_string.split('.');
+
+      return version_array;
+    }
+
     private convertSelectToText() {
       // create hidden field
 
@@ -144,9 +151,16 @@ module AutoCompleteNS {
         this.resolver = new AjaxResolver(this._settings.resolverSettings);
       }
       // Dropdown
-      this._dd = new Dropdown(this._$el, this._settings.formatResult, 
-                              this._settings.autoSelect, this._settings.noResultsText
-                              );
+      if (this.getBootstrapVersion()[0] == 4) {
+        // v4
+        this._dd = new DropdownV4(this._$el, this._settings.formatResult, 
+          this._settings.autoSelect, this._settings.noResultsText
+          );
+      } else {
+        this._dd = new Dropdown(this._$el, this._settings.formatResult, 
+          this._settings.autoSelect, this._settings.noResultsText
+          );
+      }
     }
     
     private bindDefaultEventListeners():void {
