@@ -1,7 +1,0 @@
-{
-  "globalDependencies": {
-    "bootstrap": "registry:dt/bootstrap#3.3.5+20160619023404",
-    "jquery": "registry:dt/jquery#1.10.0+20160908203239"
-  }
-}
-

@@ -18,7 +18,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  * ============================================================ */
-import { AjaxResolver } from './resolvers';
+import { AjaxResolver, BaseResolver } from './resolvers';
 import { Dropdown, DropdownV4 } from './dropdown';
 
 module AutoCompleteNS {
@@ -53,7 +53,7 @@ module AutoCompleteNS {
       }
     }
     
-    private resolver;
+    private resolver:BaseResolver;
 
     constructor(element:Element, options?:{}) {
       this._el = element;

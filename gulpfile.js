@@ -1,6 +1,7 @@
 'use strict';
 var gulp  = require('gulp'),
-	gutil = require('gulp-util'),
+	log = require('fancy-log'),
+	colors = require('ansi-colors'),
 	sourcemaps = require('gulp-sourcemaps'),
 	concat = require('gulp-concat'),	
 	uglify = require('gulp-uglify'),
@@ -8,26 +9,26 @@ var gulp  = require('gulp'),
 	sequence = require('gulp-sequence'),
 	size = require('gulp-size'),
 	rename = require('gulp-rename'),
-	webpack = require('gulp-webpack'),
+	webpack = require('webpack-stream'),
 	server = require('gulp-server-livereload');
 
 
 gulp.task(	'default',
 			function () {
-				gutil.log('\n'+
-					gutil.colors.green('GULP TASKS') + '\n\t' +
+				log('\n'+
+					colors.green('GULP TASKS') + '\n\t' +
 
 					// default | help
-					gutil.colors.yellow('default | help') + '\n\t\t' +
+					colors.yellow('default | help') + '\n\t\t' +
 					'Shows the available tasks\n\n\t' +
 
 					// monitor
-					gutil.colors.yellow('monitor') + '\n\t\t' +
+					colors.yellow('monitor') + '\n\t\t' +
 					'Real time check for changes in js files.\n\t\tIt handles errors and rebuilds the minified and compiled files.\n\n\t' +
 
 
 					// release
-					gutil.colors.yellow('release') + '\n\t\t' +
+					colors.yellow('release') + '\n\t\t' +
 					'Rebuild and concatenate all js files.\n\t\tMinifies and uglifies JS for deploy.\n\t\t'
 
 				);

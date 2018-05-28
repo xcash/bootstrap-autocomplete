@@ -1,5 +1,5 @@
 
-class BaseResolver {
+export class BaseResolver {
 	protected results:Array<Object>;
 
 	protected _settings:any;
