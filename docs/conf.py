@@ -52,7 +52,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = u'Bootstrap Autocomplete'
-copyright = u'2016-2017, Paolo Casciello, Luca Zarotti, contributors'
+copyright = u'2016-2018, Paolo Casciello, Luca Zarotti, contributors'
 author = u'Paolo Casciello, Luca Zarotti, contributors'
 
 # The version info for the project you're documenting, acts as replacement for

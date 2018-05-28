@@ -31,15 +31,15 @@ Bootstrap Autocomplete works as a plugin. Add it to your page
 
     <script src="bootstrap-autocomplete.min.js"></script>
 
-Using CDN (thanks to GitCDN)
+Using CDN (thanks to RawGit | GitCDN)
 
 .. code-block:: html
-    :caption: Latest version
+    :caption: STABLE version |release|
 
-    <script src="https://gitcdn.link/repo/xcash/bootstrap-autocomplete/master/dist/latest/bootstrap-autocomplete.min.js"></script>
+    <script src="https://cdn.rawgit.com/xcash/bootstrap-autocomplete/v2.0.0/dist/latest/bootstrap-autocomplete.min.js"></script>
 
 .. code-block:: html
-    :caption: STABLE version
+    :caption: Latest version (this is the development branch)
 
     <script src="https://gitcdn.link/repo/xcash/bootstrap-autocomplete/master/dist/latest/bootstrap-autocomplete.min.js"></script>
 
