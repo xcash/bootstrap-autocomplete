@@ -133,6 +133,19 @@
 						</div>
 					</div>
 				</fieldset>
+				<fieldset>
+					<legend>Events</legend>
+					<div class="form-row mb-3">
+						<label class="col-lg-3">
+							Events in text field
+						</label>
+						<div class="col-lg-9">
+							<input class="form-control eventsAutoComplete" type="text" autocomplete="off">
+							<br>
+							<code><pre id="eventsCodeContainer"></pre></code>
+						</div>
+					</div>
+				</fieldset>
 			</form>
 		</div>
 		
@@ -260,6 +273,19 @@
 				$('.btnChangeAutoSelect').on('click', function () {
 					var e = $(this);
 					$('.changeAutoSelect').autoComplete('set', { value: e.data('value'), text: e.data('text')});
+				});
+
+				// Events
+				var eventsCodeContainer = $('#eventsCodeContainer');
+				
+				$('.eventsAutoComplete').autoComplete({
+					resolverSettings: {
+						url: 'testdata/test-list.json'
+					}
+				});
+				$('.eventsAutoComplete').on('change', function() {
+					console.log('eventsAutoComplete change');
+					eventsCodeContainer.append('fired change. value: ' + $(this).val() + '\n');
 				});
 			});
 		</script>
