@@ -47,7 +47,7 @@ export class AjaxResolver extends BaseResolver {
 			this.jqXHR.abort();
 		}
 
-		let data:Object = {};
+		let data:{ [key:string]:any } = { };
 		data[this._settings.queryKey] = q;
 		$.extend(data, this._settings.extraData);
 

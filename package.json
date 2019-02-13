@@ -1,48 +1,27 @@
 {
   "name": "bootstrap-autocomplete",
-  "version": "1.0.0",
+  "version": "2.1.0",
   "description": "Bootstrap autocomplete for Bootstrap 3 and 4.",
   "main": "gulpfile.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/xcash/bootstrap-autocomplete.git"
-  },
-  "keywords": [
-    "bootstrap",
-    "autocomplete",
-    "typeahead",
-    "suggest",
-    "select"
-  ],
+  "repository": "git+https://github.com/xcash/bootstrap-autocomplete.git",
   "author": "Paolo Casciello <paolo.casciello@scalebox.it>",
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/xcash/bootstrap-autocomplete/issues"
-  },
-  "homepage": "https://github.com/xcash/bootstrap-autocomplete#readme",
-  "dependencies": {
-  },
   "devDependencies": {
-    "@types/bootstrap": "^4.1.0",
-    "@types/jquery": "^3.3.2",
-    "gulp": "^3.9.1",
+    "@types/bootstrap": "^4.2.1",
+    "@types/jquery": "^3.3.29",
+    "ansi-colors": "^3.2.3",
+    "browser-sync": "^2.26.3",
+    "fancy-log": "^1.3.3",
+    "gulp": "^4.0.0",
     "gulp-concat": "^2.6.1",
-    "gulp-plumber": "^1.1.0",
-    "gulp-rename": "^1.2.2",
-    "gulp-sequence": "^1.0.0",
-    "gulp-server-livereload": "^1.9.2",
+    "gulp-plumber": "^1.2.1",
+    "gulp-rename": "^1.4.0",
     "gulp-size": "^3.0.0",
-    "gulp-sourcemaps": "~2",
-    "gulp-uglify": "~3",
-    "fancy-log": "^1.3.2",
-    "ansi-colors": "^2.0.1",
-    "webpack-stream": "^4.0.3",
-    "source-map-loader": "^0.2.3",
-    "ts-loader": "^3.3.1",
-    "typescript": "^2.8.3"
+    "gulp-sourcemaps": "^2.6.4",
+    "gulp-uglify": "^3.0.1",
+    "source-map-loader": "^0.2.4",
+    "ts-loader": "^5.3.3",
+    "typescript": "^3.3.3",
+    "webpack-stream": "^5.2.1"
   }
-
 }

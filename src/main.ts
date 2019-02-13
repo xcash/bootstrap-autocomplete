@@ -22,6 +22,24 @@ import { AjaxResolver, BaseResolver } from './resolvers';
 import { Dropdown, DropdownV4 } from './dropdown';
 
 module AutoCompleteNS {
+  export interface AutoCompleteSettings {
+    resolver:string,
+    resolverSettings:any,
+    minLength:number,
+    valueKey:string,
+    formatResult:Function,
+    autoSelect:boolean,
+    noResultsText:string,
+    events: {
+      typed:Function,
+      searchPre:Function,
+      search:Function,
+      searchPost:Function,
+      select:Function,
+      focus:Function,
+    }
+  }
+
   export class AutoComplete {
     public static NAME:string = 'autoComplete';
 
@@ -35,29 +53,29 @@ module AutoCompleteNS {
     private _isSelectElement:boolean = false;
     private _selectHiddenField:JQuery;
 
-    private _settings = {
-      resolver:<string> 'ajax',
-      resolverSettings:<any> {},
-      minLength:<number> 3,
-      valueKey:<string> 'value',
-      formatResult:<Function> this.defaultFormatResult,
-      autoSelect:<boolean> true,
-      noResultsText:<string> 'No results',
+    private _settings:AutoCompleteSettings = {
+      resolver: 'ajax',
+      resolverSettings: {},
+      minLength: 3,
+      valueKey: 'value',
+      formatResult: this.defaultFormatResult,
+      autoSelect: true,
+      noResultsText: 'No results',
       events: {
-        typed:<Function> null,
-        searchPre:<Function> null,
-        search:<Function> null,
-        searchPost:<Function> null,
-        select:<Function> null,
-        focus:<Function> null,
+        typed: null,
+        searchPre: null,
+        search: null,
+        searchPost: null,
+        select: null,
+        focus: null,
       }
     }
     
     private resolver:BaseResolver;
 
-    constructor(element:Element, options?:{}) {
+    constructor(element:HTMLElement, options?:{}) {
       this._el = element;
-      this._$el = $(this._el);
+      this._$el = $(this._el) as jQuery<HTMLElement>;
 
       // element type
       if (this._$el.is('select')) {
@@ -67,7 +85,7 @@ module AutoCompleteNS {
       this.manageInlineDataAttributes();
       // constructor options
       if (typeof options === 'object') {
-        this._settings = $.extend(true, {}, this.getSettings(), options);
+        this._settings = $.extend(true, {}, this.getSettings(), options) as AutoCompleteSettings;
       }
       if (this._isSelectElement) {
         this.convertSelectToText();
@@ -95,11 +113,12 @@ module AutoCompleteNS {
       }
     }
 
-    private getSettings():{} {
+    private getSettings():AutoCompleteSettings {
       return this._settings;
     }
 
     private getBootstrapVersion():Array<number> {
+      // @ts-ignore
       let version_string = $.fn.button.Constructor.VERSION;
       let version_array = version_string.split('.');
 
@@ -210,7 +229,7 @@ module AutoCompleteNS {
             this._dd.hide();
 						break;
           default:
-            let newValue = this._$el.val();
+            let newValue = this._$el.val() as string;
             this.handlerTyped(newValue);
 				}
         
@@ -251,6 +270,7 @@ module AutoCompleteNS {
       });
 
       // selected event
+      // @ts-ignore - Ignoring TS type checking
       this._$el.on('autocomplete.select', (evt:JQueryEventObject, item:any) => {
         this._selectedItem = item;
         this.itemSelectedDefaultHandler(item);
@@ -369,6 +389,7 @@ module AutoCompleteNS {
 }
 
 (function($: JQueryStatic, window: any, document: any) {
+  // @ts-ignore
   $.fn[AutoCompleteNS.AutoComplete.NAME] = function(optionsOrAPI: any, optionalParams: any) {
     return this.each(function() {
       let pluginClass:AutoCompleteNS.AutoComplete;

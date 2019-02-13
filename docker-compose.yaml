@@ -3,8 +3,8 @@ services:
   tools:
     build: .
     ports:
-     - 9000:8000
-     - 35729:35729
+     - 9000:3000
+     - 3001:3001
     volumes:
      - ./src:/workspace/src
      - ./dist:/workspace/dist

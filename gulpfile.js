@@ -6,14 +6,15 @@ var gulp  = require('gulp'),
 	concat = require('gulp-concat'),	
 	uglify = require('gulp-uglify'),
 	plumber = require('gulp-plumber'),
-	sequence = require('gulp-sequence'),
 	size = require('gulp-size'),
 	rename = require('gulp-rename'),
 	webpack = require('webpack-stream'),
-	server = require('gulp-server-livereload');
+	browserSync = require('browser-sync');
+
+var reload = browserSync.reload;
 
 
-gulp.task(	'default',
+gulp.task('default',
 			function () {
 				log('\n'+
 					colors.green('GULP TASKS') + '\n\t' +
@@ -37,15 +38,22 @@ gulp.task(	'default',
 
 
 gulp.task('monitor', function () {
-	return sequence(['build-js', ], ['watch', 'dev-server'])();
+	gulp.series('build-js', function(done) {
+		done();
+		gulp.parallel('watch', 'dev-server', function(done) {
+			done();
+		})();
+	})();
 });
 
 gulp.task('release', function () {
-	return sequence('build-js', 'dist-min')();
+	gulp.series('build-js', 'dist-min', function(done) {
+		done();
+	})();
 });
 
 gulp.task('watch', function () {
-	gulp.watch('src/**/*', ['build-js']);
+	gulp.watch('src/**/*', gulp.series('build-js'));
 });
 
 gulp.task('build-js', function () {
@@ -81,12 +89,23 @@ gulp.task('dist-min', function () {
 });
 
 gulp.task('dev-server', function() {
-  gulp.src('dist/latest')
+	browserSync({
+		server: {
+			baseDir: 'dist/latest'
+		},
+		open: false,
+	});
+
+	gulp.watch(['*.html', '*.js', 'testdata/*'], {cwd: 'dist/latest'}, reload);
+
+	/*
+	gulp.src('dist/latest')
     .pipe(server({
 	  host: '0.0.0.0',
       livereload: {
 		enable: true,
 	  	clientConsole: false
 	  }
-    }));
+		}));
+	*/
 });
