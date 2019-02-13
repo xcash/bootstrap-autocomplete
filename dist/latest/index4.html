@@ -285,7 +285,15 @@
 				});
 				$('.eventsAutoComplete').on('change', function() {
 					console.log('eventsAutoComplete change');
-					eventsCodeContainer.append('fired change. value: ' + $(this).val() + '\n');
+					eventsCodeContainer.text(eventsCodeContainer.text() + 'fired change. value: ' + $(this).val() + '\n');
+				});
+				$('.eventsAutoComplete').on('autocomplete.select', function(evt, item) {
+					console.log('eventsAutoComplete autocomplete.select');
+					eventsCodeContainer.text(eventsCodeContainer.text() + 'fired autocomplete.select. item: ' + item + ' value: ' + $(this).val() + '\n');
+				});
+				$('.eventsAutoComplete').on('autocomplete.freevalue', function(evt, item) {
+					console.log('eventsAutoComplete autocomplete.freevalue');
+					eventsCodeContainer.text(eventsCodeContainer.text() + 'fired autocomplete.freevalue. item: ' + item + ' value: ' + $(this).val() + '\n');
 				});
 			});
 		</script>

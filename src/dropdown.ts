@@ -53,6 +53,7 @@ export class Dropdown {
 						this.hide();
 						this._$el.focus();
 						break;
+					
 				}
 				return false;
 			}
@@ -240,6 +241,7 @@ export class DropdownV4 {
 		return pos;
 	}
 	protected init():void {
+		// console.log('UIUIUIUIUIUIUII');
 		// Initialize dropdown
 		let pos = this.getElPos();
 
@@ -254,7 +256,7 @@ export class DropdownV4 {
 		// click event on items
 		this._dd.on('click', '.dropdown-item', (evt:JQueryEventObject) => {
 			// console.log('clicked', evt.currentTarget);
-			//console.log($(evt.currentTarget));
+			// console.log($(evt.currentTarget));
 			let item:any = $(evt.currentTarget).data('item');
 			this.itemSelectedLaunchEvent(item);
 		});
@@ -267,6 +269,7 @@ export class DropdownV4 {
 						this.hide();
 						this._$el.focus();
 						break;
+					
 				}
 				return false;
 			}

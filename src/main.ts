@@ -219,8 +219,15 @@ module AutoCompleteNS {
 					case 38: // up arrow
             this._dd.focusPreviousItem();
 						break;
-					case 13: // ENTER
-            this._dd.selectFocusItem();
+          case 13: // ENTER
+            if (this._dd.isItemFocused) {
+              this._dd.selectFocusItem();
+            } else {
+              if (this._$el.val() !== '') {
+                this._$el.trigger('autocomplete.freevalue', this._$el.val());
+                this._dd.hide();
+              }
+            }
             evt.stopPropagation();
             evt.preventDefault();
 						break;
