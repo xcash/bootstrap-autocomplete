@@ -53,7 +53,10 @@ gulp.task('release', function () {
 });
 
 gulp.task('watch', function () {
-	gulp.watch('src/**/*', gulp.series('build-js'));
+	gulp.watch('src/**/*', gulp.series('build-js', function (done) {
+		reload();
+		done();
+	}));
 });
 
 gulp.task('build-js', function () {

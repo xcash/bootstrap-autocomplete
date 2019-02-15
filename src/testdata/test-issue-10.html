@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<title>Bootstrap AutoComplete Test Issue 10</title>
+		
+		<!-- Required meta tags -->
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+	</head>
+	<body>
+		<div class="container">
+			<h1 class="border-bottom">Bootstrap Autocomplete test issue 10</h1>
+			<p>
+				Testing page for <a href="https://github.com/xcash/bootstrap-autocomplete/issues/10">issue #10</a>
+			</p>
+			<form action="//example.com" method="GET" target="_blank">
+				<input class="form-control basicAutoComplete" name="q" type="text" autocomplete="off">
+
+			</form>
+		</div>
+
+		<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+		<script src="../bootstrap-autocomplete.js"></script>
+		<script>
+			$(function () {
+				// Basic
+				$('.basicAutoComplete').autoComplete({
+					resolverSettings: {
+						url: 'test-list.json'
+					}
+				});
+
+				// Events
+				var eventsCodeContainer = $('#eventsCodeContainer');
+				
+				$('.eventsAutoComplete').autoComplete({
+					resolverSettings: {
+						url: 'testdata/test-list.json'
+					}
+				});
+				$('.eventsAutoComplete').on('change', function() {
+					console.log('eventsAutoComplete change');
+					eventsCodeContainer.text(eventsCodeContainer.text() + 'fired change. value: ' + $(this).val() + '\n');
+				});
+				$('.eventsAutoComplete').on('autocomplete.select', function(evt, item) {
+					console.log('eventsAutoComplete autocomplete.select');
+					eventsCodeContainer.text(eventsCodeContainer.text() + 'fired autocomplete.select. item: ' + item + ' value: ' + $(this).val() + '\n');
+				});
+				$('.eventsAutoComplete').on('autocomplete.freevalue', function(evt, item) {
+					console.log('eventsAutoComplete autocomplete.freevalue');
+					eventsCodeContainer.text(eventsCodeContainer.text() + 'fired autocomplete.freevalue. item: ' + item + ' value: ' + $(this).val() + '\n');
+				});
+			});
+		</script>
+	</body>
+</html>
