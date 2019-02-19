@@ -36,12 +36,12 @@ Using CDN (thanks to RawGit | GitCDN)
 .. code-block:: html
     :caption: STABLE version |release|
 
-    <script src="https://cdn.rawgit.com/xcash/bootstrap-autocomplete/v2.0.0/dist/latest/bootstrap-autocomplete.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/xcash/bootstrap-autocomplete@v2.1.0/dist/latest/bootstrap-autocomplete.min.js"></script>
 
 .. code-block:: html
     :caption: Latest version (this is the development branch)
 
-    <script src="https://gitcdn.link/repo/xcash/bootstrap-autocomplete/master/dist/latest/bootstrap-autocomplete.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/xcash/bootstrap-autocomplete@master/dist/latest/bootstrap-autocomplete.min.js"></script>
 
 That's it! Go on to enhance your text fields! :)
 

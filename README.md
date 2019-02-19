@@ -11,11 +11,11 @@ It enhances form `input` and `select` field to provide autocomplete/typeahead ca
 
 Latest version: 2.1.0 (2019/02/13)
 
-Version 2.0.0 supports Boostrap v4.x and old v3.x out of the box.
+Version 2.0.0 and up supports Boostrap v4.x and old v3.x out of the box.
 
 Try the DEMO!
 =============
 
-[Bootstrap 4 latest version](https://rawgit.com/xcash/bootstrap-autocomplete/master/dist/latest/index4.html)
+[Bootstrap 4 latest version](https://raw.githack.com/xcash/bootstrap-autocomplete/master/dist/latest/index4.html)
 
-[Bootstrap 3 latest version](https://rawgit.com/xcash/bootstrap-autocomplete/master/dist/latest/index.html)
+[Bootstrap 3 latest version](https://raw.githack.com/xcash/bootstrap-autocomplete/master/dist/latest/index.html)
