@@ -184,6 +184,7 @@ module AutoCompleteNS {
     
     private bindDefaultEventListeners():void {
       this._$el.on('keydown', (evt:JQueryEventObject) => {
+        // console.log('keydown', evt.which, evt);
 				switch (evt.which) {
 					case 40:
 						// arrow DOWN
@@ -198,6 +199,17 @@ module AutoCompleteNS {
             if (this._settings.autoSelect) {
               // if autoSelect enabled selects on blur the currently selected item
               this._dd.selectFocusItem();
+            }
+						break;
+          case 13: // ENTER (note: ENTER event is only sent on keydown, at least on Chrome)
+            if (this._dd.isItemFocused) {
+              this._dd.selectFocusItem();
+              this._dd.hide();
+            } else {
+              if (this._$el.val() !== '') {
+                this._$el.trigger('autocomplete.freevalue', this._$el.val());
+                this._dd.hide();
+              }
             }
 						break;
         }
@@ -219,18 +231,6 @@ module AutoCompleteNS {
 					case 38: // up arrow
             this._dd.focusPreviousItem();
 						break;
-          case 13: // ENTER
-            if (this._dd.isItemFocused) {
-              this._dd.selectFocusItem();
-            } else {
-              if (this._$el.val() !== '') {
-                this._$el.trigger('autocomplete.freevalue', this._$el.val());
-                this._dd.hide();
-              }
-            }
-            evt.stopPropagation();
-            evt.preventDefault();
-						break;
 					case 27:
 						// ESC
             this._dd.hide();
@@ -239,7 +239,6 @@ module AutoCompleteNS {
             let newValue = this._$el.val() as string;
             this.handlerTyped(newValue);
 				}
-        
       });
 
       this._$el.on('blur', (evt:JQueryEventObject) => {
