@@ -186,36 +186,27 @@ module AutoCompleteNS {
       this._$el.on('keydown', (evt:JQueryEventObject) => {
         // console.log('keydown', evt.which, evt);
 				switch (evt.which) {
-					case 40:
-						// arrow DOWN
-            evt.stopPropagation();
-            evt.preventDefault();
-						break;
-					case 38: // up arrow
-            evt.stopPropagation();
-            evt.preventDefault();
-						break;
 					case 9: // TAB
             if (this._settings.autoSelect) {
               // if autoSelect enabled selects on blur the currently selected item
               this._dd.selectFocusItem();
             }
 						break;
-          case 13: // ENTER (note: ENTER event is only sent on keydown, at least on Chrome)
+          case 13: // ENTER
             if (this._dd.isItemFocused) {
               this._dd.selectFocusItem();
-              this._dd.hide();
             } else {
               if (this._$el.val() !== '') {
                 this._$el.trigger('autocomplete.freevalue', this._$el.val());
-                this._dd.hide();
               }
             }
+            this._dd.hide();
 						break;
         }
       });
       
-      this._$el.on('focus keyup', (evt:JQueryEventObject) => {
+      this._$el.on('keyup', (evt:JQueryEventObject) => {
+        // console.log('keyup', evt.which, evt);
         // check key
 				switch (evt.which) {
           case 16: // shift
@@ -230,6 +221,10 @@ module AutoCompleteNS {
 						break;
 					case 38: // up arrow
             this._dd.focusPreviousItem();
+						break;
+					case 13:
+						// ENTER
+            this._dd.hide();
 						break;
 					case 27:
 						// ESC
