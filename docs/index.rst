@@ -31,7 +31,7 @@ Bootstrap Autocomplete works as a plugin. Add it to your page
 
     <script src="bootstrap-autocomplete.min.js"></script>
 
-Using CDN (thanks to RawGit | GitCDN)
+Using CDN (thanks to JSDelivr)
 
 .. code-block:: html
     :caption: STABLE version |release|
