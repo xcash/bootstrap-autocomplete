@@ -286,7 +286,7 @@ This is useful to bypass the customization of the entire search AJAX call.
 Demo and Examples
 -----------------
 
-You can view Demo and Examples `here <https://gitcdn.link/repo/xcash/bootstrap-autocomplete/master/dist/latest/index.html>`_.
+You can view Demo and Examples `here <https://raw.githack.com/xcash/bootstrap-autocomplete/master/dist/latest/index4.html>`_.
 
 
 Translating messages
