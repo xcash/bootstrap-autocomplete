@@ -181,7 +181,7 @@ export class Dropdown {
 				
 				let li = $('<li >');
 				li.append(
-					$('<a>').attr('href', '#').html(itemHtml)
+					$('<a>').attr('href', '#!').html(itemHtml)
 				)
 				.data('item', item);
 				
@@ -191,7 +191,7 @@ export class Dropdown {
 			// No results
 			let li = $('<li >');
 			li.append(
-				$('<a>').attr('href', '#').html(this.noResultsText)
+				$('<a>').attr('href', '#!').html(this.noResultsText)
 			)
 			.addClass('disabled');
 
@@ -398,7 +398,7 @@ export class DropdownV4 {
 				}
 				
 				let li = $('<a >');
-				li.attr('href', '#')
+				li.attr('href', '#!')
 					.addClass('dropdown-item')
 					.html(itemHtml)
 					.data('item', item);
@@ -408,7 +408,7 @@ export class DropdownV4 {
 		} else {
 			// No results
 			let li = $('<a >');
-			li.attr('href', '#')
+			li.attr('href', '#!')
 				.addClass('dropdown-item disabled')
 				.html(this.noResultsText);
 			
