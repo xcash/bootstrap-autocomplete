@@ -178,12 +178,18 @@ export class Dropdown {
 				} else {
 					itemHtml = itemText;
 				}
+
+				let disabledItem = itemFormatted.disabled;
 				
 				let li = $('<li >');
 				li.append(
 					$('<a>').attr('href', '#!').html(itemHtml)
 				)
 				.data('item', item);
+
+				if (disabledItem) {
+					li.addClass('disabled');
+				}
 				
 				liList.push(li);
 			});
@@ -396,6 +402,8 @@ export class DropdownV4 {
 				} else {
 					itemHtml = itemText;
 				}
+
+				let disabledItem = itemFormatted.disabled;
 				
 				let li = $('<a >');
 				li.attr('href', '#!')
@@ -403,6 +411,9 @@ export class DropdownV4 {
 					.html(itemHtml)
 					.data('item', item);
 				
+				if (disabledItem) {
+					li.addClass('disabled');
+				}
 				liList.push(li);
 			});
 		} else {
