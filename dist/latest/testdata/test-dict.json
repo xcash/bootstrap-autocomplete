@@ -1,7 +1,7 @@
 {
 	"results": [
 		{	
-			"id": 1, "text": "Google Cloud Platform",
+			"id": 1, "text": "Google Cloud Platform very long string to test modal overflow scrollbar",
 			"icon": "https://pbs.twimg.com/profile_images/966440541859688448/PoHJY3K8_400x400.jpg"
 		},
 		{ 
