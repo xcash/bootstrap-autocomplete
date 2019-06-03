@@ -43,6 +43,8 @@ export class Dropdown {
 			//console.log($(evt.currentTarget));
 			let item:any = $(evt.currentTarget).data('item');
 			this.itemSelectedLaunchEvent(item);
+			
+			return false; //prevent browser from redirecting to #
 		});
 		
 		this._dd.on('keyup', (evt:JQueryEventObject) => {
