@@ -18,42 +18,42 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  * ============================================================ */
-import { AjaxResolver, BaseResolver } from './resolvers';
 import { Dropdown, DropdownV4 } from './dropdown';
+import { AjaxResolver, BaseResolver } from './resolvers';
 
 module AutoCompleteNS {
   export interface AutoCompleteSettings {
-    resolver:string,
-    resolverSettings:any,
-    minLength:number,
-    valueKey:string,
-    formatResult:Function,
-    autoSelect:boolean,
-    noResultsText:string,
+    resolver: string,
+    resolverSettings: any,
+    minLength: number,
+    valueKey: string,
+    formatResult: Function,
+    autoSelect: boolean,
+    noResultsText: string,
     events: {
-      typed:Function,
-      searchPre:Function,
-      search:Function,
-      searchPost:Function,
-      select:Function,
-      focus:Function,
+      typed: Function,
+      searchPre: Function,
+      search: Function,
+      searchPost: Function,
+      select: Function,
+      focus: Function,
     }
   }
 
   export class AutoComplete {
-    public static NAME:string = 'autoComplete';
+    public static NAME: string = 'autoComplete';
 
-    private _el:Element;
-    private _$el:JQuery;
-    private _dd:Dropdown|DropdownV4;
-    private _searchText:string;
-    private _selectedItem:any = null;
-    private _defaultValue:any = null;
-    private _defaultText:string = null;
-    private _isSelectElement:boolean = false;
-    private _selectHiddenField:JQuery;
+    private _el: Element;
+    private _$el: JQuery;
+    private _dd: Dropdown | DropdownV4;
+    private _searchText: string;
+    private _selectedItem: any = null;
+    private _defaultValue: any = null;
+    private _defaultText: string = null;
+    private _isSelectElement: boolean = false;
+    private _selectHiddenField: JQuery;
 
-    private _settings:AutoCompleteSettings = {
+    private _settings: AutoCompleteSettings = {
       resolver: 'ajax',
       resolverSettings: {},
       minLength: 3,
@@ -70,10 +70,10 @@ module AutoCompleteNS {
         focus: null,
       }
     }
-    
-    private resolver:BaseResolver;
 
-    constructor(element:HTMLElement, options?:{}) {
+    private resolver: BaseResolver;
+
+    constructor(element: HTMLElement, options?: {}) {
       this._el = element;
       this._$el = $(this._el) as jQuery<HTMLElement>;
 
@@ -89,10 +89,10 @@ module AutoCompleteNS {
       }
       if (this._isSelectElement) {
         this.convertSelectToText();
-      } 
-      
+      }
+
       // console.log('initializing', this._settings);
-      
+
       this.init();
     }
 
@@ -113,11 +113,11 @@ module AutoCompleteNS {
       }
     }
 
-    private getSettings():AutoCompleteSettings {
+    private getSettings(): AutoCompleteSettings {
       return this._settings;
     }
 
-    private getBootstrapVersion():Array<number> {
+    private getBootstrapVersion(): Array<number> {
       // @ts-ignore
       let version_string = $.fn.button.Constructor.VERSION;
       let version_array = version_string.split('.');
@@ -128,18 +128,18 @@ module AutoCompleteNS {
     private convertSelectToText() {
       // create hidden field
 
-      let hidField:JQuery = $('<input>');
+      let hidField: JQuery = $('<input>');
       hidField.attr('type', 'hidden');
       hidField.attr('name', this._$el.attr('name'));
       if (this._defaultValue) {
         hidField.val(this._defaultValue);
       }
       this._selectHiddenField = hidField;
-      
+
       hidField.insertAfter(this._$el);
 
       // create search input element
-      let searchField:JQuery = $('<input>');
+      let searchField: JQuery = $('<input>');
       // copy all attributes
       searchField.attr('type', 'text');
       searchField.attr('name', this._$el.attr('name') + '_text');
@@ -151,7 +151,7 @@ module AutoCompleteNS {
       if (this._defaultText) {
         searchField.val(this._defaultText);
       }
-      
+
       // attach class
       searchField.data(AutoCompleteNS.AutoComplete.NAME, this);
 
@@ -161,7 +161,7 @@ module AutoCompleteNS {
       this._el = searchField.get(0);
     }
 
-    private init():void {
+    private init(): void {
       // bind default events
       this.bindDefaultEventListeners();
       // RESOLVER
@@ -172,26 +172,26 @@ module AutoCompleteNS {
       // Dropdown
       if (this.getBootstrapVersion()[0] == 4) {
         // v4
-        this._dd = new DropdownV4(this._$el, this._settings.formatResult, 
+        this._dd = new DropdownV4(this._$el, this._settings.formatResult,
           this._settings.autoSelect, this._settings.noResultsText
-          );
+        );
       } else {
-        this._dd = new Dropdown(this._$el, this._settings.formatResult, 
+        this._dd = new Dropdown(this._$el, this._settings.formatResult,
           this._settings.autoSelect, this._settings.noResultsText
-          );
+        );
       }
     }
-    
-    private bindDefaultEventListeners():void {
-      this._$el.on('keydown', (evt:JQueryEventObject) => {
+
+    private bindDefaultEventListeners(): void {
+      this._$el.on('keydown', (evt: JQueryEventObject) => {
         // console.log('keydown', evt.which, evt);
-				switch (evt.which) {
-					case 9: // TAB
+        switch (evt.which) {
+          case 9: // TAB
             if (this._settings.autoSelect) {
               // if autoSelect enabled selects on blur the currently selected item
               this._dd.selectFocusItem();
             }
-						break;
+            break;
           case 13: // ENTER
             if (this._dd.isItemFocused) {
               this._dd.selectFocusItem();
@@ -201,54 +201,54 @@ module AutoCompleteNS {
               }
             }
             this._dd.hide();
-						break;
+            break;
         }
       });
-      
-      this._$el.on('keyup', (evt:JQueryEventObject) => {
+
+      this._$el.on('keyup', (evt: JQueryEventObject) => {
         // console.log('keyup', evt.which, evt);
         // check key
-				switch (evt.which) {
+        switch (evt.which) {
           case 16: // shift
           case 17: // ctrl
           case 18: // alt
           case 39: // right
           case 37: // left 
-						break;
-					case 40:
-						// arrow DOWN
+            break;
+          case 40:
+            // arrow DOWN
             this._dd.focusNextItem();
-						break;
-					case 38: // up arrow
+            break;
+          case 38: // up arrow
             this._dd.focusPreviousItem();
-						break;
-					case 13:
-						// ENTER
+            break;
+          case 13:
+            // ENTER
             this._dd.hide();
-						break;
-					case 27:
-						// ESC
+            break;
+          case 27:
+            // ESC
             this._dd.hide();
-						break;
+            break;
           default:
             let newValue = this._$el.val() as string;
             this.handlerTyped(newValue);
-				}
+        }
       });
 
-      this._$el.on('blur', (evt:JQueryEventObject) => {
+      this._$el.on('blur', (evt: JQueryEventObject) => {
         // console.log(evt);
-	if(!this._dd.isMouseOver && this._dd.isDdMouseOver && this._dd.isShown()) {
-	  this._$el.focus();
+        if (!this._dd.isMouseOver && this._dd.isDdMouseOver && this._dd.isShown()) {
+          this._$el.focus();
         } else if (!this._dd.isMouseOver) {
           if (this._isSelectElement) {
             // if it's a select element you must
             if (this._dd.isItemFocused) {
               this._dd.selectFocusItem();
-            } else if ( (this._selectedItem !== null) && (this._$el.val() !== '') ) {
+            } else if ((this._selectedItem !== null) && (this._$el.val() !== '')) {
               // reselect it
               this._$el.trigger('autocomplete.select', this._selectedItem);
-            } else if ( (this._$el.val() !== '') && (this._defaultValue !== null) ) {
+            } else if ((this._$el.val() !== '') && (this._defaultValue !== null)) {
               // select Default
               this._$el.val(this._defaultText);
               this._selectHiddenField.val(this._defaultValue);
@@ -262,7 +262,7 @@ module AutoCompleteNS {
           } else {
             // It's a text element, we accept custom value.
             // Developers may subscribe to `autocomplete.freevalue` to get notified of this
-            if ( (this._selectedItem === null) && (this._$el.val() !== '') ) {
+            if ((this._selectedItem === null) && (this._$el.val() !== '')) {
               this._$el.trigger('autocomplete.freevalue', this._$el.val());
             }
           }
@@ -273,14 +273,14 @@ module AutoCompleteNS {
 
       // selected event
       // @ts-ignore - Ignoring TS type checking
-      this._$el.on('autocomplete.select', (evt:JQueryEventObject, item:any) => {
+      this._$el.on('autocomplete.select', (evt: JQueryEventObject, item: any) => {
         this._selectedItem = item;
         this.itemSelectedDefaultHandler(item);
       });
 
     }
-    
-    private handlerTyped(newValue:string):void {
+
+    private handlerTyped(newValue: string): void {
       // field value changed
 
       // custom handler may change newValue
@@ -299,12 +299,12 @@ module AutoCompleteNS {
       }
     }
 
-    private handlerPreSearch():void {
+    private handlerPreSearch(): void {
       // do nothing, start search
-      
+
       // custom handler may change newValue
       if (this._settings.events.searchPre !== null) {
-        let newValue:string = this._settings.events.searchPre(this._searchText);
+        let newValue: string = this._settings.events.searchPre(this._searchText);
         if (!newValue)
           return;
         this._searchText = newValue;
@@ -313,50 +313,50 @@ module AutoCompleteNS {
       this.handlerDoSearch();
     }
 
-    private handlerDoSearch():void {
+    private handlerDoSearch(): void {
       // custom handler may change newValue
       if (this._settings.events.search !== null) {
-        this._settings.events.search(this._searchText, (results:any) => {
+        this._settings.events.search(this._searchText, (results: any) => {
           this.postSearchCallback(results);
         });
       } else {
         // Default behaviour
         // search using current resolver
         if (this.resolver) {
-          this.resolver.search(this._searchText, (results:any) => {
+          this.resolver.search(this._searchText, (results: any) => {
             this.postSearchCallback(results);
           });
         }
       }
     }
 
-    private postSearchCallback(results:any):void {
+    private postSearchCallback(results: any): void {
       // console.log('callback called', results);
-      
+
       // custom handler may change newValue
       if (this._settings.events.searchPost) {
         results = this._settings.events.searchPost(results);
-        if ( (typeof results === 'boolean') && !results)
+        if ((typeof results === 'boolean') && !results)
           return;
       }
 
       this.handlerStartShow(results);
     }
 
-    private handlerStartShow(results:any):void {
+    private handlerStartShow(results: any): void {
       // console.log("defaultEventStartShow", results);
       // for every result, draw it
       this._dd.updateItems(results, this._searchText);
       this._dd.show();
     }
 
-    protected itemSelectedDefaultHandler(item:any):void {
+    protected itemSelectedDefaultHandler(item: any): void {
       // console.log('itemSelectedDefaultHandler', item);
       // default behaviour is set elment's .val()
-      let itemFormatted:any = this._settings.formatResult(item);
-			if (typeof itemFormatted === 'string') {
-				itemFormatted = { text: itemFormatted }
-			}
+      let itemFormatted: any = this._settings.formatResult(item);
+      if (typeof itemFormatted === 'string') {
+        itemFormatted = { text: itemFormatted }
+      }
       this._$el.val(itemFormatted.text);
       // if the element is a select
       if (this._isSelectElement) {
@@ -368,10 +368,10 @@ module AutoCompleteNS {
       this._dd.hide();
     }
 
-    private defaultFormatResult(item:any):{} {
+    private defaultFormatResult(item: any): {} {
       if (typeof item === 'string') {
         return { text: item };
-      } else if ( item.text ) {
+      } else if (item.text) {
         return item;
       } else {
         // return a toString of the item as last resort
@@ -380,7 +380,7 @@ module AutoCompleteNS {
       }
     }
 
-    public manageAPI(APICmd:any, params:any) {
+    public manageAPI(APICmd: any, params: any) {
       // manages public API
       if (APICmd === 'set') {
         this.itemSelectedDefaultHandler(params);
@@ -390,16 +390,16 @@ module AutoCompleteNS {
   }
 }
 
-(function($: JQueryStatic, window: any, document: any) {
+(function ($: JQueryStatic, window: any, document: any) {
   // @ts-ignore
-  $.fn[AutoCompleteNS.AutoComplete.NAME] = function(optionsOrAPI: any, optionalParams: any) {
-    return this.each(function() {
-      let pluginClass:AutoCompleteNS.AutoComplete;
+  $.fn[AutoCompleteNS.AutoComplete.NAME] = function (optionsOrAPI: any, optionalParams: any) {
+    return this.each(function () {
+      let pluginClass: AutoCompleteNS.AutoComplete;
 
       pluginClass = $(this).data(AutoCompleteNS.AutoComplete.NAME);
 
       if (!pluginClass) {
-        pluginClass = new AutoCompleteNS.AutoComplete(this, optionsOrAPI); 
+        pluginClass = new AutoCompleteNS.AutoComplete(this, optionsOrAPI);
         $(this).data(AutoCompleteNS.AutoComplete.NAME, pluginClass);
       }
 

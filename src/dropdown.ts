@@ -11,7 +11,7 @@ export class Dropdown {
 	protected searchText:string;
 	protected autoSelect:boolean;
 	protected mouseover:boolean;
-	protected ddMouseover:boolean;
+	protected ddMouseover:boolean = false;
 	protected noResultsText:string;
 
 	constructor(e:JQuery, formatItemCbk:Function, autoSelect:boolean, noResultsText:string) {
@@ -60,7 +60,18 @@ export class Dropdown {
 			}
 		});
 
+		this._dd.on('mouseenter', (evt:JQueryEventObject) => { 
+			console.warn('mouseenter');
+		    this.ddMouseover = true;
+		});
+
+		this._dd.on('mouseleave', (evt:JQueryEventObject) => { 
+			console.warn('mouseleave');
+		    this.ddMouseover = false;
+		});
+
 		this._dd.on('mouseenter', 'li', (evt:JQueryEventObject) => {
+			console.warn('mouseenter li');
 			if (this.haveResults) {
 				$(evt.currentTarget).closest('ul').find('li.active').removeClass('active');
 				$(evt.currentTarget).addClass('active');
@@ -69,6 +80,7 @@ export class Dropdown {
 		});
 
 		this._dd.on('mouseleave', 'li', (evt:JQueryEventObject) => {
+			console.warn('mouseleave li');
 			this.mouseover = false;
 		});
 
@@ -233,7 +245,7 @@ export class DropdownV4 {
 	protected searchText:string;
 	protected autoSelect:boolean;
 	protected mouseover:boolean;
-	protected ddMouseover:boolean;
+	protected ddMouseover:boolean = false;
 	protected noResultsText:string;
 
 	constructor(e:JQuery, formatItemCbk:Function, autoSelect:boolean, noResultsText:string) {
@@ -288,14 +300,17 @@ export class DropdownV4 {
 		});
 		
 		this._dd.on('mouseenter', (evt:JQueryEventObject) => { 
+			console.warn('mouseenter');
 		    this.ddMouseover = true;
 		});
 
 		this._dd.on('mouseleave', (evt:JQueryEventObject) => { 
+			console.warn('mouseleave');
 		    this.ddMouseover = false;
 		});
 
 		this._dd.on('mouseenter', '.dropdown-item', (evt:JQueryEventObject) => {
+			console.warn('mouseenter dropdown item');
 			if (this.haveResults) {
 				$(evt.currentTarget).closest('div').find('.dropdown-item.active').removeClass('active');
 				$(evt.currentTarget).addClass('active');
@@ -304,6 +319,7 @@ export class DropdownV4 {
 		});
 
 		this._dd.on('mouseleave', '.dropdown-item', (evt:JQueryEventObject) => {
+			console.warn('mouseleave dropdown item');
 			this.mouseover = false;
 		});
 
