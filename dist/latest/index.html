@@ -154,7 +154,7 @@
 		<script src="bootstrap-autocomplete.js"></script>
 		<script>
 			$(function () {
-				$.fn.modal.Constructor.prototype._enforceFocus = () => { console.warn("no focus"); };
+				$.fn.modal.Constructor.prototype._enforceFocus = function() { console.warn("no focus"); };
 				// Basic
 				$('.basicAutoComplete').autoComplete({
 					resolverSettings: {
