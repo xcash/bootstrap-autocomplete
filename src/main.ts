@@ -239,6 +239,9 @@ module AutoCompleteNS {
       this._$el.on('blur', (evt: JQueryEventObject) => {
         // console.log(evt);
         if (!this._dd.isMouseOver && this._dd.isDdMouseOver && this._dd.isShown()) {
+            // Firefox Workaround
+            setTimeout(() => { this._$el.focus(); });
+            // Other browsers
             this._$el.focus();
         } else if (!this._dd.isMouseOver) {
           if (this._isSelectElement) {
