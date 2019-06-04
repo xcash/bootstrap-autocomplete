@@ -1,6 +1,6 @@
 [
-	{ "value": 1, "text": "Google Cloud Platform this is a very long string to test modal overflow scrollbar" },
+	{ "value": 1, "text": "Google Cloud Platform" },
 	{ "value": 2, "text": "Amazon AWS" },
 	{ "value": 3, "text": "Docker" },
 	{ "value": 4, "text": "Digital Ocean" }
-] 
+]

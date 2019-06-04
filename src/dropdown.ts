@@ -287,11 +287,11 @@ export class DropdownV4 {
 			}
 		});
 		
-		this._dd.on('mouseenter', function (evt) { 
+		this._dd.on('mouseenter', (evt:JQueryEventObject) => { 
 		    this.ddMouseover = true;
 		});
 
-		this._dd.on('mouseleave', function (evt) { 
+		this._dd.on('mouseleave', (evt:JQueryEventObject) => { 
 		    this.ddMouseover = false;
 		});
 
@@ -321,6 +321,10 @@ export class DropdownV4 {
 
 	get isMouseOver():boolean {
 		return this.mouseover;
+	}
+
+	get isDdMouseOver():boolean {
+		return this.ddMouseover;
 	}
 
 	get haveResults():boolean {
