@@ -27,7 +27,7 @@
 					<legend class="border-bottom">AJAX</legend>
 					<div class="form-row mb-3">
 						<label class="col-lg-3">
-							Basic (<a href="testdata/test-list.json">list of strings</a>)
+							Basic (<a href="test-list.json">list of strings</a>)
 						</label>
 						<div class="col-lg-9">
 							<input class="form-control basicAutoComplete" type="text" autocomplete="off">
@@ -37,7 +37,7 @@
 					</div>
 					<div class="form-row mb-3">
 						<label class="col-lg-3">
-							Advanced (<a href="testdata/test-dict.json">complex object</a>)
+							Advanced (<a href="test-dict.json">complex object</a>)
 						</label>
 						<div class="col-lg-9">
 							<input class="form-control advancedAutoComplete" type="text" autocomplete="off" placeholder="type to search...">
@@ -45,7 +45,7 @@
 					</div>
 					<div class="form-row mb-3">
 						<label class="col-lg-3">
-							Advanced (<a href="testdata/test-dict.json">complex object</a> - custom formatting)
+							Advanced (<a href="test-dict.json">complex object</a> - custom formatting)
 						</label>
 						<div class="col-lg-9">
 							<input class="form-control advanced2AutoComplete" type="text" autocomplete="off">
@@ -71,33 +71,33 @@
 					</div>
 					<div class="form-row mb-3">
 						<label class="col-lg-3">
-							Simple (<a href="testdata/test-select-simple.json">list of { value, strings }</a>)
+							Simple (<a href="test-select-simple.json">list of { value, strings }</a>)
 						</label>
 						<div class="col-lg-9">
 							<select class="form-control basicAutoSelect" name="simple_select" 
 								placeholder="type to search..." 
-								data-url="testdata/test-select-simple.json" autocomplete="off"></select>
+								data-url="test-select-simple.json" autocomplete="off"></select>
 							<code class="basicAutoSelectSelected"></code>
 						</div>
 					</div>
 					<div class="form-row mb-3">
 						<label class="col-lg-3">
-							Default Selected (<a href="testdata/test-select-simple.json">list of { value, strings }</a>)
+							Default Selected (<a href="test-select-simple.json">list of { value, strings }</a>)
 						</label>
 						<div class="col-lg-9">
 							<select class="form-control defaultAutoSelect" id="dAS" name="default_select" 
-								data-url="testdata/test-select-simple.json"
+								data-url="test-select-simple.json"
 								data-default-value="3" data-default-text="Docker"
 								autocomplete="off"></select>
 						</div>
 					</div>
 					<div class="form-row mb-3">
 						<label class="col-lg-3">
-							No results (<a href="testdata/test-empty.json">empty list</a>)
+							No results (<a href="test-empty.json">empty list</a>)
 						</label>
 						<div class="col-lg-9">
 							<select class="form-control emptyAutoSelect" name="empty_select" 
-								data-url="testdata/test-empty.json"
+								data-url="test-empty.json"
 								data-noresults-text="Nothing to see here."
 								autocomplete="off"></select>
 						</div>
@@ -124,7 +124,7 @@
 						</label>
 						<div class="col-lg-9">
 							<select class="form-control changeAutoSelect" name="change_select" 
-								data-url="testdata/test-select-simple.json"
+								data-url="test-select-simple.json"
 								data-noresults-text="Nothing to see here."
 								data-default-value="x123" data-default-text="Default text before change"
 								autocomplete="off"></select>
@@ -166,7 +166,7 @@
 			<div class="modal-body">
 				<select class="form-control basicModalAutoSelect" name="simple_select" 
 					placeholder="type to search..." 
-					data-url="testdata/test-select-simple.json" autocomplete="off"></select>
+					data-url="test-select-simple.json" autocomplete="off"></select>
 				<code class="basicModalAutoSelectSelected"></code>
 			</div>
 			<div class="modal-footer">
@@ -185,7 +185,7 @@
 				// Basic
 				$('.basicAutoComplete').autoComplete({
 					resolverSettings: {
-						url: 'testdata/test-list.json'
+						url: 'test-list.json'
 					}
 				});
 
@@ -210,7 +210,7 @@
 						search: function (qry, callback) {
 							// let's do a custom ajax call
 							$.ajax(
-								'testdata/test-dict.json',
+								'test-dict.json',
 								{
 									data: { 'qry': qry}
 								}
@@ -238,7 +238,7 @@
 						search: function (qry, callback) {
 							// let's do a custom ajax call
 							$.ajax(
-								'testdata/test-dict.json',
+								'test-dict.json',
 								{
 									data: { 'qry': qry}
 								}
@@ -287,7 +287,7 @@
 				
 				$('.eventsAutoComplete').autoComplete({
 					resolverSettings: {
-						url: 'testdata/test-list.json'
+						url: 'test-list.json'
 					}
 				});
 				$('.eventsAutoComplete').on('change', function() {
