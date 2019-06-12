@@ -1,0 +1,308 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<title>Bootstrap AutoComplete Demo Bootstrap 4</title>
+		
+		<!-- Required meta tags -->
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+		<style type="text/css">
+			.dropdown-menu {
+				overflow: scroll;
+				max-width: 400px;
+				max-height: 120px;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="container">
+			<h1 class="border-bottom">Bootstrap Autocomplete (for Bootstrap version 4)</h1>
+			<p>
+				This page acts like a Demo page and a Testing page. Here we are testing issue #20, solving a bug in which a scrollable dropdown inside a modal was closed when clicking on the scrollbar.
+			</p>
+			<form>
+				<fieldset>
+					<legend class="border-bottom">AJAX</legend>
+					<div class="form-row mb-3">
+						<label class="col-lg-3">
+							Basic (<a href="test-list.json">list of strings</a>)
+						</label>
+						<div class="col-lg-9">
+							<input class="form-control basicAutoComplete" type="text" autocomplete="off">
+							Selected item: <code class="basicAutoCompleteSelected"></code><br>
+							Custom value: <code class="basicAutoCompleteCustom"></code>
+						</div>
+					</div>
+					<div class="form-row mb-3">
+						<label class="col-lg-3">
+							Advanced (<a href="test-dict.json">complex object</a>)
+						</label>
+						<div class="col-lg-9">
+							<input class="form-control advancedAutoComplete" type="text" autocomplete="off" placeholder="type to search...">
+						</div>
+					</div>
+					<div class="form-row mb-3">
+						<label class="col-lg-3">
+							Advanced (<a href="test-dict.json">complex object</a> - custom formatting)
+						</label>
+						<div class="col-lg-9">
+							<input class="form-control advanced2AutoComplete" type="text" autocomplete="off">
+						</div>
+					</div>
+				</fieldset>
+				<fieldset>
+					<legend class="border-bottom">
+						<code>&lt;select&gt;</code> as Autocomplete
+					</legend>
+					<div class="row">
+						<div class="col-lg-9 offset-lg-3">
+							<p>
+								Selects are a subtype of autocomplete where the selected value is restricted to
+								server-provided results. User <b>must</b> select one of those.
+							</p>
+							<p>
+								Bootstrap-Autocomplete provides a smarter select rendered as a standard
+								autocomplete <b>text</b> field. It substitutes the field with an 
+								<code>&lt;input type="text"&gt;</code and creates a <i>shadow</i> hidden field with
+								the selected value (and the original name).
+						</div>
+					</div>
+					<div class="form-row mb-3">
+						<label class="col-lg-3">
+							Simple (<a href="test-select-simple.json">list of { value, strings }</a>)
+						</label>
+						<div class="col-lg-9">
+							<select class="form-control basicAutoSelect" name="simple_select" 
+								placeholder="type to search..." 
+								data-url="test-select-simple.json" autocomplete="off"></select>
+							<code class="basicAutoSelectSelected"></code>
+						</div>
+					</div>
+					<div class="form-row mb-3">
+						<label class="col-lg-3">
+							Default Selected (<a href="test-select-simple.json">list of { value, strings }</a>)
+						</label>
+						<div class="col-lg-9">
+							<select class="form-control defaultAutoSelect" id="dAS" name="default_select" 
+								data-url="test-select-simple.json"
+								data-default-value="3" data-default-text="Docker"
+								autocomplete="off"></select>
+						</div>
+					</div>
+					<div class="form-row mb-3">
+						<label class="col-lg-3">
+							No results (<a href="test-empty.json">empty list</a>)
+						</label>
+						<div class="col-lg-9">
+							<select class="form-control emptyAutoSelect" name="empty_select" 
+								data-url="test-empty.json"
+								data-noresults-text="Nothing to see here."
+								autocomplete="off"></select>
+						</div>
+					</div>
+				</fieldset>
+				<fieldset>
+					<legend class="border-bottom">
+						In Bootstrap modal
+					</legend>
+					<div class="row">
+						<div class="col-lg-9 offset-lg-3">
+							<button type="button" class="btn btn-primary" autocomplete="off"
+								data-toggle="modal" data-target="#testModal">
+								Open Test Modal
+							</button>
+						</div>
+					</div>
+				</fieldset>
+				<fieldset>
+					<legend>Javascript API</legend>
+					<div class="form-row mb-3">
+						<label class="col-lg-3">
+							Change selected value programmatically
+						</label>
+						<div class="col-lg-9">
+							<select class="form-control changeAutoSelect" name="change_select" 
+								data-url="test-select-simple.json"
+								data-noresults-text="Nothing to see here."
+								data-default-value="x123" data-default-text="Default text before change"
+								autocomplete="off"></select>
+							<br>
+							<button type="button" class="btn btn-outline-secondary btnChangeAutoSelect" autocomplete="off"
+								data-value="1" data-text="Selected Value 1">
+								Set a different selected value
+							</button>
+							<button type="button" class="btn btn-outline-secondary btnChangeAutoSelect" autocomplete="off"
+								data-value="2" data-text="Selected Value 2">
+								Set a different selected value 2
+							</button>
+						</div>
+					</div>
+				</fieldset>
+				<fieldset>
+					<legend>Events</legend>
+					<div class="form-row mb-3">
+						<label class="col-lg-3">
+							Events in text field
+						</label>
+						<div class="col-lg-9">
+							<input class="form-control eventsAutoComplete" type="text" autocomplete="off">
+							<br>
+							<code><pre id="eventsCodeContainer"></pre></code>
+						</div>
+					</div>
+				</fieldset>
+			</form>
+		</div>
+		
+		<div class="modal fade" id="testModal" tabindex="-1" role="dialog">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title">Modal title</h4>
+			</div>
+			<div class="modal-body">
+				<select class="form-control basicModalAutoSelect" name="simple_select" 
+					placeholder="type to search..." 
+					data-url="test-select-simple.json" autocomplete="off"></select>
+				<code class="basicModalAutoSelectSelected"></code>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			</div>
+			</div><!-- /.modal-content -->
+		</div><!-- /.modal-dialog -->
+		</div><!-- /.modal -->
+
+		<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+		<script src="../bootstrap-autocomplete.js"></script>
+		<script>
+			$(function () {
+				// Basic
+				$('.basicAutoComplete').autoComplete({
+					resolverSettings: {
+						url: 'test-list.json'
+					}
+				});
+
+				$('.basicAutoComplete').on('change', function (e) {
+					console.log('change');
+				});
+
+				$('.basicAutoComplete').on('autocomplete.select', function (evt, item) {
+					$('.basicAutoCompleteSelected').html(JSON.stringify(item));
+					$('.basicAutoCompleteCustom').html('');
+				});
+
+				$('.basicAutoComplete').on('autocomplete.freevalue', function (evt, value) {
+					$('.basicAutoCompleteCustom').html(JSON.stringify(value));
+					$('.basicAutoCompleteSelected').html('');
+				});
+
+				// Advanced 1
+				$('.advancedAutoComplete').autoComplete({
+					resolver: 'custom',
+					events: {
+						search: function (qry, callback) {
+							// let's do a custom ajax call
+							$.ajax(
+								'test-dict.json',
+								{
+									data: { 'qry': qry}
+								}
+							).done(function (res) {
+								callback(res.results)
+							});
+						}
+					}
+				});
+
+				// Advanced 2
+				$('.advanced2AutoComplete').autoComplete({
+					resolver: 'custom',
+					formatResult: function (item) {
+						return {
+							value: item.id,
+							text: "[" + item.id + "] " + item.text,
+							html: [ 
+									$('<img>').attr('src', item.icon).css("height", 18), ' ',
+									item.text 
+								] 
+						};
+					},
+					events: {
+						search: function (qry, callback) {
+							// let's do a custom ajax call
+							$.ajax(
+								'test-dict.json',
+								{
+									data: { 'qry': qry}
+								}
+							).done(function (res) {
+								callback(res.results)
+							});
+						}
+					}
+				});
+
+				// Basic Select
+				$('.basicAutoSelect').autoComplete();
+				$('.basicAutoSelect').on('autocomplete.select', function (evt, item) {
+					console.log('select');
+					$('.basicAutoSelectSelected').html(JSON.stringify(item));
+				});
+				
+				// Default Select
+				$('.defaultAutoSelect').autoComplete();
+				$('#dAS').on('autocomplete.select', function (e, i) {
+					console.log('selected');
+				});
+
+				// Empty Select
+				$('.emptyAutoSelect').autoComplete();
+				
+				// Modal
+				$('.basicModalAutoSelect').autoComplete();
+				$('.basicModalAutoSelect').on('autocomplete.select', function (evt, item) {
+					console.log('select');
+					$('.basicModalAutoSelectSelected').html(JSON.stringify(item));
+				});
+
+				// Change default value programmatically.
+				// Let's simulate a real world example.
+				// Some point in time we initialize the autocomplete with a default value (defined by markup)
+				$('.changeAutoSelect').autoComplete();
+				// user then clicks on some button and we need to change that default value
+				$('.btnChangeAutoSelect').on('click', function () {
+					var e = $(this);
+					$('.changeAutoSelect').autoComplete('set', { value: e.data('value'), text: e.data('text')});
+				});
+
+				// Events
+				var eventsCodeContainer = $('#eventsCodeContainer');
+				
+				$('.eventsAutoComplete').autoComplete({
+					resolverSettings: {
+						url: 'test-list.json'
+					}
+				});
+				$('.eventsAutoComplete').on('change', function() {
+					console.log('eventsAutoComplete change');
+					eventsCodeContainer.text(eventsCodeContainer.text() + 'fired change. value: ' + $(this).val() + '\n');
+				});
+				$('.eventsAutoComplete').on('autocomplete.select', function(evt, item) {
+					console.log('eventsAutoComplete autocomplete.select');
+					eventsCodeContainer.text(eventsCodeContainer.text() + 'fired autocomplete.select. item: ' + item + ' value: ' + $(this).val() + '\n');
+				});
+				$('.eventsAutoComplete').on('autocomplete.freevalue', function(evt, item) {
+					console.log('eventsAutoComplete autocomplete.freevalue');
+					eventsCodeContainer.text(eventsCodeContainer.text() + 'fired autocomplete.freevalue. item: ' + item + ' value: ' + $(this).val() + '\n');
+				});
+			});
+		</script>
+	</body>
+</html>
