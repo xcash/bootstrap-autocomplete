@@ -11,6 +11,7 @@ export class Dropdown {
 	protected searchText:string;
 	protected autoSelect:boolean;
 	protected mouseover:boolean;
+	protected ddMouseover:boolean = false;
 	protected noResultsText:string;
 
 	constructor(e:JQuery, formatItemCbk:Function, autoSelect:boolean, noResultsText:string) {
@@ -58,6 +59,14 @@ export class Dropdown {
 				return false;
 			}
 		});
+		
+		this._dd.on('mouseenter', (evt:JQueryEventObject) => { 
+		    this.ddMouseover = true;
+		});
+
+		this._dd.on('mouseleave', (evt:JQueryEventObject) => { 
+		    this.ddMouseover = false;
+		});
 
 		this._dd.on('mouseenter', 'li', (evt:JQueryEventObject) => {
 			if (this.haveResults) {
@@ -85,6 +94,10 @@ export class Dropdown {
 
 	get isMouseOver():boolean {
 		return this.mouseover;
+	}
+
+	get isDdMouseOver():boolean {
+		return this.ddMouseover;
 	}
 
 	get haveResults():boolean {
@@ -228,6 +241,7 @@ export class DropdownV4 {
 	protected searchText:string;
 	protected autoSelect:boolean;
 	protected mouseover:boolean;
+	protected ddMouseover:boolean = false;
 	protected noResultsText:string;
 
 	constructor(e:JQuery, formatItemCbk:Function, autoSelect:boolean, noResultsText:string) {
@@ -280,6 +294,14 @@ export class DropdownV4 {
 				return false;
 			}
 		});
+		
+		this._dd.on('mouseenter', (evt:JQueryEventObject) => { 
+		    this.ddMouseover = true;
+		});
+
+		this._dd.on('mouseleave', (evt:JQueryEventObject) => { 
+		    this.ddMouseover = false;
+		});
 
 		this._dd.on('mouseenter', '.dropdown-item', (evt:JQueryEventObject) => {
 			if (this.haveResults) {
@@ -307,6 +329,10 @@ export class DropdownV4 {
 
 	get isMouseOver():boolean {
 		return this.mouseover;
+	}
+	
+	get isDdMouseOver():boolean {
+		return this.ddMouseover;
 	}
 
 	get haveResults():boolean {
