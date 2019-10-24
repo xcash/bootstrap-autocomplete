@@ -201,6 +201,10 @@ Configuration options
 
         Url used by default resolver to perform lookup query.
 
+    .. attribute:: .requestThrottling (default: `500`)
+
+        Time to wait in ms before starting a remote request.
+
 .. attribute:: .events
 
     Object to specify custom event callbacks.
