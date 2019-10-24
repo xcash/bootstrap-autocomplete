@@ -288,7 +288,7 @@ module AutoCompleteNS {
 
       // custom handler may change newValue
       if (this._settings.events.typed !== null) {
-        newValue = this._settings.events.typed(newValue);
+        newValue = this._settings.events.typed(newValue, this._$el);
         if (!newValue)
           return;
       }
@@ -307,7 +307,7 @@ module AutoCompleteNS {
       
       // custom handler may change newValue
       if (this._settings.events.searchPre !== null) {
-        let newValue:string = this._settings.events.searchPre(this._searchText);
+        let newValue:string = this._settings.events.searchPre(this._searchText, this._$el);
         if (!newValue)
           return;
         this._searchText = newValue;
@@ -321,7 +321,7 @@ module AutoCompleteNS {
       if (this._settings.events.search !== null) {
         this._settings.events.search(this._searchText, (results:any) => {
           this.postSearchCallback(results);
-        });
+        }, this._$el);
       } else {
         // Default behaviour
         // search using current resolver
@@ -338,7 +338,7 @@ module AutoCompleteNS {
       
       // custom handler may change newValue
       if (this._settings.events.searchPost) {
-        results = this._settings.events.searchPost(results);
+        results = this._settings.events.searchPost(results, this._$el);
         if ( (typeof results === 'boolean') && !results)
           return;
       }

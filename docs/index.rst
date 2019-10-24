@@ -211,46 +211,50 @@ Configuration options
 
     .. attribute:: .search
 
-        .. function:: func(qry, callback)
+        .. function:: func(qry, callback, origJQElement)
 
             Function called to perform a lookup.
 
             :param string qry: Query string.
             :param callback: Callback function to process results.
                                 Called passing the **list** of results ``callback(results)``.
+            :param JQuery origJQElement: Original jQuery element.
 
     .. attribute:: .searchPost
 
-        .. function:: func(resultsFromServer)
+        .. function:: func(resultsFromServer, origJQElement)
 
             Function called to manipulate server response.
             Bootstrap Autocomplete needs a list of items. Use this function to convert any server response in
             a list of items without reimplementing the default AJAX server lookup.
 
             :param resultsFromServer: Result received from server. Using the default resolver this is an object.
+            :param JQuery origJQElement: Original jQuery element.
             :returns: List of items.
     
     `Following events are available to fine tune every lookup aspect. Rarely used in common scenarios`
 
     .. attribute:: .typed
 
-        .. function:: func(newValue)
+        .. function:: func(newValue, origJQElement)
 
             Field value changed. Use this function to change the searched value (like prefixing it with some string, 
             filter some characters, ...). Or to stop lookup for certain values.
 
             :param string newValue: New value.
+            :param JQuery origJQElement: Original jQuery element.
             :returns: (Un)modified value or ``false`` to stop the execution.
     
 
     .. attribute:: .searchPre
 
-        .. function:: func(newValue)
+        .. function:: func(newValue, origJQElement)
 
             Before starting the search. Like in the ``typed`` event, this function can change the search value. The difference is
             this event is called `after` minLength checks.
 
             :param string newValue: New value.
+            :param JQuery origJQElement: Original jQuery element.
             :returns: (Un)modified value or ``false`` to stop the execution.
 
     As a reference the lookup workflow calls events in the following order::
