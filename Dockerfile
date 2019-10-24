@@ -1,5 +1,5 @@
 FROM node
-MAINTAINER Paolo Casciello <paolo.casciello@scalebox.it>
+LABEL MAINTAINER="Paolo Casciello <paolo.casciello@scalebox.it>"
 
 ENV NODE_ENV development
 

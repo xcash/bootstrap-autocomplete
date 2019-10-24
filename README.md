@@ -19,3 +19,13 @@ Try the DEMO!
 [Bootstrap 4 latest version](https://raw.githack.com/xcash/bootstrap-autocomplete/master/dist/latest/index4.html)
 
 [Bootstrap 3 latest version](https://raw.githack.com/xcash/bootstrap-autocomplete/master/dist/latest/index.html)
+
+
+Creating DEV Environment
+========================
+
+    docker-compose build --pull
+
+The first time install all dependencies with yarn
+
+    
