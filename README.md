@@ -26,6 +26,11 @@ Creating DEV Environment
 
     docker-compose build --pull
 
-The first time install all dependencies with yarn
+The *first time* install all dependencies with yarn
 
-    
+    docker-compose run --rm tools yarn install
+
+Running DEV Environment
+=======================
+
+    docker-compose up

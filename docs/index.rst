@@ -315,6 +315,14 @@ To setup an environment to develop Bootstrap-Autocomplete you need only Docker a
 The source is in the TypeScript language in the ``src`` directory while the documentation is
 generated using Sphinx and resides in the ``docs`` directory.
 
+Create the development containers:
+
+    docker-compose build --pull
+
+Install dependencies (first time and to update):
+
+    docker-compose run --rm tools yarn install
+
 To start the environment::
 
     $ docker-compose up

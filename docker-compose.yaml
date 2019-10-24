@@ -6,9 +6,7 @@ services:
      - 9000:3000
      - 3001:3001
     volumes:
-     - ./src:/workspace/src
-     - ./dist:/workspace/dist
-     - ./docs:/workspace/docs
+     - .:/workspace
   docs:
     build:
       context: .
