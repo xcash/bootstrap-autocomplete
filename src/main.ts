@@ -75,7 +75,7 @@ module AutoCompleteNS {
 
     constructor(element:HTMLElement, options?:{}) {
       this._el = element;
-      this._$el = $(this._el) as jQuery<HTMLElement>;
+      this._$el = $(this._el) as JQuery<HTMLElement>;
 
       // element type
       if (this._$el.is('select')) {
