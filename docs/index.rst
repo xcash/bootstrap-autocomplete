@@ -337,6 +337,7 @@ To start the environment::
 
 Two servers starts up:
 
-* `Demo page <http://localhost:9000>`_
-* `Documentation <http://localhost:9999>`_
+* `Demo for Bootstrap v4 <https://raw.githack.com/xcash/bootstrap-autocomplete/master/dist/latest/index4.html>`_
+* `Demo for Bootstrap v3 <https://raw.githack.com/xcash/bootstrap-autocomplete/master/dist/latest/index.html>`_
+* `Documentation <https://bootstrap-autocomplete.readthedocs.io/en/latest/>`_
 
