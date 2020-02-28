@@ -5,7 +5,7 @@ ENV NODE_ENV development
 
 WORKDIR /workspace
 
-RUN npm install yarn --global
+RUN npm install yarn --global --force
 RUN yarn global add gulp
 
 EXPOSE 3000

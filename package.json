@@ -1,11 +1,16 @@
 {
   "name": "bootstrap-autocomplete",
-  "version": "2.3.0",
+  "version": "2.3.2",
   "description": "Bootstrap autocomplete for Bootstrap 3 and 4.",
-  "main": "gulpfile.js",
+  "keywords": ["bootstrap", "autocomplete", "bootstrap-autocomplete", "typeahead", "suggest"],
+  "main": "./dist/latest/bootstrap-autocomplete.js",
   "repository": "git+https://github.com/xcash/bootstrap-autocomplete.git",
   "author": "Paolo Casciello <paolo.casciello@scalebox.it>",
   "license": "MIT",
+  "files": [
+    "dist/*",
+    "src/*"
+  ],
   "devDependencies": {
     "@types/bootstrap": "^4.2.1",
     "@types/jquery": "^3.3.29",
