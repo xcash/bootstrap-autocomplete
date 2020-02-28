@@ -43,7 +43,16 @@ Using CDN (thanks to JSDelivr)
 
     <script src="https://cdn.jsdelivr.net/gh/xcash/bootstrap-autocomplete@master/dist/latest/bootstrap-autocomplete.min.js"></script>
 
+Using NPM
+
+    npm install bootstrap-autocomplete
+
+Using YARN
+
+    yarn add bootstrap-autocomplete
+
 That's it! Go on to enhance your text fields! :)
+
 
 Basic usage
 -----------
