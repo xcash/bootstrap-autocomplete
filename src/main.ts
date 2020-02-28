@@ -1,5 +1,5 @@
 /* =============================================================
- * bootstrap-autocomplete.js v2.0.0
+ * bootstrap-autocomplete.js v2.3.2
  * https://github.com/xcash/bootstrap-autocomplete
  * =============================================================
  * Forked from bootstrap3-typeahead.js v3.1.0
@@ -279,6 +279,14 @@ module AutoCompleteNS {
       this._$el.on('autocomplete.select', (evt:JQueryEventObject, item:any) => {
         this._selectedItem = item;
         this.itemSelectedDefaultHandler(item);
+      });
+
+      // Paste event
+      // The event occurs before the value is pasted. safe behaviour should be triggering `keyup`
+      this._$el.on('paste', (evt: JQueryEventObject) => {
+        setTimeout(() => {
+          this._$el.trigger('keyup', evt);
+        }, 0)
       });
 
     }
