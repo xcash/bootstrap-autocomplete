@@ -141,7 +141,7 @@ module AutoCompleteNS {
       // create search input element
       let searchField:JQuery = $('<input>');
       // copy all attributes
-      searchField.attr('type', 'text');
+      searchField.attr('type', 'search');
       searchField.attr('name', this._$el.attr('name') + '_text');
       searchField.attr('id', this._$el.attr('id'));
       searchField.attr('disabled', this._$el.attr('disabled'));
@@ -152,6 +152,11 @@ module AutoCompleteNS {
         searchField.val(this._defaultText);
       }
       
+      let requiredAttribute:string = this._$el.attr('required');
+      if (requiredAttribute) {
+        searchField.attr('required', requiredAttribute);
+      }
+
       // attach class
       searchField.data(AutoCompleteNS.AutoComplete.NAME, this);
 
