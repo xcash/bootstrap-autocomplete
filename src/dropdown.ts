@@ -376,6 +376,7 @@ export class DropdownV4 {
 			// this._dd.css({ top: pos.top + this._$el.outerHeight(), left: pos.left, width: this._$el.outerWidth() });
 			this._dd.addClass('show');
 			this.shown = true;
+			this._$el.trigger('autocomplete.dd.shown');
 		}
 	}
 
@@ -387,6 +388,7 @@ export class DropdownV4 {
 		if (this.shown) {
 			this._dd.removeClass('show');
 			this.shown = false;
+			this._$el.trigger('autocomplete.dd.hidden');
 		}
 	}
 

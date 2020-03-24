@@ -163,6 +163,10 @@ And custom.
 
 ``autocomplete.freevalue`` - (evt, value) The text field contains `value` as the custom value (i.e. not selected from the choices dropdown).
 
+``autocomplete.dd.shown`` - (evt) **V4 only.** Fired when the autocomplete dropdown is shown.
+
+``autocomplete.dd.hidden`` - (evt) **V4 only.** Fired when the autocomplete dropdown is hidden.
+
 Reference
 ---------
 
