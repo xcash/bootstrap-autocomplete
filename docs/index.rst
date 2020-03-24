@@ -211,6 +211,10 @@ Configuration options
     Default: ``auto``. Specify Boostrap Version. Deault is autodetect. 
     Values: ``auto``, ``4``, ``3``
 
+.. attribute:: .preventEnter
+
+    Default: ``false``. Prevent default Enter behavior. Setting this to `true` is useful to prevent form submit.
+
 .. attribute:: .resolverSettings
 
     Object to specify parameters used by default resolver.

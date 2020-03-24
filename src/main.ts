@@ -31,6 +31,7 @@ module AutoCompleteNS {
     autoSelect: boolean,
     noResultsText: string,
     bootstrapVersion: string,
+    preventEnter: boolean,
     events: {
       typed: Function,
       searchPre: Function,
@@ -63,6 +64,7 @@ module AutoCompleteNS {
       autoSelect: true,
       noResultsText: 'No results',
       bootstrapVersion: 'auto',
+      preventEnter: false,
       events: {
         typed: null,
         searchPre: null,
@@ -243,6 +245,9 @@ module AutoCompleteNS {
           case 13:
             // ENTER
             this._dd.hide();
+            if (this._settings.preventEnter) {
+              evt.preventDefault();
+            }
             break;
           case 27:
             // ESC
@@ -252,6 +257,7 @@ module AutoCompleteNS {
             const newValue = this._$el.val() as string;
             this.handlerTyped(newValue);
         }
+
       });
 
       this._$el.on('blur', (evt: JQueryEventObject) => {
