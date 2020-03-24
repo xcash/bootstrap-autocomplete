@@ -307,7 +307,7 @@ This is useful to bypass the customization of the entire search AJAX call.
 Demo and Examples
 -----------------
 
-You can view Demo and Examples `here <https://raw.githack.com/xcash/bootstrap-autocomplete/master/dist/latest/index4.html>`_.
+You can view Demo and Examples `here <https://raw.githack.com/xcash/bootstrap-autocomplete/master/dist/latest/index.html>`_.
 
 
 Translating messages
@@ -326,7 +326,7 @@ To customize "no results" message use the following markup.
 Issues, Support and New Features requests
 =========================================
 
-Feel free to post a new issue `here <https://github.com/xcash/bootstrap-autocomplete/issues>`_
+Feel free to post a `new issue <https://github.com/xcash/bootstrap-autocomplete/issues>`_
 
 Development Environment
 =======================
