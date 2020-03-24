@@ -434,6 +434,7 @@ export class DropdownV4 {
 				let li = $('<a >');
 				li.attr('href', '#!')
 					.addClass('dropdown-item')
+					.css({ 'overflow': 'hidden', 'text-overflow': 'ellipsis' })
 					.html(itemHtml)
 					.data('item', item);
 				
