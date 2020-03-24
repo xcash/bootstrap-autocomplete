@@ -202,6 +202,11 @@ Configuration options
 
     Default: ``No results``. Text to show when no results found.
 
+.. attribute:: .bootstrapVersion
+
+    Default: ``auto``. Specify Boostrap Version. Deault is autodetect. 
+    Values: ``auto``, ``4``, ``3``
+
 .. attribute:: .resolverSettings
 
     Object to specify parameters used by default resolver.
