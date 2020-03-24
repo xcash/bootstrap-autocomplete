@@ -23,20 +23,21 @@ import { Dropdown, DropdownV4 } from './dropdown';
 
 module AutoCompleteNS {
   export interface AutoCompleteSettings {
-    resolver:string,
-    resolverSettings:any,
-    minLength:number,
-    valueKey:string,
-    formatResult:Function,
-    autoSelect:boolean,
-    noResultsText:string,
+    resolver: string,
+    resolverSettings: any,
+    minLength: number,
+    valueKey: string,
+    formatResult: Function,
+    autoSelect: boolean,
+    noResultsText: string,
+    bootstrapVersion: string,
     events: {
-      typed:Function,
-      searchPre:Function,
-      search:Function,
-      searchPost:Function,
-      select:Function,
-      focus:Function,
+      typed: Function,
+      searchPre: Function,
+      search: Function,
+      searchPost: Function,
+      select: Function,
+      focus: Function,
     }
   }
 
@@ -61,6 +62,7 @@ module AutoCompleteNS {
       formatResult: this.defaultFormatResult,
       autoSelect: true,
       noResultsText: 'No results',
+      bootstrapVersion: 'auto',
       events: {
         typed: null,
         searchPre: null,
@@ -113,16 +115,26 @@ module AutoCompleteNS {
       }
     }
 
-    private getSettings():AutoCompleteSettings {
+    private getSettings(): AutoCompleteSettings {
       return this._settings;
     }
 
-    private getBootstrapVersion():Array<number> {
-      // @ts-ignore
-      let version_string = $.fn.button.Constructor.VERSION;
-      let version_array = version_string.split('.');
-
-      return version_array;
+    private getBootstrapVersion(): Array<number> {
+      let versionArray: number[];
+      if (this._settings.bootstrapVersion === 'auto') {
+        // @ts-ignore
+        const versionString = $.fn.button.Constructor.VERSION;
+        versionArray = versionString.split('.');
+      } else if (this._settings.bootstrapVersion === '4') {
+        versionArray = [4];
+      } else if (this._settings.bootstrapVersion === '3') {
+        versionArray = [3];
+      } else {
+        console.error(`INVALID value for \'bootstrapVersion\' settings property: ${this._settings.bootstrapVersion} defaulting to 4`);
+        versionArray = [4];
+      }
+      console.log(`versionArray: ${versionArray}`);
+      return versionArray;
     }
 
     private convertSelectToText() {
