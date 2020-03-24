@@ -133,7 +133,6 @@ module AutoCompleteNS {
         console.error(`INVALID value for \'bootstrapVersion\' settings property: ${this._settings.bootstrapVersion} defaulting to 4`);
         versionArray = [4];
       }
-      console.log(`versionArray: ${versionArray}`);
       return versionArray;
     }
 
