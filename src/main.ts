@@ -198,16 +198,16 @@ module AutoCompleteNS {
       }
     }
     
-    private bindDefaultEventListeners():void {
-      this._$el.on('keydown', (evt:JQueryEventObject) => {
+    private bindDefaultEventListeners(): void {
+      this._$el.on('keydown', (evt: JQueryEventObject) => {
         // console.log('keydown', evt.which, evt);
-				switch (evt.which) {
-					case 9: // TAB
+        switch (evt.which) {
+          case 9: // TAB
             if (this._settings.autoSelect) {
               // if autoSelect enabled selects on blur the currently selected item
               this._dd.selectFocusItem();
             }
-						break;
+            break;
           case 13: // ENTER
             if (this._dd.isItemFocused) {
               this._dd.selectFocusItem();
@@ -217,57 +217,59 @@ module AutoCompleteNS {
               }
             }
             this._dd.hide();
-						break;
+            break;
         }
       });
-      
-      this._$el.on('keyup', (evt:JQueryEventObject) => {
+
+      this._$el.on('keyup', (evt: JQueryEventObject) => {
         // console.log('keyup', evt.which, evt);
         // check key
-				switch (evt.which) {
+        switch (evt.which) {
           case 16: // shift
           case 17: // ctrl
           case 18: // alt
           case 39: // right
-          case 37: // left 
-						break;
-					case 40:
-						// arrow DOWN
+          case 37: // left
+          case 36: // home
+          case 35: // end
+            break;
+          case 40:
+            // arrow DOWN
             this._dd.focusNextItem();
-						break;
-					case 38: // up arrow
+            break;
+          case 38: // up arrow
             this._dd.focusPreviousItem();
-						break;
-					case 13:
-						// ENTER
+            break;
+          case 13:
+            // ENTER
             this._dd.hide();
-						break;
-					case 27:
-						// ESC
+            break;
+          case 27:
+            // ESC
             this._dd.hide();
-						break;
+            break;
           default:
-            let newValue = this._$el.val() as string;
+            const newValue = this._$el.val() as string;
             this.handlerTyped(newValue);
-				}
+        }
       });
 
-      this._$el.on('blur', (evt:JQueryEventObject) => {
+      this._$el.on('blur', (evt: JQueryEventObject) => {
         // console.log(evt);
         if (!this._dd.isMouseOver && this._dd.isDdMouseOver && this._dd.isShown()) {
-            // Firefox Workaround
-            setTimeout(() => { this._$el.focus(); });
-            // Other browsers
-            this._$el.focus();
+          // Firefox Workaround
+          setTimeout(() => { this._$el.focus(); });
+          // Other browsers
+          this._$el.focus();
         } else if (!this._dd.isMouseOver) {
           if (this._isSelectElement) {
             // if it's a select element you must
             if (this._dd.isItemFocused) {
               this._dd.selectFocusItem();
-            } else if ( (this._selectedItem !== null) && (this._$el.val() !== '') ) {
+            } else if ((this._selectedItem !== null) && (this._$el.val() !== '')) {
               // reselect it
               this._$el.trigger('autocomplete.select', this._selectedItem);
-            } else if ( (this._$el.val() !== '') && (this._defaultValue !== null) ) {
+            } else if ((this._$el.val() !== '') && (this._defaultValue !== null)) {
               // select Default
               this._$el.val(this._defaultText);
               this._selectHiddenField.val(this._defaultValue);
@@ -281,7 +283,7 @@ module AutoCompleteNS {
           } else {
             // It's a text element, we accept custom value.
             // Developers may subscribe to `autocomplete.freevalue` to get notified of this
-            if ( (this._selectedItem === null) && (this._$el.val() !== '') ) {
+            if ((this._selectedItem === null) && (this._$el.val() !== '')) {
               this._$el.trigger('autocomplete.freevalue', this._$el.val());
             }
           }
@@ -292,7 +294,7 @@ module AutoCompleteNS {
 
       // selected event
       // @ts-ignore - Ignoring TS type checking
-      this._$el.on('autocomplete.select', (evt:JQueryEventObject, item:any) => {
+      this._$el.on('autocomplete.select', (evt: JQueryEventObject, item: any) => {
         this._selectedItem = item;
         this.itemSelectedDefaultHandler(item);
       });
