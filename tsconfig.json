@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "moduleResolution": "node",
     "outDir": "./dist/",
     "noImplicitAny": true,
     "module": "es6",
