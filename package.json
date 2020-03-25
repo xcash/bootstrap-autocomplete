@@ -11,6 +11,9 @@
     "dist/*",
     "src/*"
   ],
+  "scripts": {
+    "test": "gulp release"
+  },
   "devDependencies": {
     "@types/bootstrap": "^4.2.1",
     "@types/jquery": "^3.3.29",
