@@ -10,7 +10,7 @@ import * as browserSync from "browser-sync";
 
 const reload = browserSync.reload;
 
-async function defaultTask() {
+export async function help() {
 	log('\n' +
 		colors.green('GULP TASKS') + '\n\t' +
 
@@ -31,7 +31,31 @@ async function defaultTask() {
 
 }
 
-gulp.task('default', defaultTask);
+
+export async function build_js() {
+	// copy index.html
+	gulp.src('src/index.html')
+		.pipe(gulp.dest('dist/latest/'));
+	gulp.src('src/indexV3.html')
+		.pipe(gulp.dest('dist/latest/'));
+	// copy testdata
+	gulp.src('src/testdata/*')
+		.pipe(gulp.dest('dist/latest/testdata/'));
+	gulp.src('src/main.ts')
+		.pipe(plumber({
+			errorHandler: function(error) {
+        console.log(error.plugin, error.message, '\n');
+				return this.emit('end');
+			}
+		}))
+		.pipe(webpack(require('./webpack.config.js')))
+		.pipe(rename('bootstrap-autocomplete.js'))
+		.pipe(gulp.dest('dist/latest/'));
+}
+
+
+// We need this cause we can't export a function named "default"
+gulp.task('default', help);
 
 // gulp.task('default',
 // 	function () {
