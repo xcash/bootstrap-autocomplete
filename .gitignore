@@ -42,4 +42,4 @@ validation-status.json
 bower_components
 node_modules
 
-yarn.lock
+# yarn.lock
