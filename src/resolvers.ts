@@ -56,9 +56,9 @@ export class AjaxResolver extends BaseResolver {
 
     // request throttling
     if (this.requestTID) {
-      clearTimeout(this.requestTID);
+      window.clearTimeout(this.requestTID);
     }
-    this.requestTID = setTimeout( () => {
+    this.requestTID = window.setTimeout( () => {
       this.jqXHR = $.ajax(
         this._settings.url, {
           method: this._settings.method,
