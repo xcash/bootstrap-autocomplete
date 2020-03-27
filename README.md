@@ -2,6 +2,7 @@ Bootstrap Autocomplete
 ======================
 
 ![docs](https://readthedocs.org/projects/bootstrap-autocomplete/badge/?version=latest "Latest Docs")
+[![Build Status](https://api.cirrus-ci.com/github/xcash/bootstrap-autocomplete.svg)](https://cirrus-ci.com/github/xcash/bootstrap-autocomplete)
 
 Autocomplete plugin for Bootstrap 4.x and 3.x.
 
@@ -9,7 +10,7 @@ It enhances form `input` and `select` field to provide autocomplete/typeahead ca
 
 [Documentation](http://bootstrap-autocomplete.rtfd.io/)
 
-Latest version: 2.3.3 (2020/03/24)
+Latest version: 2.3.4dev (2020/03/27)
 
 Version 2.0.0 and up supports Boostrap v4.x and old v3.x out of the box.
 
