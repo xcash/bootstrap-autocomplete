@@ -13,6 +13,8 @@ const webpackConfig = require('./webpack.config.js');
 
 const reload = browserSync.reload;
 
+var exitOnError = false;
+
 async function help() {
   log('\n' +
     colors.green('GULP TASKS') + '\n\t' +
@@ -33,6 +35,12 @@ async function help() {
   );
 }
 
+function errorHandler(error) {
+  if (exitOnError === false) {
+    return this.emit('end');
+  }
+}
+
 function cleanDist() {
   return del('dist/**', { force: true });
 }
@@ -50,10 +58,7 @@ function copyTestData() {
 function compileJs() {
   return gulp.src('src/main.ts')
     .pipe(plumber({
-      errorHandler: function (error) {
-        console.log(error.plugin, error.message, '\n');
-        return this.emit('end');
-      }
+      errorHandler: errorHandler
     }))
     .pipe(tslint({ formatter: 'verbose' }))
     .pipe(tslint.report())
@@ -72,10 +77,12 @@ function build(cb) {
 }
 
 function watch(cb) {
-  gulp.watch('src/**/*', gulp.series(build, function (done) {
-    reload();
-    done();
-  }), cb);
+  gulp.watch('src/**/*', gulp.series(
+    build,
+    function (done) {
+      reload();
+      done();
+    }), cb)
 }
 
 function monitor(cb) {
@@ -116,6 +123,7 @@ function release(cb) {
 }
 
 function test(cb) {
+  exitOnError = true;
   return gulp.series(
     compileJs
   )(cb);
@@ -124,4 +132,4 @@ function test(cb) {
 exports.default = help;
 exports.monitor = monitor;
 exports.release = release;
-
+exports.test = test;
