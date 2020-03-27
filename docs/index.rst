@@ -21,6 +21,10 @@ Features
 * **i18n.** Use ``data-*`` attributes to specify the strings to use in case of errors/noresults.
 * **Styles.** No custom styles. Uses standard Bootstrap's dropdown.
 
+.. toctree::
+   :hidden:
+
+   index
 
 Getting Started
 ---------------
@@ -36,7 +40,7 @@ Using CDN (thanks to JSDelivr)
 .. code-block:: html
     :caption: STABLE version |release|
 
-    <script src="https://cdn.jsdelivr.net/gh/xcash/bootstrap-autocomplete@v2.3.2/dist/latest/bootstrap-autocomplete.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/xcash/bootstrap-autocomplete@v2.3.3/dist/latest/bootstrap-autocomplete.min.js"></script>
 
 .. code-block:: html
     :caption: Latest version (this is the development branch)
@@ -45,9 +49,13 @@ Using CDN (thanks to JSDelivr)
 
 Using NPM
 
+.. code-block:: console
+
     npm install bootstrap-autocomplete
 
 Using YARN
+
+.. code-block:: console
 
     yarn add bootstrap-autocomplete
 
