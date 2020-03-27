@@ -56,7 +56,7 @@ function copyTestData() {
 }
 
 function compileJs() {
-  return gulp.src('src/main.ts')
+  return gulp.src('src/*.ts')
     .pipe(plumber({
       errorHandler: errorHandler
     }))

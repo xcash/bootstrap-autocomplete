@@ -1,5 +1,5 @@
 export class BaseResolver {
-  protected results: Array < Object > ;
+  protected results: any[];
 
   protected _settings: any;
 
@@ -11,17 +11,18 @@ export class BaseResolver {
     return {};
   }
 
-  protected getResults(limit ? : number, start ? : number, end ? : number): Array < Object > {
+  protected getResults(limit?: number, start?: number, end?: number): any[] {
 
     return this.results;
   }
 
-  public search(q: string, cbk: Function): void {
+  public search(q: string, cbk: (results: any[]) => void): void {
     cbk(this.getResults());
   }
 
 }
 
+// tslint:disable-next-line: max-classes-per-file
 export class AjaxResolver extends BaseResolver {
   protected jqXHR: JQueryXHR;
   protected requestTID: number;
@@ -43,12 +44,12 @@ export class AjaxResolver extends BaseResolver {
     };
   }
 
-  public search(q: string, cbk: Function): void {
+  public search(q: string, cbk: (results: any[]) => void): void {
     if (this.jqXHR != null) {
       this.jqXHR.abort();
     }
 
-    let data: {
+    const data: {
       [key: string]: any
     } = {};
     data[this._settings.queryKey] = q;
@@ -58,28 +59,30 @@ export class AjaxResolver extends BaseResolver {
     if (this.requestTID) {
       window.clearTimeout(this.requestTID);
     }
-    this.requestTID = window.setTimeout( () => {
+    this.requestTID = window.setTimeout(() => {
       this.jqXHR = $.ajax(
-        this._settings.url, {
+        this._settings.url,
+        {
           method: this._settings.method,
-          data: data,
+          data,
           timeout: this._settings.timeout
         }
       );
-  
+
       this.jqXHR.done((result) => {
         cbk(result);
       });
-  
+
       this.jqXHR.fail((err) => {
         // console.log(err);
-        this._settings.fail && this._settings.fail(err);
+        // this._settings.fail && this._settings.fail(err);
+        this._settings?.fail(err);
       });
-  
+
       this.jqXHR.always(() => {
         this.jqXHR = null;
       });
-  
+
     }, this._settings.requestThrottling);
   }
 

@@ -26,35 +26,35 @@ export interface AutoCompleteSettings {
   resolverSettings: any,
   minLength: number,
   valueKey: string,
-  formatResult: (item:any) => {},
+  formatResult: (item: any) => {},
   autoSelect: boolean,
   noResultsText: string,
   bootstrapVersion: string,
   preventEnter: boolean,
   events: {
-    typed: (newValue:string, el:JQuery<HTMLElement>) => string,
-    searchPre: (searchText:string, el:JQuery<HTMLElement>) => string,
-    search: (searchText:string, cbk:(results:any) => void, el:JQuery<HTMLElement>) => void,
-    searchPost: (results: any, el:JQuery<HTMLElement>) => any,
+    typed: (newValue: string, el: JQuery<HTMLElement>) => string,
+    searchPre: (searchText: string, el: JQuery<HTMLElement>) => string,
+    search: (searchText: string, cbk: (results: any) => void, el: JQuery<HTMLElement>) => void,
+    searchPost: (results: any, el: JQuery<HTMLElement>) => any,
     select: () => void,
     focus: () => void,
   }
 }
 
 export class AutoComplete {
-  public static NAME:string = 'autoComplete';
+  public static NAME: string = 'autoComplete';
 
-  private _el:Element;
-  private _$el:JQuery<HTMLElement>;
-  private _dd:Dropdown|DropdownV4;
-  private _searchText:string;
-  private _selectedItem:any = null;
-  private _defaultValue:any = null;
-  private _defaultText:string = null;
-  private _isSelectElement:boolean = false;
-  private _selectHiddenField:JQuery;
+  private _el: Element;
+  private _$el: JQuery<HTMLElement>;
+  private _dd: Dropdown | DropdownV4;
+  private _searchText: string;
+  private _selectedItem: any = null;
+  private _defaultValue: any = null;
+  private _defaultText: string = null;
+  private _isSelectElement: boolean = false;
+  private _selectHiddenField: JQuery;
 
-  private _settings:AutoCompleteSettings = {
+  private _settings: AutoCompleteSettings = {
     resolver: 'ajax',
     resolverSettings: {},
     minLength: 3,
@@ -74,9 +74,9 @@ export class AutoComplete {
     }
   }
 
-  private resolver:BaseResolver;
+  private resolver: BaseResolver;
 
-  constructor(element:HTMLElement, options?:{}) {
+  constructor(element: HTMLElement, options?: {}) {
     this._el = element;
     this._$el = $(this._el) as JQuery<HTMLElement>;
 
@@ -141,7 +141,7 @@ export class AutoComplete {
   private convertSelectToText() {
     // create hidden field
 
-    const hidField:JQuery = $('<input>');
+    const hidField: JQuery = $('<input>');
     hidField.attr('type', 'hidden');
     hidField.attr('name', this._$el.attr('name'));
     if (this._defaultValue) {
@@ -152,7 +152,7 @@ export class AutoComplete {
     hidField.insertAfter(this._$el);
 
     // create search input element
-    const searchField:JQuery = $('<input>');
+    const searchField: JQuery = $('<input>');
     // copy all attributes
     searchField.attr('type', 'search');
     searchField.attr('name', this._$el.attr('name') + '_text');
@@ -165,7 +165,7 @@ export class AutoComplete {
       searchField.val(this._defaultText);
     }
 
-    const requiredAttribute:string = this._$el.attr('required');
+    const requiredAttribute: string = this._$el.attr('required');
     if (requiredAttribute) {
       searchField.attr('required', requiredAttribute);
     }
@@ -179,7 +179,7 @@ export class AutoComplete {
     this._el = searchField.get(0);
   }
 
-  private init():void {
+  private init(): void {
     // bind default events
     this.bindDefaultEventListeners();
     // RESOLVER
@@ -192,11 +192,11 @@ export class AutoComplete {
       // v4
       this._dd = new DropdownV4(this._$el, this._settings.formatResult,
         this._settings.autoSelect, this._settings.noResultsText
-        );
+      );
     } else {
       this._dd = new Dropdown(this._$el, this._settings.formatResult,
         this._settings.autoSelect, this._settings.noResultsText
-        );
+      );
     }
   }
 
@@ -315,7 +315,7 @@ export class AutoComplete {
 
   }
 
-  private handlerTyped(newValue:string):void {
+  private handlerTyped(newValue: string): void {
     // field value changed
 
     // custom handler may change newValue
@@ -334,12 +334,12 @@ export class AutoComplete {
     }
   }
 
-  private handlerPreSearch():void {
+  private handlerPreSearch(): void {
     // do nothing, start search
 
     // custom handler may change newValue
     if (this._settings.events.searchPre !== null) {
-      const newValue:string = this._settings.events.searchPre(this._searchText, this._$el);
+      const newValue: string = this._settings.events.searchPre(this._searchText, this._$el);
       if (!newValue)
         return;
       this._searchText = newValue;
@@ -348,47 +348,47 @@ export class AutoComplete {
     this.handlerDoSearch();
   }
 
-  private handlerDoSearch():void {
+  private handlerDoSearch(): void {
     // custom handler may change newValue
     if (this._settings.events.search !== null) {
-      this._settings.events.search(this._searchText, (results:any) => {
+      this._settings.events.search(this._searchText, (results: any) => {
         this.postSearchCallback(results);
       }, this._$el);
     } else {
       // Default behaviour
       // search using current resolver
       if (this.resolver) {
-        this.resolver.search(this._searchText, (results:any) => {
+        this.resolver.search(this._searchText, (results: any) => {
           this.postSearchCallback(results);
         });
       }
     }
   }
 
-  private postSearchCallback(results:any):void {
+  private postSearchCallback(results: any): void {
     // console.log('callback called', results);
 
     // custom handler may change newValue
     if (this._settings.events.searchPost) {
       results = this._settings.events.searchPost(results, this._$el);
-      if ( (typeof results === 'boolean') && !results)
+      if ((typeof results === 'boolean') && !results)
         return;
     }
 
     this.handlerStartShow(results);
   }
 
-  private handlerStartShow(results:any):void {
+  private handlerStartShow(results: any): void {
     // console.log("defaultEventStartShow", results);
     // for every result, draw it
     this._dd.updateItems(results, this._searchText);
     this._dd.show();
   }
 
-  protected itemSelectedDefaultHandler(item:any):void {
+  protected itemSelectedDefaultHandler(item: any): void {
     // console.log('itemSelectedDefaultHandler', item);
     // default behaviour is set elment's .val()
-    let itemFormatted:any = this._settings.formatResult(item);
+    let itemFormatted: any = this._settings.formatResult(item);
     if (typeof itemFormatted === 'string') {
       itemFormatted = { text: itemFormatted }
     }
@@ -403,10 +403,10 @@ export class AutoComplete {
     this._dd.hide();
   }
 
-  private defaultFormatResult(item:any):{} {
+  private defaultFormatResult(item: any): {} {
     if (typeof item === 'string') {
       return { text: item };
-    } else if ( item.text ) {
+    } else if (item.text) {
       return item;
     } else {
       // return a toString of the item as last resort
@@ -415,7 +415,7 @@ export class AutoComplete {
     }
   }
 
-  public manageAPI(APICmd:any, params:any) {
+  public manageAPI(APICmd: any, params: any) {
     // manages public API
     if (APICmd === 'set') {
       this.itemSelectedDefaultHandler(params);
@@ -426,9 +426,9 @@ export class AutoComplete {
 
 (($: JQueryStatic, window: any, document: any) => {
   // @ts-ignore
-  $.fn[AutoComplete.NAME] = function(optionsOrAPI: any, optionalParams: any) {
-    return this.each(function() {
-      let pluginClass:AutoComplete;
+  $.fn[AutoComplete.NAME] = function (optionsOrAPI: any, optionalParams: any) {
+    return this.each(function () {
+      let pluginClass: AutoComplete;
 
       pluginClass = $(this).data(AutoComplete.NAME);
 
