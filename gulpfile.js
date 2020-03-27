@@ -1,17 +1,19 @@
-'use strict';
-var gulp = require('gulp'),
-  log = require('fancy-log'),
-  colors = require('ansi-colors'),
-  uglify = require('gulp-uglify'),
-  plumber = require('gulp-plumber'),
-  size = require('gulp-size'),
-  rename = require('gulp-rename'),
-  webpack = require('webpack-stream'),
-  browserSync = require('browser-sync');
+const gulp = require('gulp');
+const log = require('fancy-log');
+const colors = require('ansi-colors');
+const uglify = require('gulp-uglify');
+const plumber = require('gulp-plumber');
+const tslint = require('gulp-tslint');
+const size = require('gulp-size');
+const rename = require('gulp-rename');
+const webpack = require('webpack-stream');
+const browserSync = require('browser-sync');
+const del = require('del');
+const webpackConfig = require('./webpack.config.js');
 
-var reload = browserSync.reload;
+const reload = browserSync.reload;
 
-function help(cb) {
+async function help() {
   log('\n' +
     colors.green('GULP TASKS') + '\n\t' +
 
@@ -29,18 +31,23 @@ function help(cb) {
     'Rebuild and concatenate all js files.\n\t\tMinifies and uglifies JS for deploy.\n\t\t'
 
   );
-  cb();
 }
 
-function buildJs() {
-  // copy index.html
-  gulp.src('src/index.html')
+function cleanDist() {
+  return del('dist/**', { force: true });
+}
+
+function copyHtml() {
+  return gulp.src('src/index*.html')
     .pipe(gulp.dest('dist/latest/'));
-  gulp.src('src/indexV3.html')
-    .pipe(gulp.dest('dist/latest/'));
-  // copy testdata
-  gulp.src('src/testdata/*')
+}
+
+function copyTestData() {
+  return gulp.src('src/testdata/*')
     .pipe(gulp.dest('dist/latest/testdata/'));
+}
+
+function compileJs() {
   return gulp.src('src/main.ts')
     .pipe(plumber({
       errorHandler: function (error) {
@@ -48,29 +55,38 @@ function buildJs() {
         return this.emit('end');
       }
     }))
-    .pipe(webpack(require('./webpack.config.js')))
+    .pipe(tslint({ formatter: 'verbose' }))
+    .pipe(tslint.report())
+    .pipe(webpack(webpackConfig))
     .pipe(rename('bootstrap-autocomplete.js'))
     .pipe(gulp.dest('dist/latest/'));
 }
 
+
+function build(cb) {
+  return gulp.series(
+    copyHtml,
+    copyTestData,
+    compileJs
+  )(cb);
+}
+
 function watch(cb) {
-  gulp.watch('src/**/*', gulp.series(buildJs, function (done) {
+  gulp.watch('src/**/*', gulp.series(build, function (done) {
     reload();
     done();
-  }));
-  cb();
+  }), cb);
 }
 
 function monitor(cb) {
-  gulp.series(
-    buildJs,
+  return gulp.series(
+    cleanDist,
+    build,
     gulp.parallel(watch, devServer)
-  )();
-  cb();
+  )(cb);
 }
 
-
-function devServer(cb) {
+async function devServer() {
   browserSync({
     server: {
       baseDir: 'dist/latest'
@@ -79,91 +95,33 @@ function devServer(cb) {
   });
 
   gulp.watch(['*.html', '*.js', 'testdata/*'], { cwd: 'dist/latest' }, reload);
-
-  cb();
 }
 
+function minify() {
+  return gulp.src('dist/latest/bootstrap-autocomplete.js')
+    .pipe(rename({
+      extname: '.min.js'
+    }))
+    .pipe(size({ title: 'PRE-MINIFY' }))
+    .pipe(uglify({ mangle: true }))
+    .pipe(size({ title: 'POST-MINIFY' }))
+    .pipe(gulp.dest('dist/latest'));
+}
+
+function release(cb) {
+  return gulp.series(
+    cleanDist,
+    build, minify
+  )(cb);
+}
+
+function test(cb) {
+  return gulp.series(
+    compileJs
+  )(cb);
+}
 
 exports.default = help;
 exports.monitor = monitor;
-exports.buildJs = buildJs;
-exports.watch = watch;
-exports.devServer = devServer;
-exports.monitor = monitor;
+exports.release = release;
 
-
-// gulp.task('monitor', function () {
-//   gulp.series('build-js', function (done) {
-//     done();
-//     gulp.parallel('watch', 'dev-server', function (done) {
-//       done();
-//     })();
-//   })();
-// });
-
-// gulp.task('release', function () {
-//   gulp.series('build-js', 'dist-min', function (done) {
-//     done();
-//   })();
-// });
-
-// gulp.task('watch', function () {
-//   gulp.watch('src/**/*', gulp.series('build-js', function (done) {
-//     reload();
-//     done();
-//   }));
-// });
-
-// gulp.task('build-js', function () {
-//   // copy index.html
-//   gulp.src('src/index.html')
-//     .pipe(gulp.dest('dist/latest/'));
-//   gulp.src('src/indexV3.html')
-//     .pipe(gulp.dest('dist/latest/'));
-//   // copy testdata
-//   gulp.src('src/testdata/*')
-//     .pipe(gulp.dest('dist/latest/testdata/'));
-//   return gulp.src('src/main.ts')
-//     .pipe(plumber({
-//       errorHandler: function (error) {
-//         console.log(error.plugin, error.message, '\n');
-//         return this.emit('end');
-//       }
-//     }))
-//     .pipe(webpack(require('./webpack.config.js')))
-//     .pipe(rename('bootstrap-autocomplete.js'))
-//     .pipe(gulp.dest('dist/latest/'));
-// });
-
-// gulp.task('dist-min', function () {
-//   return gulp.src('dist/latest/bootstrap-autocomplete.js')
-//     .pipe(rename({
-//       extname: '.min.js'
-//     }))
-//     .pipe(size({ title: 'PRE-MINIFY' }))
-//     .pipe(uglify({ mangle: true }))
-//     .pipe(size({ title: 'POST-MINIFY' }))
-//     .pipe(gulp.dest('dist/latest'));
-// });
-
-// gulp.task('dev-server', function () {
-//   browserSync({
-//     server: {
-//       baseDir: 'dist/latest'
-//     },
-//     open: false,
-//   });
-
-//   gulp.watch(['*.html', '*.js', 'testdata/*'], { cwd: 'dist/latest' }, reload);
-
-// 	/*
-// 	gulp.src('dist/latest')
-//     .pipe(server({
-// 	  host: '0.0.0.0',
-//       livereload: {
-// 		enable: true,
-// 	  	clientConsole: false
-// 	  }
-// 		}));
-// 	*/
-// });
