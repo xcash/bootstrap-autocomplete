@@ -87,7 +87,6 @@ function watch(cb) {
 
 function monitor(cb) {
   return gulp.series(
-    cleanDist,
     build,
     gulp.parallel(watch, devServer)
   )(cb);
