@@ -130,6 +130,9 @@
 								data-value="2" data-text="Selected Value 2">
 								Set a different selected value 2
 							</button>
+							<button type="button" class="btn btn-outline-secondary btnClearAutoSelect">
+								Clear Value
+							</button>
 						</div>
 					</div>
 				</fieldset>
@@ -273,6 +276,13 @@
 				$('.btnChangeAutoSelect').on('click', function () {
 					var e = $(this);
 					$('.changeAutoSelect').autoComplete('set', { value: e.data('value'), text: e.data('text')});
+				});
+				// clear current value
+				$('.btnClearAutoSelect').on('click', function () {
+					var e = $(this);
+					// $('.changeAutoSelect').autoComplete('set', null);
+					$('.changeAutoSelect').autoComplete('clear');
+
 				});
 
 				// Events

@@ -387,15 +387,23 @@ export class AutoComplete {
 
   protected itemSelectedDefaultHandler(item: any): void {
     // console.log('itemSelectedDefaultHandler', item);
-    // default behaviour is set elment's .val()
-    let itemFormatted: any = this._settings.formatResult(item);
-    if (typeof itemFormatted === 'string') {
-      itemFormatted = { text: itemFormatted }
-    }
-    this._$el.val(itemFormatted.text);
-    // if the element is a select
-    if (this._isSelectElement) {
-      this._selectHiddenField.val(itemFormatted.value);
+    if (item !== null) {
+      // default behaviour is set elment's .val()
+      let itemFormatted: any = this._settings.formatResult(item);
+      if (typeof itemFormatted === 'string') {
+        itemFormatted = { text: itemFormatted }
+      }
+      this._$el.val(itemFormatted.text);
+      // if the element is a select
+      if (this._isSelectElement) {
+        this._selectHiddenField.val(itemFormatted.value);
+      }
+    } else {
+      // item is null -> clear the value
+      this._$el.val('');
+      if (this._isSelectElement) {
+        this._selectHiddenField.val('');
+      }
     }
     // save selected item
     this._selectedItem = item;
@@ -419,6 +427,9 @@ export class AutoComplete {
     // manages public API
     if (APICmd === 'set') {
       this.itemSelectedDefaultHandler(params);
+    } else if (APICmd === 'clear') {
+      // shortcut
+      this.itemSelectedDefaultHandler(null);
     }
   }
 

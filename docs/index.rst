@@ -307,6 +307,17 @@ To set an initial or change the value of the field.
 
     $('.myAutoSelect').autoComplete('set', { value: myValue, text: myText });
 
+Clear value
+***********
+
+To clear the value.
+
+.. code-block:: javascript
+
+    $('.myAutoSelect').autoComplete('set', null);
+    // or
+    $('.myAutoSelect').autoComplete('clear');
+
 Customize results using default AJAX resolver
 *********************************************
 
