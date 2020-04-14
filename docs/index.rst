@@ -216,7 +216,7 @@ Configuration options
 
 .. attribute:: .bootstrapVersion
 
-    Default: ``auto``. Specify Boostrap Version. Deault is autodetect. 
+    Default: ``auto``. Specify Boostrap Version. Default is autodetect. 
     Values: ``auto``, ``4``, ``3``
 
 .. attribute:: .preventEnter
