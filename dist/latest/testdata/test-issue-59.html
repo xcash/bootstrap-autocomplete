@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<title>Bootstrap AutoComplete Test Issue 35</title>
+		
+		<!-- Required meta tags -->
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	</head>
+	<body>
+		<div class="container">
+			<h1 class="border-bottom">Bootstrap Autocomplete test issue 59</h1>
+			<p>
+				Testing page for <a href="https://github.com/xcash/bootstrap-autocomplete/issues/59">issue #59</a>
+			</p>
+			<form action="//httpbin.org/anything" method="GET" target="_blank">
+				<input class="form-control basicAutoComplete" name="q" type="text" autocomplete="off">
+
+			</form>
+		</div>
+
+		<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+		<script src="../bootstrap-autocomplete.js"></script>
+		<script>
+			$(function () {
+				// Basic
+				$('.basicAutoComplete').autoComplete({
+					resolverSettings: {
+						url: 'test-list.json'
+					},
+					// preventEnter: true
+				});
+
+				// Events
+				$('.basicAutoComplete').on('change', function() {
+					console.log('basicAutoComplete change');
+				});
+				$('.basicAutoComplete').on('autocomplete.select', function(evt, item) {
+					console.log('basicAutoComplete autocomplete.select');
+				});
+				$('.basicAutoComplete').on('autocomplete.freevalue', function(evt, item) {
+					console.log('basicAutoComplete autocomplete.freevalue');
+				});
+			});
+		</script>
+	</body>
+</html>

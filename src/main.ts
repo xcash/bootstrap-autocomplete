@@ -219,6 +219,10 @@ export class AutoComplete {
             }
           }
           this._dd.hide();
+          if (this._settings.preventEnter) {
+            // console.log('preventDefault');
+            evt.preventDefault();
+          }
           break;
       }
     });
@@ -245,9 +249,6 @@ export class AutoComplete {
         case 13:
           // ENTER
           this._dd.hide();
-          if (this._settings.preventEnter) {
-            evt.preventDefault();
-          }
           break;
         case 27:
           // ESC
