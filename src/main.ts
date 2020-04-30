@@ -334,7 +334,7 @@ export class AutoComplete {
     }
 
     // if value >= minLength, start autocomplete
-    if ((newValue === '') || (newValue.length >= this._settings.minLength)) {
+    if (newValue.length >= this._settings.minLength) {
       this._searchText = newValue;
       this.handlerPreSearch();
     } else {
