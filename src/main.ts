@@ -205,10 +205,16 @@ export class AutoComplete {
       // console.log('keydown', evt.which, evt);
       switch (evt.which) {
         case 9: // TAB
-          if (this._settings.autoSelect) {
-            // if autoSelect enabled selects on blur the currently selected item
+          // if (this._settings.autoSelect) {
+          //   // if autoSelect enabled selects on blur the currently selected item
+          //   this._dd.selectFocusItem();
+          // }
+          if (this._dd.isItemFocused) {
             this._dd.selectFocusItem();
+          } else {
+            this._$el.trigger('autocomplete.freevalue', this._$el.val());
           }
+          this._dd.hide();
           break;
         case 13: // ENTER
           if (this._dd.isItemFocused) {
@@ -290,7 +296,7 @@ export class AutoComplete {
         } else {
           // It's a text element, we accept custom value.
           // Developers may subscribe to `autocomplete.freevalue` to get notified of this
-          if ((this._selectedItem === null) && (this._$el.val() !== '')) {
+          if (this._selectedItem === null) {
             this._$el.trigger('autocomplete.freevalue', this._$el.val());
           }
         }
@@ -322,12 +328,13 @@ export class AutoComplete {
     // custom handler may change newValue
     if (this._settings.events.typed !== null) {
       newValue = this._settings.events.typed(newValue, this._$el);
-      if (!newValue)
+      if (!newValue) {
         return;
+      }
     }
 
     // if value >= minLength, start autocomplete
-    if (newValue.length >= this._settings.minLength) {
+    if ((newValue === '') || (newValue.length >= this._settings.minLength)) {
       this._searchText = newValue;
       this.handlerPreSearch();
     } else {
