@@ -167,7 +167,7 @@ Bootstrap Autocomplete triggers usual events.
 
 And custom.
 
-``autocomplete.select`` - (evt, item) The element ``item`` is the item selected by the user and currently selected in the field.
+``autocomplete.select`` - (evt, item) The element ``item`` is the item selected by the user and currently selected in the field or `null`/`undefined` if cleared.
 
 ``autocomplete.freevalue`` - (evt, value) The text field contains `value` as the custom value (i.e. not selected from the choices dropdown).
 

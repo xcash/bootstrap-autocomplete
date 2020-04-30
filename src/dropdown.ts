@@ -129,7 +129,7 @@ export class Dropdown {
   }
 
   get isItemFocused(): boolean {
-    if (this._dd.find('li.active').length > 0) {
+    if (this.isShown() && (this._dd.find('li.active').length > 0)) {
       return true;
     }
     return false;
@@ -365,7 +365,7 @@ export class DropdownV4 {
   }
 
   get isItemFocused(): boolean {
-    if (this._dd && (this._dd.find('.dropdown-item.active').length > 0)) {
+    if (this._dd && this.isShown() && (this._dd.find('.dropdown-item.active').length > 0)) {
       return true;
     }
     return false;

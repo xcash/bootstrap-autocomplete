@@ -276,7 +276,7 @@ export class AutoComplete {
         this._$el.focus();
       } else if (!this._dd.isMouseOver) {
         if (this._isSelectElement) {
-          // if it's a select element you must
+          // if it's a select element
           if (this._dd.isItemFocused) {
             this._dd.selectFocusItem();
           } else if ((this._selectedItem !== null) && (this._$el.val() !== '')) {
@@ -287,11 +287,13 @@ export class AutoComplete {
             this._$el.val(this._defaultText);
             this._selectHiddenField.val(this._defaultValue);
             this._selectedItem = null;
+            this._$el.trigger('autocomplete.select', this._selectedItem);
           } else {
             // empty the values
             this._$el.val('');
             this._selectHiddenField.val('');
             this._selectedItem = null;
+            this._$el.trigger('autocomplete.select', this._selectedItem);
           }
         } else {
           // It's a text element, we accept custom value.
@@ -394,8 +396,8 @@ export class AutoComplete {
   }
 
   protected itemSelectedDefaultHandler(item: any): void {
-    // console.log('itemSelectedDefaultHandler', item);
-    if (item !== null) {
+    // this is a coerce check (!=) to cover null or undefined
+    if (item != null) {
       // default behaviour is set elment's .val()
       let itemFormatted: any = this._settings.formatResult(item);
       if (typeof itemFormatted === 'string') {
