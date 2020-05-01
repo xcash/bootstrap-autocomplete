@@ -44,6 +44,19 @@
 							<input class="form-control advanced2AutoComplete" type="text" autocomplete="off">
 						</div>
 					</div>
+					<div class="form-row mb-3">
+						<label class="col-lg-3">
+							Show dropdown programmatically.
+						</label>
+						<div class="col-lg-7">
+							<input class="form-control basicAutoCompleteShowDropdown" data-url="testdata/test-list.json" type="text" autocomplete="off">
+						</div>
+						<div class="col-lg-2">
+							<button type="button" class="btn btn-block btn-outline-secondary basicAutoCompleteShowBtn">
+								Show
+							</button>
+						</div>
+					</div>
 				</fieldset>
 				<fieldset>
 					<legend class="border-bottom">
@@ -197,6 +210,15 @@
 				$('.basicAutoComplete').on('autocomplete.freevalue', function (evt, value) {
 					$('.basicAutoCompleteCustom').html(JSON.stringify(value));
 					$('.basicAutoCompleteSelected').html('');
+				});
+
+				$('.basicAutoCompleteShowDropdown').autoComplete({
+					minLength: 0,
+				});
+
+				$('.basicAutoCompleteShowBtn').on('click', function () {
+					console.log('click');
+					$('.basicAutoCompleteShowDropdown').trigger('keyup');
 				});
 
 				// Advanced 1
