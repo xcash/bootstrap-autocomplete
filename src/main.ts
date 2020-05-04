@@ -440,6 +440,9 @@ export class AutoComplete {
     } else if (APICmd === 'clear') {
       // shortcut
       this.itemSelectedDefaultHandler(null);
+    } else if (APICmd === 'show') {
+      // shortcut
+      this._$el.trigger('keyup');
     }
   }
 

@@ -318,6 +318,17 @@ To clear the value.
     // or
     $('.myAutoSelect').autoComplete('clear');
 
+Show autocomplete
+*****************
+
+Sometimes is useful to programmatically show suggestions.
+To achieve this set a ``minLength`` of ``0``, server side acts accordingly with a ``qry`` value of ``''``, call the following method:
+
+.. code-block:: javascript
+
+    $('.myAutoSelect').autoComplete('show');
+
+
 Customize results using default AJAX resolver
 *********************************************
 
