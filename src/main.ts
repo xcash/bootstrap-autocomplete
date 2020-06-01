@@ -443,6 +443,9 @@ export class AutoComplete {
     } else if (APICmd === 'show') {
       // shortcut
       this._$el.trigger('keyup');
+    } else if (APICmd === 'updateResolver') {
+      // update resolver
+      this.resolver = new AjaxResolver(params);
     }
   }
 
