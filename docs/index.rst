@@ -302,6 +302,32 @@ Configuration options
 Advanced usage
 --------------
 
+Set custom resolver
+*******************
+
+Default resolver often is not enough. You can customize it as follows.
+
+.. code-block:: javascript
+
+    $('.advancedAutoComplete').autoComplete({
+        resolver: 'custom',
+        events: {
+            search: function (qry, callback) {
+                // let's do a custom ajax call
+                $.ajax(
+                    '<url>',
+                    {
+                        data: { 'qry': qry}
+                    }
+                ).done(function (res) {
+                    callback(res.results)
+                });
+            }
+        }
+    });
+
+Request throttling is not working with custom resolvers. You should implement your logic.
+
 Set custom value
 ****************
 
