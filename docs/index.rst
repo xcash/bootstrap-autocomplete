@@ -231,13 +231,17 @@ Configuration options
 
         Url used by default resolver to perform lookup query.
 
-    .. attribute:: .fail
+    .. attribute:: .queryKey
 
-        Default: `undefined`. Callback in case of AJAX error.
+        Default: ``q`` Default query key.
 
     .. attribute:: .requestThrottling
 
         Default: ``500``. Time to wait in ms before starting a remote request.
+
+    .. attribute:: .fail
+
+        Default: `undefined`. Callback in case of AJAX error.
 
 .. attribute:: .events
 

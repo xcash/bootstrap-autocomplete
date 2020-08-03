@@ -30,6 +30,14 @@
 					</div>
 					<div class="form-row mb-3">
 						<label class="col-lg-3">
+							Basic (<a href="testdata/test-list.json">list of strings</a> - custom <code>search</code> parameter)
+						</label>
+						<div class="col-lg-9">
+							<input class="form-control basicAutoCompleteQParameter" type="text" autocomplete="off">
+						</div>
+					</div>
+					<div class="form-row mb-3">
+						<label class="col-lg-3">
 							Advanced (<a href="testdata/test-dict.json">complex object</a>)
 						</label>
 						<div class="col-lg-9">
@@ -220,6 +228,14 @@
 					console.log('click');
 					$('.basicAutoCompleteShowDropdown').autoComplete('show');
 				});
+
+				$('.basicAutoCompleteQParameter').autoComplete({
+					resolverSettings: {
+						url: 'testdata/test-list.json',
+						queryKey: 'search'
+					}
+				});
+
 
 				// Advanced 1
 				$('.advancedAutoComplete').autoComplete({
