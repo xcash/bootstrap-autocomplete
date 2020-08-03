@@ -212,7 +212,7 @@ Configuration options
 
 .. attribute:: .noResultsText
 
-    Default: ``No results``. Text to show when no results found.
+    Default: ``No results``. Text to show when no results found. Use ``''`` to disable.
 
 .. attribute:: .bootstrapVersion
 

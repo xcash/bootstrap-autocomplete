@@ -19,7 +19,9 @@
  * limitations under the License.
  * ============================================================ */
 import { AjaxResolver, BaseResolver } from './resolvers';
-import { Dropdown, DropdownV4 } from './dropdown';
+import { DropdownV3 } from './dropdownV3';
+import { DropdownV4 } from './dropdownV4';
+
 
 export interface AutoCompleteSettings {
   resolver: string,
@@ -46,7 +48,7 @@ export class AutoComplete {
 
   private _el: Element;
   private _$el: JQuery<HTMLElement>;
-  private _dd: Dropdown | DropdownV4;
+  private _dd: DropdownV3 | DropdownV4;
   private _searchText: string;
   private _selectedItem: any = null;
   private _defaultValue: any = null;
@@ -111,7 +113,7 @@ export class AutoComplete {
     if (this._$el.data('default-text')) {
       this._defaultText = this._$el.data('default-text');
     }
-    if (this._$el.data('noresults-text')) {
+    if (this._$el.data('noresults-text') !== undefined) {
       s.noResultsText = this._$el.data('noresults-text');
     }
   }
@@ -194,7 +196,7 @@ export class AutoComplete {
         this._settings.autoSelect, this._settings.noResultsText
       );
     } else {
-      this._dd = new Dropdown(this._$el, this._settings.formatResult,
+      this._dd = new DropdownV3(this._$el, this._settings.formatResult,
         this._settings.autoSelect, this._settings.noResultsText
       );
     }
@@ -388,11 +390,14 @@ export class AutoComplete {
     this.handlerStartShow(results);
   }
 
-  private handlerStartShow(results: any): void {
+  private handlerStartShow(results: any[]): void {
     // console.log("defaultEventStartShow", results);
     // for every result, draw it
     this._dd.updateItems(results, this._searchText);
-    this._dd.show();
+    // show the no results message only if set
+    if ((results.length > 0) && (this._settings.noResultsText !== undefined)) {
+      this._dd.show();
+    }
   }
 
   protected itemSelectedDefaultHandler(item: any): void {
