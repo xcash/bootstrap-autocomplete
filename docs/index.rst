@@ -40,7 +40,7 @@ Using CDN (thanks to JSDelivr)
 .. code-block:: html
     :caption: STABLE version |release|
 
-    <script src="https://cdn.jsdelivr.net/gh/xcash/bootstrap-autocomplete@v2.3.5/dist/latest/bootstrap-autocomplete.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/xcash/bootstrap-autocomplete@v2.3.6/dist/latest/bootstrap-autocomplete.min.js"></script>
 
 .. code-block:: html
     :caption: Latest version (this is the development branch)
