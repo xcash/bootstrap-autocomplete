@@ -34,7 +34,6 @@ export class DropdownV4 {
     return pos;
   }
   protected init(): void {
-    // console.log('UIUIUIUIUIUIUII');
     // Initialize dropdown
     const pos = this.getElPos();
 
