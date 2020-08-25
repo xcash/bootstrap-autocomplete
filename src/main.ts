@@ -236,6 +236,13 @@ export class AutoComplete {
             evt.preventDefault();
           }
           break;
+        case 40:
+          // arrow DOWN (here for usability - issue #80)
+          this._dd.focusNextItem();
+          break;
+        case 38: // up arrow (here for usability - issue #80)
+          this._dd.focusPreviousItem();
+          break;
       }
     });
 
@@ -251,13 +258,6 @@ export class AutoComplete {
         case 36: // home
         case 35: // end
           break;
-        case 40:
-          // arrow DOWN
-          this._dd.focusNextItem();
-          break;
-        case 38: // up arrow
-          this._dd.focusPreviousItem();
-          break;
         case 13:
           // ENTER
           this._dd.hide();
@@ -265,6 +265,13 @@ export class AutoComplete {
         case 27:
           // ESC
           this._dd.hide();
+          break;
+        case 40:
+          // arrow DOWN
+          // this._dd.focusNextItem();
+          break;
+        case 38: // up arrow
+          // this._dd.focusPreviousItem();
           break;
         default:
           // reset selectedItem as we modified input value (related to issue #71)
