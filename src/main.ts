@@ -213,15 +213,19 @@ export class AutoComplete {
           // }
           if (this._dd.isItemFocused) {
             this._dd.selectFocusItem();
-          } else {
-            this._$el.trigger('autocomplete.freevalue', this._$el.val());
+          } else if (!this._selectedItem) {
+            // if we haven't selected an item (thus firing the corresponding event) we fire the free value
+            // related to issue #71
+            if (this._$el.val() !== '') {
+              this._$el.trigger('autocomplete.freevalue', this._$el.val());
+            }
           }
           this._dd.hide();
           break;
         case 13: // ENTER
           if (this._dd.isItemFocused) {
             this._dd.selectFocusItem();
-          } else {
+          } else if (!this._selectedItem) {
             if (this._$el.val() !== '') {
               this._$el.trigger('autocomplete.freevalue', this._$el.val());
             }
@@ -263,6 +267,8 @@ export class AutoComplete {
           this._dd.hide();
           break;
         default:
+          // reset selectedItem as we modified input value (related to issue #71)
+          this._selectedItem = null;
           const newValue = this._$el.val() as string;
           this.handlerTyped(newValue);
       }
