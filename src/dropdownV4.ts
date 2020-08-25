@@ -219,18 +219,25 @@ export class DropdownV4 {
         }
         liList.push(li);
       });
+      this._dd.append(liList);
+      this.show();
     } else {
       // No results
-      const li = $('<a >');
-      li.attr('href', '')
-        .addClass('dropdown-item disabled')
-        .html(this.noResultsText);
+      if (this.noResultsText === '') {
+        // hide the dropdown
+        this.hide();
+      } else {
+        // show no results message
+        const li = $('<a >');
+        li.attr('href', '')
+          .addClass('dropdown-item disabled')
+          .html(this.noResultsText);
 
-      liList.push(li);
+          liList.push(li);
+        this._dd.append(liList);
+        this.show();
+      }
     }
-
-
-    this._dd.append(liList);
   }
 
   protected itemSelectedLaunchEvent(item: any): void {

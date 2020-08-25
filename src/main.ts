@@ -400,10 +400,6 @@ export class AutoComplete {
     // console.log("defaultEventStartShow", results);
     // for every result, draw it
     this._dd.updateItems(results, this._searchText);
-    // show the no results message only if set
-    if ((results.length > 0) && (this._settings.noResultsText !== undefined)) {
-      this._dd.show();
-    }
   }
 
   protected itemSelectedDefaultHandler(item: any): void {
