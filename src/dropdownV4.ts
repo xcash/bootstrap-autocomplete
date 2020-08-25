@@ -51,6 +51,8 @@ export class DropdownV4 {
       // console.log($(evt.currentTarget));
       const item: any = $(evt.currentTarget).data('item');
       this.itemSelectedLaunchEvent(item);
+      // stop default event on mouse click.
+      evt.preventDefault();
     });
 
     this._dd.on('keyup', (evt: JQueryEventObject) => {
@@ -206,7 +208,7 @@ export class DropdownV4 {
         const disabledItem = itemFormatted.disabled;
 
         const li = $('<a >');
-        li.attr('href', '#!')
+        li.attr('href', '')
           .addClass('dropdown-item')
           .css({ 'overflow': 'hidden', 'text-overflow': 'ellipsis' })
           .html(itemHtml)
@@ -220,7 +222,7 @@ export class DropdownV4 {
     } else {
       // No results
       const li = $('<a >');
-      li.attr('href', '#!')
+      li.attr('href', '')
         .addClass('dropdown-item disabled')
         .html(this.noResultsText);
 
