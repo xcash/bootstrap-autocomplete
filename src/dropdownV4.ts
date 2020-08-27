@@ -208,8 +208,7 @@ export class DropdownV4 {
         const disabledItem = itemFormatted.disabled;
 
         const li = $('<a >');
-        li.attr('href', '')
-          .addClass('dropdown-item')
+        li.addClass('dropdown-item')
           .css({ 'overflow': 'hidden', 'text-overflow': 'ellipsis' })
           .html(itemHtml)
           .data('item', item);
@@ -229,8 +228,7 @@ export class DropdownV4 {
       } else {
         // show no results message
         const li = $('<a >');
-        li.attr('href', '')
-          .addClass('dropdown-item disabled')
+        li.addClass('dropdown-item disabled')
           .html(this.noResultsText);
 
           liList.push(li);

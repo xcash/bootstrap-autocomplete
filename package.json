@@ -1,7 +1,7 @@
 {
   "name": "bootstrap-autocomplete",
-  "version": "2.3.6",
-  "description": "Bootstrap autocomplete for Bootstrap 3 and 4.",
+  "version": "2.3.7",
+  "description": "Autocomplete for Bootstrap version 4.",
   "keywords": [
     "bootstrap",
     "autocomplete",
