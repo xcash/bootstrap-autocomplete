@@ -1,22 +1,26 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="en">
 	<head>
-		<title>Bootstrap AutoComplete Demo</title>
+		<title>Bootstrap AutoComplete Demo Bootstrap 4</title>
+		
+		<!-- Required meta tags -->
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
 
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<link href="//netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+		<!-- Bootstrap CSS -->
+		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
 	</head>
 	<body>
 		<div class="container">
-			<h1 class="page-header">Bootstrap Autocomplete</h1>
+			<h1 class="border-bottom">Bootstrap Autocomplete (for Bootstrap version 4)</h1>
 			<p>
 				This page acts like a Demo page and a Testing page.
 			</p>
-			<form class="form-horizontal">
+			<form>
 				<fieldset>
-					<legend>AJAX</legend>
-					<div class="form-group">
-						<label class="col-lg-3 control-label">
+					<legend class="border-bottom">AJAX</legend>
+					<div class="form-row mb-3">
+						<label class="col-lg-3">
 							Basic (<a href="testdata/test-list.json">list of strings</a>)
 						</label>
 						<div class="col-lg-9">
@@ -25,27 +29,50 @@
 							Custom value: <code class="basicAutoCompleteCustom"></code>
 						</div>
 					</div>
-					<div class="form-group">
-						<label class="col-lg-3 control-label">
+					<div class="form-row mb-3">
+						<label class="col-lg-3">
+							Basic (<a href="testdata/test-list.json">list of strings</a> - custom <code>search</code> parameter)
+						</label>
+						<div class="col-lg-9">
+							<input class="form-control basicAutoCompleteQParameter" type="text" autocomplete="off">
+						</div>
+					</div>
+					<div class="form-row mb-3">
+						<label class="col-lg-3">
 							Advanced (<a href="testdata/test-dict.json">complex object</a>)
 						</label>
 						<div class="col-lg-9">
 							<input class="form-control advancedAutoComplete" type="text" autocomplete="off" placeholder="type to search...">
 						</div>
 					</div>
-					<div class="form-group">
-						<label class="col-lg-3 control-label">
+					<div class="form-row mb-3">
+						<label class="col-lg-3">
 							Advanced (<a href="testdata/test-dict.json">complex object</a> - custom formatting)
 						</label>
 						<div class="col-lg-9">
 							<input class="form-control advanced2AutoComplete" type="text" autocomplete="off">
 						</div>
 					</div>
+					<div class="form-row mb-3">
+						<label class="col-lg-3">
+							Show dropdown programmatically.
+						</label>
+						<div class="col-lg-7">
+							<input class="form-control basicAutoCompleteShowDropdown" data-url="testdata/test-list.json" type="text" autocomplete="off">
+						</div>
+						<div class="col-lg-2">
+							<button type="button" class="btn btn-block btn-outline-secondary basicAutoCompleteShowBtn">
+								Show
+							</button>
+						</div>
+					</div>
 				</fieldset>
 				<fieldset>
-					<legend><code>&lt;select&gt;</code> as Autocomplete</legend>
+					<legend class="border-bottom">
+						<code>&lt;select&gt;</code> as Autocomplete
+					</legend>
 					<div class="row">
-						<div class="col-lg-9 col-lg-offset-3">
+						<div class="col-lg-9 offset-lg-3">
 							<p>
 								Selects are a subtype of autocomplete where the selected value is restricted to
 								server-provided results. User <b>must</b> select one of those.
@@ -53,12 +80,12 @@
 							<p>
 								Bootstrap-Autocomplete provides a smarter select rendered as a standard
 								autocomplete <b>text</b> field. It substitutes the field with an 
-								<code>&lt;input type="text"&gt;</code and creates a <i>shadow</i> hidden field with
+								<code>&lt;input type="search"&gt;</code> and creates a <i>shadow</i> hidden field with
 								the selected value (and the original name).
 						</div>
 					</div>
-					<div class="form-group">
-						<label class="col-lg-3 control-label">
+					<div class="form-row mb-3">
+						<label class="col-lg-3">
 							Simple (<a href="testdata/test-select-simple.json">list of { value, strings }</a>)
 						</label>
 						<div class="col-lg-9">
@@ -68,8 +95,8 @@
 							<code class="basicAutoSelectSelected"></code>
 						</div>
 					</div>
-					<div class="form-group">
-						<label class="col-lg-3 control-label">
+					<div class="form-row mb-3">
+						<label class="col-lg-3">
 							Default Selected (<a href="testdata/test-select-simple.json">list of { value, strings }</a>)
 						</label>
 						<div class="col-lg-9">
@@ -79,8 +106,8 @@
 								autocomplete="off"></select>
 						</div>
 					</div>
-					<div class="form-group">
-						<label class="col-lg-3 control-label">
+					<div class="form-row mb-3">
+						<label class="col-lg-3">
 							No results (<a href="testdata/test-empty.json">empty list</a>)
 						</label>
 						<div class="col-lg-9">
@@ -92,9 +119,11 @@
 					</div>
 				</fieldset>
 				<fieldset>
-					<legend>In Bootstrap modal</legend>
+					<legend class="border-bottom">
+						In Bootstrap modal
+					</legend>
 					<div class="row">
-						<div class="col-lg-9 col-lg-offset-3">
+						<div class="col-lg-9 offset-lg-3">
 							<button type="button" class="btn btn-primary" autocomplete="off"
 								data-toggle="modal" data-target="#testModal">
 								Open Test Modal
@@ -104,8 +133,8 @@
 				</fieldset>
 				<fieldset>
 					<legend>Javascript API</legend>
-					<div class="form-group">
-						<label class="col-lg-3 control-label">
+					<div class="form-row mb-3">
+						<label class="col-lg-3">
 							Change selected value programmatically
 						</label>
 						<div class="col-lg-9">
@@ -115,14 +144,30 @@
 								data-default-value="x123" data-default-text="Default text before change"
 								autocomplete="off"></select>
 							<br>
-							<button type="button" class="btn btn-default btnChangeAutoSelect" autocomplete="off"
+							<button type="button" class="btn btn-outline-secondary btnChangeAutoSelect" autocomplete="off"
 								data-value="1" data-text="Selected Value 1">
 								Set a different selected value
 							</button>
-							<button type="button" class="btn btn-default btnChangeAutoSelect" autocomplete="off"
+							<button type="button" class="btn btn-outline-secondary btnChangeAutoSelect" autocomplete="off"
 								data-value="2" data-text="Selected Value 2">
 								Set a different selected value 2
 							</button>
+							<button type="button" class="btn btn-outline-secondary btnClearAutoSelect">
+								Clear Value
+							</button>
+						</div>
+					</div>
+				</fieldset>
+				<fieldset>
+					<legend>Events</legend>
+					<div class="form-row mb-3">
+						<label class="col-lg-3">
+							Events in text field
+						</label>
+						<div class="col-lg-9">
+							<input class="form-control eventsAutoComplete" type="text" autocomplete="off">
+							<br>
+							<code><pre id="eventsCodeContainer"></pre></code>
 						</div>
 					</div>
 				</fieldset>
@@ -149,8 +194,8 @@
 		</div><!-- /.modal-dialog -->
 		</div><!-- /.modal -->
 
-		<script src="//ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-		<script src="//netdna.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+		<!-- Bootstrap Bundle with Popper -->
+		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
 		<script src="bootstrap-autocomplete.js"></script>
 		<script>
 			$(function () {
@@ -174,6 +219,23 @@
 					$('.basicAutoCompleteCustom').html(JSON.stringify(value));
 					$('.basicAutoCompleteSelected').html('');
 				});
+
+				$('.basicAutoCompleteShowDropdown').autoComplete({
+					minLength: 0,
+				});
+
+				$('.basicAutoCompleteShowBtn').on('click', function () {
+					console.log('click');
+					$('.basicAutoCompleteShowDropdown').autoComplete('show');
+				});
+
+				$('.basicAutoCompleteQParameter').autoComplete({
+					resolverSettings: {
+						url: 'testdata/test-list.json',
+						queryKey: 'search'
+					}
+				});
+
 
 				// Advanced 1
 				$('.advancedAutoComplete').autoComplete({
@@ -224,8 +286,9 @@
 				// Basic Select
 				$('.basicAutoSelect').autoComplete();
 				$('.basicAutoSelect').on('autocomplete.select', function (evt, item) {
-					console.log('select');
-					$('.basicAutoSelectSelected').html(JSON.stringify(item));
+					console.log('select', item);
+					$('.basicAutoSelectSelected').html(item?JSON.stringify(item):'null');
+
 				});
 				
 				// Default Select
@@ -252,6 +315,34 @@
 				$('.btnChangeAutoSelect').on('click', function () {
 					var e = $(this);
 					$('.changeAutoSelect').autoComplete('set', { value: e.data('value'), text: e.data('text')});
+				});
+				// clear current value
+				$('.btnClearAutoSelect').on('click', function () {
+					var e = $(this);
+					// $('.changeAutoSelect').autoComplete('set', null);
+					$('.changeAutoSelect').autoComplete('clear');
+
+				});
+
+				// Events
+				var eventsCodeContainer = $('#eventsCodeContainer');
+				
+				$('.eventsAutoComplete').autoComplete({
+					resolverSettings: {
+						url: 'testdata/test-list.json'
+					}
+				});
+				$('.eventsAutoComplete').on('change', function() {
+					console.log('eventsAutoComplete change');
+					eventsCodeContainer.text(eventsCodeContainer.text() + 'fired change. value: ' + $(this).val() + '\n');
+				});
+				$('.eventsAutoComplete').on('autocomplete.select', function(evt, item) {
+					console.log('eventsAutoComplete autocomplete.select');
+					eventsCodeContainer.text(eventsCodeContainer.text() + 'fired autocomplete.select. item: ' + item + ' value: ' + $(this).val() + '\n');
+				});
+				$('.eventsAutoComplete').on('autocomplete.freevalue', function(evt, item) {
+					console.log('eventsAutoComplete autocomplete.freevalue');
+					eventsCodeContainer.text(eventsCodeContainer.text() + 'fired autocomplete.freevalue. item: ' + item + ' value: ' + $(this).val() + '\n');
 				});
 			});
 		</script>

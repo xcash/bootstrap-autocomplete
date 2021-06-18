@@ -19,8 +19,9 @@
  * limitations under the License.
  * ============================================================ */
 import { AjaxResolver, BaseResolver } from './resolvers';
-import { DropdownV3 } from './dropdownV3';
+// import { DropdownV3 } from './dropdownV3';
 import { DropdownV4 } from './dropdownV4';
+import { DropdownV5 } from './dropdownV5';
 
 
 export interface AutoCompleteSettings {
@@ -48,7 +49,7 @@ export class AutoComplete {
 
   private _el: Element;
   private _$el: JQuery<HTMLElement>;
-  private _dd: DropdownV3 | DropdownV4;
+  private _dd: DropdownV4 | DropdownV5;
   private _searchText: string;
   private _selectedItem: any = null;
   private _defaultValue: any = null;
@@ -190,13 +191,13 @@ export class AutoComplete {
       this.resolver = new AjaxResolver(this._settings.resolverSettings);
     }
     // Dropdown
-    if (this.getBootstrapVersion()[0] === 4) {
+    if (this.getBootstrapVersion()[0] === 5) {
       // v4
-      this._dd = new DropdownV4(this._$el, this._settings.formatResult,
+      this._dd = new DropdownV5(this._$el, this._settings.formatResult,
         this._settings.autoSelect, this._settings.noResultsText
       );
     } else {
-      this._dd = new DropdownV3(this._$el, this._settings.formatResult,
+      this._dd = new DropdownV4(this._$el, this._settings.formatResult,
         this._settings.autoSelect, this._settings.noResultsText
       );
     }
