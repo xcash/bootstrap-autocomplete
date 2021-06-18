@@ -4,23 +4,24 @@ Bootstrap Autocomplete
 ![docs](https://readthedocs.org/projects/bootstrap-autocomplete/badge/?version=latest "Latest Docs")
 [![Build Status](https://api.cirrus-ci.com/github/xcash/bootstrap-autocomplete.svg)](https://cirrus-ci.com/github/xcash/bootstrap-autocomplete)
 
-Autocomplete plugin for Bootstrap 4.x and 3.x.
+Autocomplete plugin for Bootstrap 5.x and 4.x.
 
 It enhances form `input` and `select` field to provide autocomplete/typeahead capabilities.
 
 [Documentation](http://bootstrap-autocomplete.rtfd.io/)
 
-Latest STABLE version: 2.3.7 (2020/08/27)
-Latest DEVELOPMENT version: 2.4.0dev
+Latest STABLE version: 3.0.0 (2021/--/--)
+Latest DEVELOPMENT version: 3.0.0dev
 
-Version 2.0.0 and up supports Boostrap v4.x and old v3.x out of the box.
+Version 3.0.0 and up supports Boostrap v5.x and old v4.x out of the box.
+Version <3.0.0 supports Bootstrap v3.x too.
 
 Try the DEMO!
 =============
 
-[Bootstrap 4 latest DEV version](https://raw.githack.com/xcash/bootstrap-autocomplete/master/dist/latest/index.html)
+[Bootstrap 5 latest DEV version](https://raw.githack.com/xcash/bootstrap-autocomplete/master/dist/latest/indexV5.html)
 
-[Bootstrap 3 latest DEV version](https://raw.githack.com/xcash/bootstrap-autocomplete/master/dist/latest/indexV3.html)
+[Bootstrap 4 latest DEV version](https://raw.githack.com/xcash/bootstrap-autocomplete/master/dist/latest/indexV4.html)
 
 
 Creating DEV Environment
