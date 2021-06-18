@@ -12,15 +12,15 @@
 	</head>
 	<body>
 		<div class="container">
-			<h1 class="border-bottom">Bootstrap Autocomplete (for Bootstrap version 4)</h1>
+			<h1 class="border-bottom">Bootstrap Autocomplete (for Bootstrap version 5)</h1>
 			<p>
 				This page acts like a Demo page and a Testing page.
 			</p>
 			<form>
 				<fieldset>
 					<legend class="border-bottom">AJAX</legend>
-					<div class="form-row mb-3">
-						<label class="col-lg-3">
+					<div class="row mb-3">
+						<label class="col-lg-3 col-form-label">
 							Basic (<a href="testdata/test-list.json">list of strings</a>)
 						</label>
 						<div class="col-lg-9">
@@ -29,39 +29,39 @@
 							Custom value: <code class="basicAutoCompleteCustom"></code>
 						</div>
 					</div>
-					<div class="form-row mb-3">
-						<label class="col-lg-3">
+					<div class="row mb-3">
+						<label class="col-lg-3 col-form-label">
 							Basic (<a href="testdata/test-list.json">list of strings</a> - custom <code>search</code> parameter)
 						</label>
 						<div class="col-lg-9">
 							<input class="form-control basicAutoCompleteQParameter" type="text" autocomplete="off">
 						</div>
 					</div>
-					<div class="form-row mb-3">
-						<label class="col-lg-3">
+					<div class="row mb-3">
+						<label class="col-lg-3 col-form-label">
 							Advanced (<a href="testdata/test-dict.json">complex object</a>)
 						</label>
 						<div class="col-lg-9">
 							<input class="form-control advancedAutoComplete" type="text" autocomplete="off" placeholder="type to search...">
 						</div>
 					</div>
-					<div class="form-row mb-3">
-						<label class="col-lg-3">
+					<div class="row mb-3">
+						<label class="col-lg-3 col-form-label">
 							Advanced (<a href="testdata/test-dict.json">complex object</a> - custom formatting)
 						</label>
 						<div class="col-lg-9">
 							<input class="form-control advanced2AutoComplete" type="text" autocomplete="off">
 						</div>
 					</div>
-					<div class="form-row mb-3">
-						<label class="col-lg-3">
+					<div class="row mb-3">
+						<label class="col-lg-3 col-form-label">
 							Show dropdown programmatically.
 						</label>
 						<div class="col-lg-7">
 							<input class="form-control basicAutoCompleteShowDropdown" data-url="testdata/test-list.json" type="text" autocomplete="off">
 						</div>
 						<div class="col-lg-2">
-							<button type="button" class="btn btn-block btn-outline-secondary basicAutoCompleteShowBtn">
+							<button type="button" class="btn btn-outline-secondary basicAutoCompleteShowBtn">
 								Show
 							</button>
 						</div>
@@ -84,8 +84,8 @@
 								the selected value (and the original name).
 						</div>
 					</div>
-					<div class="form-row mb-3">
-						<label class="col-lg-3">
+					<div class="row mb-3">
+						<label class="col-lg-3 col-form-label">
 							Simple (<a href="testdata/test-select-simple.json">list of { value, strings }</a>)
 						</label>
 						<div class="col-lg-9">
@@ -95,8 +95,8 @@
 							<code class="basicAutoSelectSelected"></code>
 						</div>
 					</div>
-					<div class="form-row mb-3">
-						<label class="col-lg-3">
+					<div class="row mb-3">
+						<label class="col-lg-3 col-form-label">
 							Default Selected (<a href="testdata/test-select-simple.json">list of { value, strings }</a>)
 						</label>
 						<div class="col-lg-9">
@@ -106,8 +106,8 @@
 								autocomplete="off"></select>
 						</div>
 					</div>
-					<div class="form-row mb-3">
-						<label class="col-lg-3">
+					<div class="row mb-3">
+						<label class="col-lg-3 col-form-label">
 							No results (<a href="testdata/test-empty.json">empty list</a>)
 						</label>
 						<div class="col-lg-9">
@@ -133,8 +133,8 @@
 				</fieldset>
 				<fieldset>
 					<legend>Javascript API</legend>
-					<div class="form-row mb-3">
-						<label class="col-lg-3">
+					<div class="row mb-3">
+						<label class="col-lg-3 col-form-label">
 							Change selected value programmatically
 						</label>
 						<div class="col-lg-9">
@@ -160,8 +160,8 @@
 				</fieldset>
 				<fieldset>
 					<legend>Events</legend>
-					<div class="form-row mb-3">
-						<label class="col-lg-3">
+					<div class="row mb-3">
+						<label class="col-lg-3 col-form-label">
 							Events in text field
 						</label>
 						<div class="col-lg-9">
@@ -194,6 +194,8 @@
 		</div><!-- /.modal-dialog -->
 		</div><!-- /.modal -->
 
+		<!-- JQuery -->
+		<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 		<!-- Bootstrap Bundle with Popper -->
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
 		<script src="bootstrap-autocomplete.js"></script>

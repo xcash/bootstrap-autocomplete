@@ -6,8 +6,10 @@ module.exports = {
     rules: [
       {
         test: /\.tsx?$/,
-        use: 'ts-loader',
-        exclude: /node_modules/
+        // use: 'ts-loader',
+        use: { loader: 'ts-loader', options: { transpileOnly: true } },
+        include: path.resolve(__dirname, 'src'),
+        // exclude: /node_modules/
       }
     ]
   },
