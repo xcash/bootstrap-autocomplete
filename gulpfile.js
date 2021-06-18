@@ -28,6 +28,10 @@ async function help() {
     'Real time check for changes in js files.\n\t\tIt handles errors and rebuilds the minified and compiled files.\n\n\t' +
 
 
+    // test
+    colors.green('test') + '\n\t\t' +
+    'Run Test\n\n\t' +
+
     // release
     colors.yellow('release') + '\n\t\t' +
     'Rebuild and concatenate all js files.\n\t\tMinifies and uglifies JS for deploy.\n\t\t'
