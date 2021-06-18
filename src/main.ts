@@ -129,14 +129,14 @@ export class AutoComplete {
       // @ts-ignore
       const versionString = $.fn.button.Constructor.VERSION;
       versionArray = versionString.split('.').map(parseInt);
+    } else if (this._settings.bootstrapVersion === '5') {
+      versionArray = [5];
     } else if (this._settings.bootstrapVersion === '4') {
       versionArray = [4];
-    } else if (this._settings.bootstrapVersion === '3') {
-      versionArray = [3];
     } else {
       // tslint:disable-next-line: no-console
       console.error(`INVALID value for \'bootstrapVersion\' settings property: ${this._settings.bootstrapVersion} defaulting to 4`);
-      versionArray = [4];
+      versionArray = [5];
     }
     return versionArray;
   }
