@@ -250,6 +250,7 @@ export class AutoComplete {
       // console.log('keyup', evt.which, evt);
       // check key
       switch (evt.which) {
+        case 9:  // tab is fundamental navigation, don't fire searches when we're just moving between fields. 
         case 16: // shift
         case 17: // ctrl
         case 18: // alt
