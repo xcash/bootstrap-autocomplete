@@ -225,16 +225,17 @@ export class AutoComplete {
         case 13: // ENTER
           if (this._dd.isItemFocused) {
             this._dd.selectFocusItem();
+            if (this._settings.preventEnter) {
+              // console.log('preventDefault');
+              evt.preventDefault();
+            }
           } else if (!this._selectedItem) {
             if (this._$el.val() !== '') {
               this._$el.trigger('autocomplete.freevalue', this._$el.val());
             }
           }
           this._dd.hide();
-          if (this._settings.preventEnter) {
-            // console.log('preventDefault');
-            evt.preventDefault();
-          }
+
           break;
         case 40:
           // arrow DOWN (here for usability - issue #80)
