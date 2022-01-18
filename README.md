@@ -13,7 +13,7 @@ It enhances form `input` and `select` field to provide autocomplete/typeahead ca
 Latest STABLE version: 2.3.7 (2020/08/27)
 Latest DEVELOPMENT version: 2.4.0dev
 
-Version 2.0.0 and up supports Boostrap v4.x and old v3.x out of the box.
+Version 2.0.0 and up supports Bootstrap v4.x and old v3.x out of the box.
 
 Try the DEMO!
 =============

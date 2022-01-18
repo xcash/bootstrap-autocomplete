@@ -5,7 +5,7 @@
 
 .. default-domain:: js
 
-Boostrap Autocomplete Documentation
+Bootstrap Autocomplete Documentation
 ===================================
 
 Version: |release|
@@ -216,7 +216,7 @@ Configuration options
 
 .. attribute:: .bootstrapVersion
 
-    Default: ``auto``. Specify Boostrap Version. Default is autodetect. 
+    Default: ``auto``. Specify Bootstrap Version. Default is autodetect. 
     Values: ``auto``, ``4``, ``3``
 
 .. attribute:: .preventEnter
