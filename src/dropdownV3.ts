@@ -206,19 +206,26 @@ export class DropdownV3 {
 
         liList.push(li);
       });
+      this._dd.append(liList);
+      this.show();
     } else {
       // No results
+      if (this.noResultsText === '') {
+        // hide the dropdown
+        this.hide();
+      } else {
+        // show no results message
       const li = $('<li >');
-      li.append(
-        $('<a>').attr('href', '#!').html(this.noResultsText)
-      )
+        li.append(
+          $('<a>').attr('href', '#!').html(this.noResultsText)
+        )
         .addClass('disabled');
 
-      liList.push(li);
+        liList.push(li);
+        this._dd.append(liList);
+        this.show();
+      }
     }
-
-
-    this._dd.append(liList);
   }
 
   protected itemSelectedLaunchEvent(item: any): void {
