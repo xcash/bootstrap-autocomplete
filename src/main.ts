@@ -365,7 +365,8 @@ export class AutoComplete {
     // custom handler may change newValue
     if (this._settings.events.searchPre !== null) {
       const newValue: string = this._settings.events.searchPre(this._searchText, this._$el);
-      if (!newValue)
+      // only punt if we explicitely request it, otherwise allow search for ''
+      if (newValue === false)
         return;
       this._searchText = newValue;
     }
