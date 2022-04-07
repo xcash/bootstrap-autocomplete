@@ -219,6 +219,7 @@ export class DropdownV3 {
 
 
     this._dd.append(liList);
+    this.show();
   }
 
   protected itemSelectedLaunchEvent(item: any): void {
