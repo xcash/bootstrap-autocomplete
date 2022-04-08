@@ -196,7 +196,7 @@ export class DropdownV3 {
 
         const li = $('<li >');
         li.append(
-          $('<a>').attr('href', '#!').html(itemHtml)
+          $('<a>').attr('href', '#!').css({ 'overflow': 'hidden', 'text-overflow': 'ellipsis' }).html(itemHtml)
         )
           .data('item', item);
 
@@ -210,7 +210,7 @@ export class DropdownV3 {
       // No results
       const li = $('<li >');
       li.append(
-        $('<a>').attr('href', '#!').html(this.noResultsText)
+        $('<a>').attr('href', '#!').css({ 'overflow': 'hidden', 'text-overflow': 'ellipsis' }).html(this.noResultsText)
       )
         .addClass('disabled');
 
