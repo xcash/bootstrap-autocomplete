@@ -253,7 +253,7 @@ export class AutoComplete {
       // console.log('keyup', evt.which, evt);
       // check key
       switch (evt.which) {
-        case 9:  // tab is fundamental navigation, don't fire searches when we're just moving between fields. 
+      //  case 9:  // tab is fundamental navigation, don't fire searches when we're just moving between fields. 
         case 16: // shift
         case 17: // ctrl
         case 18: // alt
@@ -261,6 +261,10 @@ export class AutoComplete {
         case 37: // left
         case 36: // home
         case 35: // end
+          break;
+        case 9:
+          // Tab
+          this._dd.hide();
           break;
         case 13:
           // ENTER
