@@ -223,6 +223,9 @@ export class AutoComplete {
           this._dd.hide();
           break;
         case 13: // ENTER
+          // Only prevent default if the drop-down was open. Otherwise this breaks enter 
+          // for everything across the page, including form submission.  
+          var willPreventDefault = (this._settings.preventEnter && this._dd.isShown());
           if (this._dd.isItemFocused) {
             this._dd.selectFocusItem();
           } else if (!this._selectedItem) {
@@ -231,7 +234,7 @@ export class AutoComplete {
             }
           }
           this._dd.hide();
-          if (this._settings.preventEnter) {
+          if (willPreventDefault) {
             // console.log('preventDefault');
             evt.preventDefault();
           }
@@ -257,6 +260,10 @@ export class AutoComplete {
         case 37: // left
         case 36: // home
         case 35: // end
+          break;
+        case 9:
+          // ENTER
+          this._dd.hide();
           break;
         case 13:
           // ENTER
