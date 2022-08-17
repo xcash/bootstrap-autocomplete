@@ -22,6 +22,7 @@ Try the DEMO!
 
 [Bootstrap 3 latest DEV version](https://raw.githack.com/xcash/bootstrap-autocomplete/master/dist/latest/indexV3.html)
 
+Note: Bootstrap 5 support is in the `v300` branch ([Code](/xcash/bootstrap-autocomplete/tree/xcash-v300)), ([Demo](https://raw.githack.com/xcash/bootstrap-autocomplete/xcash-v300/dist/latest/indexV5.html))
 
 Creating DEV Environment
 ========================
