@@ -1,5 +1,5 @@
 /* =============================================================
- * bootstrap-autocomplete.js v2.3.4
+ * bootstrap-autocomplete.js v2.4.0
  * https://github.com/xcash/bootstrap-autocomplete
  * =============================================================
  * Forked from bootstrap3-typeahead.js v3.1.0
@@ -21,6 +21,7 @@
 import { AjaxResolver, BaseResolver } from './resolvers';
 import { DropdownV3 } from './dropdownV3';
 import { DropdownV4 } from './dropdownV4';
+import { DropdownV5 } from './dropdownV5';
 
 
 export interface AutoCompleteSettings {
@@ -48,7 +49,7 @@ export class AutoComplete {
 
   private _el: Element;
   private _$el: JQuery<HTMLElement>;
-  private _dd: DropdownV3 | DropdownV4;
+  private _dd: DropdownV3 | DropdownV4 | DropdownV5;
   private _searchText: string;
   private _selectedItem: any = null;
   private _defaultValue: any = null;
@@ -128,6 +129,8 @@ export class AutoComplete {
       // @ts-ignore
       const versionString = $.fn.button.Constructor.VERSION;
       versionArray = versionString.split('.').map(parseInt);
+    } else if (this._settings.bootstrapVersion === '5') {
+      versionArray = [5];
     } else if (this._settings.bootstrapVersion === '4') {
       versionArray = [4];
     } else if (this._settings.bootstrapVersion === '3') {
@@ -190,7 +193,12 @@ export class AutoComplete {
       this.resolver = new AjaxResolver(this._settings.resolverSettings);
     }
     // Dropdown
-    if (this.getBootstrapVersion()[0] === 4) {
+    if (this.getBootstrapVersion()[0] === 5) {
+      // v5
+      this._dd = new DropdownV5(this._$el, this._settings.formatResult,
+        this._settings.autoSelect, this._settings.noResultsText
+      );
+    } else if (this.getBootstrapVersion()[0] === 4) {
       // v4
       this._dd = new DropdownV4(this._$el, this._settings.formatResult,
         this._settings.autoSelect, this._settings.noResultsText

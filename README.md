@@ -17,6 +17,7 @@ Version 2.0.0 and up supports Bootstrap v4.x and old v3.x out of the box.
 
 Try the DEMO!
 =============
+[Bootstrap 5 latest DEV version](https://raw.githack.com/xcash/bootstrap-autocomplete/master/dist/latest/indexV5.html)
 
 [Bootstrap 4 latest DEV version](https://raw.githack.com/xcash/bootstrap-autocomplete/master/dist/latest/index.html)
 
